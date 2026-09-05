@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOR YOU — Для двоих</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Onest:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#140F0D;
+  --ink-2:#1F1614;
+  --cream:#EDE4D9;
+  --cream-dim:rgba(237,228,217,.62);
+  --rose:#C99A9A;
+  --rose-line:rgba(201,154,154,.28);
+  --red:#C0233A;
+
+  --display:"Prata",Georgia,serif;
+  --script:"Cormorant Garamond",Georgia,serif;
+  --ui:"Onest",-apple-system,"Helvetica Neue",sans-serif;
+
+  --pad:clamp(20px,5vw,80px);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--ink); color:var(--cream);
+  font-family:var(--ui); font-weight:300; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+
+.eyebrow{
+  font-family:var(--ui); font-size:11px; font-weight:500;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--rose);
+  margin:0;
+}
+.script{font-family:var(--script); font-style:italic; font-weight:400;}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family:var(--ui); font-size:12px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  padding:18px 36px; border:1px solid transparent;
+  transition:background .3s ease, color .3s ease, border-color .3s ease;
+}
+.btn-red{background:var(--red); color:#fff;}
+.btn-red:hover{background:#9E1B2F;}
+.btn-line{border-color:var(--rose-line); color:var(--cream);}
+.btn-line:hover{background:var(--cream); color:var(--ink); border-color:var(--cream);}
+
+/* ── шапка ─────────────────────────────── */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px var(--pad); gap:20px;
+  border-bottom:1px solid rgba(237,228,217,.10);
+}
+.topbar img{height:26px; width:auto;}
+.topbar nav{display:flex; gap:26px; font-size:13px; color:var(--cream-dim);}
+.topbar nav a:hover{color:var(--cream);}
+.topbar .tel{font-size:13px; white-space:nowrap;}
+
+/* ── первый экран раздела ──────────────── */
+.hero{position:relative; min-height:640px; display:grid; align-items:end; overflow:hidden;}
+.hero img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 40%;
+}
+.hero::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(20,15,13,.55) 0%, rgba(20,15,13,.30) 35%, rgba(20,15,13,.92) 100%);
+}
+.hero-in{position:relative; z-index:2; padding:clamp(34px,6vw,80px) var(--pad); max-width:820px;}
+.hero h1{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(34px,5.6vw,72px); line-height:1.08;
+  margin:14px 0 18px; letter-spacing:-.005em;
+}
+.hero h1 .script{font-size:1.06em;}
+.hero p{margin:0 0 28px; max-width:52ch; color:rgba(237,228,217,.86); font-size:17px;}
+.hero-cta{display:flex; flex-wrap:wrap; gap:12px;}
+
+/* ── пакеты ────────────────────────────── */
+.section{padding:clamp(56px,8vw,120px) var(--pad);}
+.sec-head{margin-bottom:clamp(30px,4vw,56px); max-width:760px;}
+.sec-head h2{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(28px,4vw,50px); line-height:1.1;
+  margin:14px 0 14px;
+}
+.sec-head p{margin:0; color:var(--cream-dim); max-width:56ch;}
+
+.packs{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,26px); align-items:stretch;}
+.pack{
+  display:flex; flex-direction:column;
+  background:var(--ink-2);
+  border:1px solid rgba(237,228,217,.10);
+  padding:clamp(24px,2.4vw,36px);
+  position:relative;
+  transition:border-color .35s ease, transform .35s ease;
+}
+.pack:hover{border-color:var(--rose-line); transform:translateY(-3px);}
+.pack.is-full{border-color:var(--rose-line);}
+.pack-tag{
+  position:absolute; top:0; right:clamp(24px,2.4vw,36px); transform:translateY(-50%);
+  background:var(--red); color:#fff;
+  font-size:10px; letter-spacing:.18em; text-transform:uppercase; font-weight:500;
+  padding:6px 12px;
+}
+.pack-letter{
+  font-family:var(--display); font-size:clamp(38px,4vw,56px);
+  line-height:1; color:var(--rose); margin:0 0 6px;
+}
+.pack-name{
+  font-size:11px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--cream-dim); margin:0 0 22px;
+}
+.pack ul{list-style:none; margin:0 0 26px; padding:0; flex:1;}
+.pack li{
+  position:relative; padding-left:18px; margin-bottom:11px; font-size:14.5px;
+  color:rgba(237,228,217,.88); line-height:1.5;
+}
+.pack li::before{
+  content:""; position:absolute; left:0; top:.62em;
+  width:6px; height:6px; border-radius:50%; background:var(--rose); opacity:.75;
+}
+.pack li b{font-weight:500; color:var(--cream);}
+.pack-gift{
+  font-family:var(--script); font-style:italic;
+  font-size:17px; color:var(--rose); margin:-14px 0 22px;
+}
+.pack-price{
+  font-family:var(--display); font-size:clamp(24px,2.4vw,32px);
+  border-top:1px solid rgba(237,228,217,.12); padding-top:20px; margin:0 0 20px;
+}
+.pack .btn{width:100%;}
+
+.packs-note{
+  margin:26px 0 0; font-size:13.5px; color:var(--cream-dim);
+}
+
+/* ── фотополоса с надписью ─────────────── */
+.band{position:relative; min-height:440px; display:grid; place-items:center; overflow:hidden;}
+.band img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.band::after{content:""; position:absolute; inset:0; background:rgba(20,15,13,.58);}
+.band-in{position:relative; z-index:2; text-align:center; padding:60px var(--pad); max-width:760px;}
+.band-in h3{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(26px,3.6vw,44px); line-height:1.14; margin:14px 0 14px;
+}
+.band-in p{margin:0; color:rgba(237,228,217,.82);}
+
+/* ── индивидуальный пакет ──────────────── */
+.custom{display:grid; grid-template-columns:1fr; align-items:stretch;}
+.custom-text{align-items:center; text-align:center;}
+.custom-text p{max-width:56ch; margin-inline:auto;}
+.custom-text .btn{align-self:center;}
+.custom-media{position:relative; min-height:420px; overflow:hidden;}
+.custom-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.custom-text{
+  padding:clamp(38px,5vw,88px) var(--pad);
+  display:flex; flex-direction:column; justify-content:center; gap:18px;
+  background:var(--ink-2);
+}
+.custom-text h2{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(26px,3.4vw,44px); line-height:1.12; margin:8px 0 0;
+}
+.custom-text p{margin:0; color:var(--cream-dim); max-width:46ch;}
+.custom-text .btn{align-self:flex-start; margin-top:8px;}
+
+/* ── финал ─────────────────────────────── */
+.final{text-align:center; padding:clamp(60px,8vw,120px) var(--pad);}
+.final h2{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(28px,4.4vw,56px); line-height:1.12; margin:0 0 18px;
+}
+.final p{margin:0 auto 30px; color:var(--cream-dim); max-width:46ch;}
+.final .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+
+@media (max-width:900px){
+  .packs{grid-template-columns:1fr;}
+  .custom{grid-template-columns:1fr;}
+  .custom-media{order:-1; min-height:320px;}
+  .topbar nav{display:none;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important; animation:none!important;}
+}
+
+/* ── ползунок-цветок вместо системного ── */
+html{scrollbar-width:none; -ms-overflow-style:none;}
+html::-webkit-scrollbar{width:0; height:0; display:none;}
+.scrl{
+  position:fixed; right:clamp(5px,1vw,16px); top:0; bottom:0; width:28px;
+  z-index:80; pointer-events:none;
+}
+.scrl-line{
+  position:absolute; left:50%; margin-left:-1px; top:13vh; bottom:13vh; width:2px;
+  background:linear-gradient(to bottom,
+    rgba(25,66,53,0) 0%, rgba(25,66,53,.22) 10%,
+    rgba(25,66,53,.22) 90%, rgba(25,66,53,0) 100%);
+}
+.scrl-f{
+  position:absolute; left:50%; top:0; width:28px; height:28px;
+  margin-left:-14px; margin-top:-14px;
+  padding:0; border:none; background:none; cursor:grab;
+  pointer-events:auto; touch-action:none;
+}
+.scrl-f:active{cursor:grabbing;}
+.scrl-f svg{
+  width:100%; height:100%; display:block;
+  filter:drop-shadow(0 2px 6px rgba(18,18,18,.20));
+  transition:transform .2s ease;
+}
+.scrl-f:hover svg{transform:scale(1.16);}
+@media (max-width:600px){
+  .scrl{width:22px; right:3px;}
+  .scrl-f{width:22px; height:22px; margin-left:-11px; margin-top:-11px;}
+}
+@media (prefers-reduced-motion:reduce){ .scrl-f svg{transition:none;} }
+/* стебель на тёмном фоне — светлый */
+.scrl-line{background:linear-gradient(to bottom,
+  rgba(244,244,227,0) 0%, rgba(244,244,227,.26) 10%,
+  rgba(244,244,227,.26) 90%, rgba(244,244,227,0) 100%);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <img src="img/logo-f.png" alt="FOR YOU — бутик цветов">
+  <nav>
+    <a href="#">Каталог</a><a href="#">Для двоих</a><a href="#">Подписка</a><a href="#">Оформление</a><a href="#">Контакты</a>
+  </nav>
+  <span class="tel">+7 (962) 614-47-47</span>
+</header>
+
+<!-- первый экран -->
+<section class="hero">
+  <img src="img/dvoih/room.jpg" alt="Комната, украшенная шарами-сердцами и розами">
+  <div class="hero-in">
+    <p class="eyebrow">Для двоих</p>
+    <h1>Создадим атмосферу<br>для вашего <span class="script">особенного вечера</span></h1>
+    <p>Украсим помещение к свиданию, предложению руки и сердца или просто вечеру вдвоём. Приезжаем, оформляем, забираем все хлопоты на себя.</p>
+    <div class="hero-cta">
+      <a href="#packs" class="btn btn-red">Выбрать пакет</a>
+      <a href="#custom" class="btn btn-line">Своя идея</a>
+    </div>
+  </div>
+</section>
+
+<!-- пакеты -->
+<section class="section" id="packs">
+  <div class="sec-head">
+    <p class="eyebrow">Готовые пакеты</p>
+    <h2>Три варианта оформления</h2>
+    <p>В каждый пакет уже входит букет — его собирает наш флорист в день оформления. Вам остаётся назвать дату и адрес.</p>
+  </div>
+
+  <div class="packs">
+
+    <div class="pack">
+      <p class="pack-letter">S</p>
+      <p class="pack-name">Камерный вечер</p>
+      <ul>
+        <li><b>1 фонтан</b> из 7 фольгированных шаров-сердец</li>
+        <li><b>5 шаров</b> под потолок</li>
+        <li>Лепестки роз</li>
+        <li>Букет на <b>3 000 ₽</b></li>
+      </ul>
+      <p class="pack-price">8 000 ₽</p>
+      <a href="#" class="btn btn-line">Заказать пакет S</a>
+    </div>
+
+    <div class="pack">
+      <p class="pack-letter">M</p>
+      <p class="pack-name">Большой повод</p>
+      <ul>
+        <li><b>2 фонтана</b> по 7 фольгированных шаров-сердец</li>
+        <li><b>10 шаров</b> под потолок</li>
+        <li>Лепестки роз</li>
+        <li>Букет на <b>5 000 ₽</b></li>
+      </ul>
+      <p class="pack-price">14 000 ₽</p>
+      <a href="#" class="btn btn-line">Заказать пакет M</a>
+    </div>
+
+    <div class="pack is-full">
+      <span class="pack-tag">Всё включено</span>
+      <p class="pack-letter">L</p>
+      <p class="pack-name">Предложение руки и сердца</p>
+      <ul>
+        <li><b>Шар-гигант</b> в виде сердца</li>
+        <li><b>2 фонтана</b> по 7 фольгированных шаров-сердец</li>
+        <li><b>10 шаров</b> под потолок</li>
+        <li><b>20 мини-шариков</b> сердечек</li>
+        <li>Лепестки роз</li>
+        <li>Букет на <b>10 000 ₽</b></li>
+      </ul>
+      <p class="pack-gift">Свечи и бенто-торт — в подарок</p>
+      <p class="pack-price">25 000 ₽</p>
+      <a href="#" class="btn btn-red">Заказать пакет L</a>
+    </div>
+
+  </div>
+
+  <p class="packs-note">В пакетах S и M свечи и бенто-торт оплачиваются отдельно.</p>
+</section>
+
+<!-- фотополоса -->
+<section class="band">
+  <img src="img/dvoih/bath.jpg" alt="Ванная комната, украшенная свечами, розами и лепестками">
+  <div class="band-in">
+    <p class="eyebrow">Дополнения</p>
+    <h3>Свечи и бенто-торт<br><span class="script">к любому пакету</span></h3>
+    <p>Добавляются к любому варианту оформления. Скажите при заказе — привезём вместе с остальным.</p>
+  </div>
+</section>
+
+<!-- индивидуальный -->
+<section class="custom" id="custom">
+  <div class="custom-text">
+    <p class="eyebrow">Индивидуальный пакет</p>
+    <h2>Если у вас <span class="script">своя картинка</span> в голове</h2>
+    <p>Украшение комнаты выполним исходя из ваших пожеланий. Пришлите референс — картинку, которая нравится, — и мы рассчитаем стоимость.</p>
+    <a href="#" class="btn btn-line">Прислать референс</a>
+  </div>
+</section>
+
+<!-- финал -->
+<section class="final">
+  <p class="eyebrow">Как это работает</p>
+  <h2>Просто скажите дату и место —<br><span class="script">остальное берём на себя</span></h2>
+  <p>Приезжаем заранее, оформляем помещение и уезжаем до вашего прихода. Вы заходите в уже готовую атмосферу.</p>
+  <div class="row">
+    <a href="#" class="btn btn-red">Написать в Telegram</a>
+    <a href="tel:+79626144747" class="btn btn-line">+7 (962) 614-47-47</a>
+  </div>
+</section>
+
+<!-- ползунок-цветок -->
+<div class="scrl" id="scrl">
+  <div class="scrl-line"></div>
+  <button class="scrl-f" id="scrlF" aria-label="Прокрутка страницы">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#C0233A">
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(120 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(180 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(240 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(300 12 12)"/>
+      </g>
+      <circle cx="12" cy="12" r="3.1" fill="#FAE08E"/>
+      <circle cx="12" cy="12" r="3.1" fill="none" stroke="#C0233A" stroke-opacity=".35"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+/* ── цветок едет по стеблю вместо полосы прокрутки ──── */
+(function(){
+  var f = document.getElementById('scrlF');
+  if(!f) return;
+  var PAD_TOP = .13, PAD_BOT = .13;  /* совпадает с top/bottom у .scrl-line */
+  var max = 1, a = 0, b = 0;
+
+  function measure(){
+    var h = innerHeight;
+    a = h * PAD_TOP; b = h * (1 - PAD_BOT);
+    max = Math.max(1, document.documentElement.scrollHeight - h);
+  }
+  function draw(){
+    var p = Math.min(1, Math.max(0, scrollY / max));
+    f.style.top = (a + (b - a) * p) + 'px';
+    f.style.transform = 'rotate(' + (p * 150) + 'deg)';
+  }
+  function refresh(){ measure(); draw(); }
+
+  addEventListener('scroll', draw, {passive:true});
+  addEventListener('resize', refresh);
+  addEventListener('load', refresh);
+  /* фотографии догружаются и меняют высоту страницы */
+  if(window.ResizeObserver) new ResizeObserver(refresh).observe(document.body);
+  refresh();
+
+  var dragging = false;
+  function toScroll(y){
+    var p = (y - a) / (b - a);
+    scrollTo(0, Math.min(1, Math.max(0, p)) * max);
+  }
+  f.addEventListener('pointerdown', function(e){
+    dragging = true; f.setPointerCapture(e.pointerId); e.preventDefault();
+  });
+  f.addEventListener('pointermove', function(e){ if(dragging) toScroll(e.clientY); });
+  f.addEventListener('pointerup',     function(){ dragging = false; });
+  f.addEventListener('pointercancel', function(){ dragging = false; });
+  f.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      scrollBy(0, e.key === 'ArrowDown' ? innerHeight * .6 : -innerHeight * .6);
+    }
+  });
+})();
+</script>
+</body>
+</html>

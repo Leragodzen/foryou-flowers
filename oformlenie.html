@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FOR YOU — Оформление свадеб и праздников в Тольятти</title>
+<meta name="description" content="Выездная регистрация, свадебные арки, оформление зала и столов живыми цветами. Бутик цветов FOR YOU, Тольятти.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Marck+Script&family=Onest:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#14342A;
+  --green-2:#1B4236;
+  --green-dk:#0E241D;
+  --cream:#F4F4E3;
+  --cream-dim:rgba(244,244,227,.66);
+  --butter:#FAE08E;
+  --line:rgba(244,244,227,.14);
+
+  --display:"Prata",Georgia,serif;
+  --script:"Cormorant Garamond",Georgia,serif;
+  --hand:"Marck Script",cursive;
+  --ui:"Onest",-apple-system,"Helvetica Neue",sans-serif;
+
+  --pad:clamp(20px,5vw,80px);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+/* ── ползунок-цветок вместо системного ── */
+html{scrollbar-width:none; -ms-overflow-style:none;}
+html::-webkit-scrollbar{width:0; height:0; display:none;}
+.scrl{
+  position:fixed; right:clamp(5px,1vw,16px); top:0; bottom:0; width:28px;
+  z-index:80; pointer-events:none;
+}
+.scrl-line{
+  position:absolute; left:50%; margin-left:-1px; top:13vh; bottom:13vh; width:2px;
+  background:linear-gradient(to bottom,
+    rgba(25,66,53,0) 0%, rgba(25,66,53,.22) 10%,
+    rgba(25,66,53,.22) 90%, rgba(25,66,53,0) 100%);
+}
+.scrl-f{
+  position:absolute; left:50%; top:0; width:28px; height:28px;
+  margin-left:-14px; margin-top:-14px;
+  padding:0; border:none; background:none; cursor:grab;
+  pointer-events:auto; touch-action:none;
+}
+.scrl-f:active{cursor:grabbing;}
+.scrl-f svg{
+  width:100%; height:100%; display:block;
+  filter:drop-shadow(0 2px 6px rgba(18,18,18,.20));
+  transition:transform .2s ease;
+}
+.scrl-f:hover svg{transform:scale(1.16);}
+@media (max-width:600px){
+  .scrl{width:22px; right:3px;}
+  .scrl-f{width:22px; height:22px; margin-left:-11px; margin-top:-11px;}
+}
+@media (prefers-reduced-motion:reduce){ .scrl-f svg{transition:none;} }
+/* стебель на тёмном фоне — светлый */
+.scrl-line{background:linear-gradient(to bottom,
+  rgba(244,244,227,0) 0%, rgba(244,244,227,.26) 10%,
+  rgba(244,244,227,.26) 90%, rgba(244,244,227,0) 100%);}
+html,body{overflow-x:hidden;}
+body{
+  margin:0; background:var(--green); color:var(--cream);
+  font-family:var(--ui); font-weight:300; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+
+.eyebrow{
+  font-family:var(--ui); font-size:11px; font-weight:500;
+  letter-spacing:.28em; text-transform:uppercase; color:var(--butter);
+  margin:0;
+}
+.script{font-family:var(--script); font-style:italic; font-weight:400;}
+.hand{font-family:var(--hand); font-weight:400; color:var(--butter);}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family:var(--ui); font-size:12px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase;
+  padding:17px 34px; border:1px solid transparent; border-radius:999px;
+  transition:background .3s ease, color .3s ease, border-color .3s ease;
+}
+.btn-solid{background:var(--butter); color:var(--green-dk);}
+.btn-solid:hover{background:#F7D26A;}
+.btn-line{border-color:var(--line); color:var(--cream);}
+.btn-line:hover{background:var(--cream); color:var(--green-dk); border-color:var(--cream);}
+
+/* ── шапка ─────────────────────────────── */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px var(--pad); gap:20px; border-bottom:1px solid var(--line);
+}
+.topbar img{height:26px; width:auto;}
+.topbar nav{display:flex; gap:26px; font-size:13px; color:var(--cream-dim);}
+.topbar nav a:hover{color:var(--cream);}
+.topbar .tel{font-size:13px; white-space:nowrap;}
+
+/* ── первый экран ──────────────────────── */
+.hero{position:relative; min-height:min(88vh,780px); display:grid; align-items:end; overflow:hidden;}
+.hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 32%;}
+.hero::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(14,36,29,.42) 0%, rgba(14,36,29,.18) 30%, rgba(14,36,29,.90) 100%);
+}
+.hero-in{position:relative; z-index:2; padding:clamp(34px,6vw,86px) var(--pad); max-width:860px;}
+.hero h1{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(34px,5.4vw,70px); line-height:1.08;
+  margin:14px 0 20px; letter-spacing:-.005em;
+}
+.hero p{margin:0 0 30px; max-width:50ch; color:rgba(244,244,227,.88); font-size:17px;}
+.hero-cta{display:flex; flex-wrap:wrap; gap:12px;}
+
+/* ── секции ────────────────────────────── */
+.section{padding:clamp(58px,8vw,124px) var(--pad);}
+.sec-head{margin-bottom:clamp(30px,4vw,58px); max-width:780px;}
+.sec-head h2{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(28px,4vw,50px); line-height:1.1; margin:14px 0 14px;
+}
+.sec-head p{margin:0; color:var(--cream-dim); max-width:58ch;}
+
+/* ── что мы делаем ─────────────────────── */
+.what{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,24px);}
+.wh{display:flex; flex-direction:column; gap:16px;}
+.wh-pic{position:relative; overflow:hidden; border-radius:18px; background:var(--green-2); padding-top:128%;}
+.wh-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .9s cubic-bezier(.2,.7,.2,1);}
+.wh:hover .wh-pic img{transform:scale(1.05);}
+.wh h3{font-family:var(--display); font-weight:400; font-size:20px; line-height:1.2; margin:0;}
+.wh p{margin:0; font-size:14px; color:var(--cream-dim);}
+
+/* ── галерея ───────────────────────────── */
+.gal{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+  gap:clamp(10px,1.4vw,18px);
+}
+.gal figure{aspect-ratio:1/1;}
+.gal figure{margin:0; overflow:hidden; border-radius:18px; background:var(--green-2);}
+.gal img{width:100%; height:100%; object-fit:cover; transition:transform .9s cubic-bezier(.2,.7,.2,1);}
+.gal figure:hover img{transform:scale(1.045);}
+
+
+/* ── полоса-цитата ─────────────────────── */
+.band{position:relative; min-height:clamp(380px,52vw,560px); display:grid; place-items:center; overflow:hidden;}
+.band img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 55%;}
+.band::after{content:""; position:absolute; inset:0; background:rgba(14,36,29,.62);}
+.band-in{position:relative; z-index:2; text-align:center; padding:60px var(--pad); max-width:800px;}
+.band-in h3{
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(26px,3.6vw,46px); line-height:1.14; margin:16px 0 16px;
+}
+.band-in p{margin:0 auto; color:rgba(244,244,227,.84); max-width:52ch;}
+
+/* ── как это работает ──────────────────── */
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(16px,2.4vw,34px);}
+.step{border-top:1px solid var(--line); padding-top:22px;}
+.step i{
+  font-style:normal; font-family:var(--display); font-size:30px;
+  color:var(--butter); display:block; margin-bottom:12px; line-height:1;
+}
+.step b{display:block; font-family:var(--display); font-weight:400; font-size:19px; margin-bottom:8px;}
+.step span{font-size:14px; color:var(--cream-dim);}
+
+/* ── цена ──────────────────────────────── */
+.price-row{
+  display:grid; grid-template-columns:1fr 1fr; align-items:stretch;
+  border-radius:22px; overflow:hidden; background:var(--green-2);
+}
+.price-media{position:relative; min-height:380px; overflow:hidden;}
+.price-media img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.price-text{padding:clamp(32px,4.4vw,66px); display:flex; flex-direction:column; justify-content:center; gap:16px;}
+.price-text h2{font-family:var(--display); font-weight:400; font-size:clamp(26px,3.2vw,42px); line-height:1.12; margin:8px 0 0;}
+.price-text p{margin:0; color:var(--cream-dim); max-width:46ch;}
+.price-text ul{list-style:none; margin:4px 0 0; padding:0;}
+.price-text li{position:relative; padding-left:20px; margin-bottom:10px; font-size:14.5px; color:rgba(244,244,227,.88);}
+.price-text li::before{content:""; position:absolute; left:0; top:.62em; width:6px; height:6px; border-radius:50%; background:var(--butter); opacity:.85;}
+.price-text .btn{align-self:flex-start; margin-top:10px;}
+
+/* ── финал ─────────────────────────────── */
+.final{text-align:center; padding:clamp(60px,8vw,124px) var(--pad); background:var(--green-dk);}
+.final h2{font-family:var(--display); font-weight:400; font-size:clamp(28px,4.4vw,54px); line-height:1.12; margin:0 0 18px;}
+.final p{margin:0 auto 30px; color:var(--cream-dim); max-width:48ch;}
+.final .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
+.final .addr{margin-top:26px; font-size:13.5px; color:rgba(244,244,227,.5);}
+
+@media (max-width:1000px){
+  .what{grid-template-columns:1fr 1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:760px){
+  .topbar nav{display:none;}
+  .gal{grid-template-columns:repeat(2,1fr); grid-auto-rows:clamp(140px,34vw,200px);}
+  .g-wide,.g-half,.g-third{grid-column:span 2; grid-row:span 1;}
+  .g-wide{grid-row:span 2;}
+  .price-row{grid-template-columns:1fr;}
+  .price-media{min-height:300px; order:-1;}
+}
+@media (max-width:560px){
+  .what{grid-template-columns:1fr;}
+  .steps{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important; animation:none!important;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="index.html"><img src="img/logo-f.png" alt="FOR YOU — бутик цветов"></a>
+  <nav>
+    <a href="katalog.html">Каталог</a>
+    <a href="katalog.html#svadba">Свадебные букеты</a>
+    <a href="podpiska.html">Подписка</a>
+    <a href="dvoih.html">Для двоих</a>
+    <a href="index.html#about">О нас</a>
+  </nav>
+  <a class="tel" href="tel:+79626144747">+7 (962) 614-47-47</a>
+</header>
+
+<!-- первый экран -->
+<section class="hero">
+  <img src="img/oformlenie/arka-nevesta.jpg" alt="Свадебная арка с драпировкой и живыми цветами в сосновом лесу">
+  <div class="hero-in">
+    <p class="eyebrow">Оформление свадеб и праздников</p>
+    <h1>День, который<br>запомнят <span class="script">все гости</span></h1>
+    <p>Арка для выездной регистрации, оформление зала, столы гостей и президиум. Приезжаем со своими конструкциями, собираем на месте и увозим всё после — вам остаётся только жить этот день.</p>
+    <div class="hero-cta">
+      <a href="https://t.me/for_you_flower" target="_blank" rel="noopener" class="btn btn-solid">Обсудить оформление</a>
+      <a href="#gallery" class="btn btn-line">Смотреть работы</a>
+    </div>
+  </div>
+</section>
+
+<!-- что мы делаем -->
+<section class="section">
+  <div class="sec-head">
+    <p class="eyebrow">Что берём на себя</p>
+    <h2>От арки до последнего стола</h2>
+    <p>Работаем живыми цветами, а не искусственными: композиции собираем в день события, из той же поставки, что идёт в бутик. Поэтому на фото и вживую они выглядят одинаково.</p>
+  </div>
+  <div class="what">
+    <article class="wh">
+      <div class="wh-pic"><img src="img/oformlenie/arka.jpg" alt="Свадебная арка с драпировкой и композициями у основания" loading="lazy"></div>
+      <h3>Выездная регистрация</h3>
+      <p>Арка, драпировка, дорожка и композиции по бокам. Ставим на площадке за несколько часов до церемонии.</p>
+    </article>
+    <article class="wh">
+      <div class="wh-pic"><img src="img/oformlenie/prezidium.jpg" alt="Президиум молодожёнов, украшенный тканью, свечами и цветами" loading="lazy"></div>
+      <h3>Зал и президиум</h3>
+      <p>Стол молодожёнов, ткани, свечи, цветочные линии. Собираем так, чтобы красиво выходило и в кадре, и вживую.</p>
+    </article>
+    <article class="wh">
+      <div class="wh-pic"><img src="img/oformlenie/stol-molodyh.jpg" alt="Сервировка стола с зелёными и белыми цветами" loading="lazy"></div>
+      <h3>Столы гостей</h3>
+      <p>Низкие композиции, которые не мешают разговору через стол. Подбираем под скатерть и посуду площадки.</p>
+    </article>
+    <article class="wh">
+      <div class="wh-pic"><img src="img/oformlenie/plan-rassadki.jpg" alt="План рассадки на мольберте с цветочной композицией" loading="lazy"></div>
+      <h3>Детали и мелочи</h3>
+      <p>План рассадки, зона welcome, фотозона, оформление торта. То, что замечают в последнюю очередь — и запоминают.</p>
+    </article>
+  </div>
+</section>
+
+<!-- галерея -->
+<section class="section" id="gallery" style="padding-top:0">
+  <div class="sec-head">
+    <p class="eyebrow">Работы</p>
+    <h2>Как это <span class="script">получается</span></h2>
+    <p>Настоящие свадьбы, которые мы оформляли — от арки до сервировки столов.</p>
+  </div>
+  <div class="gal">
+    <figure class="g-wide"><img src="img/oformlenie/registraciya.jpg" alt="Выездная регистрация под шатром" loading="lazy"></figure>
+    <figure class="g-third"><img src="img/oformlenie/nevesta-sidit.jpg" alt="Невеста у цветочной композиции" loading="lazy"></figure>
+    <figure class="g-third"><img src="img/oformlenie/detal-anturium.jpg" alt="Букет невесты с зелёным антуриумом" loading="lazy"></figure>
+    <figure class="g-third"><img src="img/oformlenie/stol-kompoziciya.jpg" alt="Композиция на столе в бело-зелёной гамме" loading="lazy"></figure>
+    <figure class="g-third"><img src="img/oformlenie/stol-laim.jpg" alt="Сервировка стола с зеленью и лаймами" loading="lazy"></figure>
+    <figure class="g-half"><img src="img/oformlenie/kompoziciya-arka.jpg" alt="Цветочная композиция у основания арки" loading="lazy"></figure>
+    <figure class="g-half"><img src="img/oformlenie/nevesta-arka.jpg" alt="Невеста у свадебной арки" loading="lazy"></figure>
+  </div>
+</section>
+
+<!-- полоса -->
+<section class="band">
+  <img src="img/oformlenie/prezidium.jpg" alt="Оформленный президиум молодожёнов">
+  <div class="band-in">
+    <p class="eyebrow">Почему живые цветы</p>
+    <h3>Роскошь, которую видно<br><span class="script">и в кадре, и вблизи</span></h3>
+    <p>Работаем только живыми цветами — теми же, что приезжают в бутик. Они пахнут, играют на свету и выглядят дорого с любого расстояния: гость подойдёт вплотную, а площадка всё равно будет как на снимках фотографа.</p>
+  </div>
+</section>
+
+<!-- как это работает -->
+<section class="section">
+  <div class="sec-head">
+    <p class="eyebrow">Как это работает</p>
+    <h2>Четыре шага до готовой площадки</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <i>01</i><b>Разговор</b>
+      <span>Рассказываете дату, площадку и настроение. Присылаете картинки, которые нравятся — из Pinterest или с чужих свадеб.</span>
+    </div>
+    <div class="step">
+      <i>02</i><b>Смета и эскиз</b>
+      <span>Собираем смету под вашу площадку. Вы видите, из чего складывается сумма, и убираете лишнее.</span>
+    </div>
+    <div class="step">
+      <i>03</i><b>Монтаж</b>
+      <span>Приезжаем заранее, собираем на месте. К приезду гостей площадка уже готова, а мы уже уехали.</span>
+    </div>
+    <div class="step">
+      <i>04</i><b>Демонтаж</b>
+      <span>После праздника забираем конструкции сами. Композиции со столов можно оставить гостям — многие так и делают.</span>
+    </div>
+  </div>
+</section>
+
+<!-- цена -->
+<section class="section" style="padding-top:0">
+  <div class="price-row">
+    <div class="price-media">
+      <img src="img/oformlenie/stol-molodyh.jpg" alt="Оформленный стол молодожёнов">
+    </div>
+    <div class="price-text">
+      <p class="eyebrow">Стоимость</p>
+      <h2>Стоимость —<br><span class="script">под каждую свадьбу</span></h2>
+      <p>Общей цены не существует: всё зависит от площадки, количества гостей и того, какие цветы в сезоне. Смету собираем индивидуально, из того, что нужно именно вам:</p>
+      <ul>
+        <li>Арка для выездной регистрации</li>
+        <li>Президиум и стол молодожёнов</li>
+        <li>Столы гостей — цена за стол</li>
+        <li>Детали: план рассадки, welcome-зона, фотозона</li>
+      </ul>
+      <p>Вы сами решаете, что оставить, а что убрать. Дату лучше бронировать заранее — в сезон субботы разбирают за месяцы.</p>
+      <a href="https://t.me/for_you_flower" target="_blank" rel="noopener" class="btn btn-solid">Рассчитать оформление</a>
+    </div>
+  </div>
+</section>
+
+<!-- финал -->
+<section class="final">
+  <p class="eyebrow">Свяжитесь с нами</p>
+  <h2>Расскажите про вашу дату</h2>
+  <p>Ответим, свободна ли она, и прикинем смету по вашей площадке.</p>
+  <div class="row">
+    <a href="https://t.me/for_you_flower" target="_blank" rel="noopener" class="btn btn-solid">Написать в Telegram</a>
+    <a href="https://api.whatsapp.com/send/?phone=79626144747" target="_blank" rel="noopener" class="btn btn-line">WhatsApp</a>
+    <a href="tel:+79626144747" class="btn btn-line">+7 (962) 614-47-47</a>
+  </div>
+  <p class="addr">Тольятти, Юбилейная 85Б, секция 33 · ежедневно 9:00 — 21:00</p>
+</section>
+
+
+<!-- ползунок-цветок -->
+<div class="scrl" id="scrl">
+  <div class="scrl-line"></div>
+  <button class="scrl-f" id="scrlF" aria-label="Прокрутка страницы">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#C0233A">
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(120 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(180 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(240 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(300 12 12)"/>
+      </g>
+      <circle cx="12" cy="12" r="3.1" fill="#FAE08E"/>
+      <circle cx="12" cy="12" r="3.1" fill="none" stroke="#C0233A" stroke-opacity=".35"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+/* ── цветок едет по стеблю вместо полосы прокрутки ──── */
+(function(){
+  var f = document.getElementById('scrlF');
+  if(!f) return;
+  var PAD_TOP = .13, PAD_BOT = .13;  /* совпадает с top/bottom у .scrl-line */
+  var max = 1, a = 0, b = 0;
+
+  function measure(){
+    var h = innerHeight;
+    a = h * PAD_TOP; b = h * (1 - PAD_BOT);
+    max = Math.max(1, document.documentElement.scrollHeight - h);
+  }
+  function draw(){
+    var p = Math.min(1, Math.max(0, scrollY / max));
+    f.style.top = (a + (b - a) * p) + 'px';
+    f.style.transform = 'rotate(' + (p * 150) + 'deg)';
+  }
+  function refresh(){ measure(); draw(); }
+
+  addEventListener('scroll', draw, {passive:true});
+  addEventListener('resize', refresh);
+  addEventListener('load', refresh);
+  /* фотографии догружаются и меняют высоту страницы */
+  if(window.ResizeObserver) new ResizeObserver(refresh).observe(document.body);
+  refresh();
+
+  var dragging = false;
+  function toScroll(y){
+    var p = (y - a) / (b - a);
+    scrollTo(0, Math.min(1, Math.max(0, p)) * max);
+  }
+  f.addEventListener('pointerdown', function(e){
+    dragging = true; f.setPointerCapture(e.pointerId); e.preventDefault();
+  });
+  f.addEventListener('pointermove', function(e){ if(dragging) toScroll(e.clientY); });
+  f.addEventListener('pointerup',     function(){ dragging = false; });
+  f.addEventListener('pointercancel', function(){ dragging = false; });
+  f.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      scrollBy(0, e.key === 'ArrowDown' ? innerHeight * .6 : -innerHeight * .6);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Букет — FOR YOU · Тольятти</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Marck+Script&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#194235;
+  --green-dk:#123127;
+  --cream:#F4F4E3;
+  --butter:#FAE08E;
+  --ink:#121212;
+  --muted:#5C5A50;
+  --line:rgba(25,66,53,.22);
+  --white:#FFFFFF;
+  --red:#C0233A;
+
+  --display:"Prata",Georgia,serif;
+  --hand:"Marck Script",cursive;
+  --ui:"Onest",-apple-system,"Helvetica Neue",sans-serif;
+  --pad:clamp(18px,4vw,64px);
+}
+*{box-sizing:border-box;}
+[hidden]{display:none !important;}
+html{scroll-behavior:smooth;}
+/* ── ползунок-цветок вместо системного ── */
+html{scrollbar-width:none; -ms-overflow-style:none;}
+html::-webkit-scrollbar{width:0; height:0; display:none;}
+.scrl{
+  position:fixed; right:clamp(5px,1vw,16px); top:0; bottom:0; width:28px;
+  z-index:80; pointer-events:none;
+}
+.scrl-line{
+  position:absolute; left:50%; margin-left:-1px; top:13vh; bottom:24vh; width:2px;
+  background:linear-gradient(to bottom,
+    rgba(25,66,53,0) 0%, rgba(25,66,53,.22) 10%,
+    rgba(25,66,53,.22) 90%, rgba(25,66,53,0) 100%);
+}
+.scrl-f{
+  position:absolute; left:50%; top:0; width:28px; height:28px;
+  margin-left:-14px; margin-top:-14px;
+  padding:0; border:none; background:none; cursor:grab;
+  pointer-events:auto; touch-action:none;
+}
+.scrl-f:active{cursor:grabbing;}
+.scrl-f svg{
+  width:100%; height:100%; display:block;
+  filter:drop-shadow(0 2px 6px rgba(18,18,18,.20));
+  transition:transform .2s ease;
+}
+.scrl-f:hover svg{transform:scale(1.16);}
+@media (max-width:600px){
+  .scrl{width:22px; right:3px;}
+  .scrl-f{width:22px; height:22px; margin-left:-11px; margin-top:-11px;}
+}
+@media (prefers-reduced-motion:reduce){ .scrl-f svg{transition:none;} }
+body{
+  margin:0; background:var(--white); color:var(--ink);
+  font-family:var(--ui); font-weight:300; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+
+h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005em;}
+.eyebrow{
+  font-size:11px; font-weight:500; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--green); margin:0;
+}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:12.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  padding:15px 30px; border-radius:999px; border:1px solid var(--green);
+  color:var(--green); background:transparent; cursor:pointer;
+  transition:background .28s ease, color .28s ease;
+}
+.btn:hover{background:var(--green); color:var(--cream);}
+.btn-solid{background:var(--green); color:var(--cream);}
+.btn-solid:hover{background:var(--green-dk); color:var(--cream);}
+
+/* ── полоса объявлений ─────────────────── */
+.ann{
+  background:var(--green); color:var(--cream);
+  padding:12px var(--pad) 13px;
+  display:flex; align-items:center; justify-content:center;
+  gap:clamp(12px,2.4vw,30px); flex-wrap:wrap;
+  position:relative; overflow:hidden;
+}
+.ann::before,.ann::after{
+  content:""; position:absolute; top:50%; width:74px; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(244,244,227,.35),transparent);
+}
+.ann::before{left:0;} .ann::after{right:0;}
+.ann-hand{
+  font-family:var(--hand); font-size:clamp(19px,2vw,24px);
+  line-height:1; color:var(--butter); white-space:nowrap;
+  padding-bottom:3px;
+}
+.ann-dot{width:4px; height:4px; border-radius:50%; background:rgba(244,244,227,.4);}
+.ann-fact{
+  font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
+  color:rgba(244,244,227,.86); white-space:nowrap;
+}
+
+/* ── шапка ─────────────────────────────── */
+.head{
+  position:sticky; top:0; z-index:70;
+  background:var(--white); border-bottom:1px solid var(--line);
+}
+.head-top{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+  gap:16px; padding:16px var(--pad) 12px;
+}
+.head-l{display:flex; align-items:center; gap:14px; font-size:13px;}
+.head-r{display:flex; align-items:center; justify-content:flex-end; gap:16px; font-size:13px;}
+.logo img{height:38px; width:auto; margin:0 auto;}
+.msg{display:flex; gap:6px;}
+.msg a{
+  width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+  border:1px solid var(--line); font-size:10px; font-weight:500; color:var(--green);
+  transition:background .25s ease, color .25s ease;
+}
+.msg a:hover{background:var(--green); color:var(--cream);}
+.cart{display:inline-flex; align-items:center; gap:7px; font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:500;}
+.cart b{background:var(--green); color:var(--cream); font-weight:500; font-size:10px; width:19px; height:19px; border-radius:50%; display:grid; place-items:center;}
+/* ── меню-лента пилюль ─────────────────── */
+.nav{
+  display:flex; gap:9px; overflow-x:auto;
+  padding:2px var(--pad) 15px;
+  scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;
+  scroll-padding-left:var(--pad);
+}
+.nav::-webkit-scrollbar{display:none;}
+.nav a{
+  flex:0 0 auto; scroll-snap-align:start;
+  padding:10px 22px; border-radius:14px;
+  background:var(--cream); color:var(--green);
+  font-size:13.5px; font-weight:400; letter-spacing:.02em; white-space:nowrap;
+  transition:background .26s ease, color .26s ease;
+}
+.nav a:hover,.nav a.on{background:var(--green); color:var(--cream);}
+
+/* ── плавающая связь ───────────────────── */
+.fab{
+  position:fixed; right:6px; bottom:clamp(14px,2vw,28px); z-index:90;
+  display:flex; flex-direction:column; align-items:flex-end;
+}
+.fab-list{
+  display:flex; flex-direction:column; gap:9px; align-items:flex-end;
+  margin-bottom:10px;
+  opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity .28s ease, transform .28s ease, visibility .28s;
+}
+.fab.open .fab-list{opacity:1; visibility:visible; transform:none;}
+.fab-list a{
+  display:flex; align-items:center; gap:9px;
+  background:var(--white); color:var(--green);
+  border:1px solid var(--line); border-radius:14px;
+  padding:9px 15px; font-size:13.5px; white-space:nowrap;
+  box-shadow:0 5px 18px rgba(18,18,18,.10);
+  transition:background .24s ease, color .24s ease;
+}
+.fab-list a:hover{background:var(--green); color:var(--cream); border-color:var(--green);}
+.fab-list i{font-style:normal; font-size:11px; font-weight:500; letter-spacing:.08em;}
+.fab-btn{
+  position:relative; z-index:2;
+  width:58px; height:58px; border-radius:50%;
+  background:var(--green); color:var(--cream);
+  border:none; cursor:pointer; display:grid; place-items:center;
+  box-shadow:0 8px 26px rgba(25,66,53,.34);
+  transition:background .25s ease, transform .25s ease;
+  animation:fabBreathe 3.4s ease-in-out infinite;
+}
+.fab-btn:hover{background:var(--green-dk); animation-play-state:paused; transform:scale(1.06);}
+.fab.open .fab-btn{transform:rotate(45deg); animation:none;}
+
+/* пульсирующие кольца */
+.fab-btn::before,.fab-btn::after{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  border:1.5px solid var(--green); pointer-events:none;
+  animation:fabRing 3.4s cubic-bezier(.2,.7,.3,1) infinite;
+}
+.fab-btn::after{animation-delay:1.7s;}
+.fab.open .fab-btn::before,.fab.open .fab-btn::after{display:none;}
+
+@keyframes fabBreathe{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.05);}
+}
+@keyframes fabRing{
+  0%{transform:scale(1); opacity:.55;}
+  70%{transform:scale(1.75); opacity:0;}
+  100%{transform:scale(1.75); opacity:0;}
+}
+.fab-btn svg{width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.6;}
+.fab.open .fab-ico{display:none;}
+.fab-close{display:none;}
+.fab.open .fab-close{display:block;}
+
+/* ── первый экран ──────────────────────── */
+.hero{display:grid; grid-template-columns:1.05fr .95fr; min-height:clamp(420px,54vw,560px);}
+.hero-pic{position:relative; overflow:hidden; background:#E6DED2;}
+.hero-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 46%;}
+.hero-txt{
+  background:var(--butter); color:var(--ink);
+  padding:clamp(28px,4.4vw,64px);
+  display:flex; flex-direction:column; justify-content:center; gap:16px;
+}
+.hero-txt h1{font-size:clamp(30px,4.2vw,54px); line-height:1.06; margin:0;}
+.hero-txt p{margin:0; max-width:40ch; color:#3E3A2A; font-size:15.5px;}
+.hero-txt .btn{align-self:flex-start; border-color:var(--ink); color:var(--ink); margin-top:6px;}
+.hero-txt .btn:hover{background:var(--ink); color:var(--butter);}
+
+/* ── секции ────────────────────────────── */
+.sec{padding:clamp(46px,6vw,92px) var(--pad);}
+.sec-cream{background:var(--cream);}
+.sec-head{text-align:center; margin-bottom:clamp(24px,3.2vw,44px);}
+.sec-head h2{font-size:clamp(24px,3.2vw,40px); line-height:1.12; margin:10px 0 0;}
+.sec-head p{margin:10px auto 0; max-width:58ch; color:var(--muted); font-size:15px;}
+.sec-more{text-align:center; margin-top:clamp(24px,3vw,40px);}
+
+/* ── лента цен ─────────────────────────── */
+.pills{
+  display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding:6px var(--pad) 16px; margin:0 calc(-1 * var(--pad));
+}
+.pills::-webkit-scrollbar{height:5px;}
+.pills::-webkit-scrollbar-thumb{background:var(--line); border-radius:99px;}
+.ppill{
+  flex:0 0 auto; scroll-snap-align:start;
+  border:1px solid var(--line); border-radius:12px;
+  padding:9px 18px; background:var(--white);
+  font-size:13.5px; white-space:nowrap; color:var(--green);
+  transition:background .26s ease, color .26s ease, border-color .26s ease;
+}
+.ppill:hover,.ppill.on{background:var(--green); color:var(--cream); border-color:var(--green);}
+
+/* ── кадр ──────────────────────────────── */
+.frame{
+  --ratio:125%;
+  position:relative; overflow:hidden;
+  border-radius:16px; background:#EDEDE0;
+}
+.frame::before{content:""; display:block; padding-top:var(--ratio);}
+.frame img{
+  position:absolute; inset:0; width:100%; height:100%;
+  max-width:none; object-fit:cover;
+  transition:transform .9s cubic-bezier(.2,.7,.2,1);
+}
+
+/* ── плитки каталога ───────────────────── */
+.tiles{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,26px);}
+.tile{display:flex; flex-direction:column; gap:12px; text-align:center;}
+.tile .frame{--ratio:125%;}
+.tile:hover .frame img{transform:scale(1.05);}
+.tile b{font-family:var(--display); font-weight:400; font-size:19px;}
+.tile span{font-size:13px; color:var(--muted); display:block; margin-top:2px;}
+.tile.todo .frame{background:var(--cream); border:1px dashed var(--line);}
+.tile.todo em{
+  position:absolute; inset:0; display:grid; place-items:center;
+  font-style:normal; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+}
+
+/* ── карточки товара ───────────────────── */
+.grid{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,26px);}
+.card{display:flex; flex-direction:column; gap:11px;}
+.card .frame{--ratio:133.333%;}
+.card:hover .frame img{transform:scale(1.05);}
+.card-name{font-family:var(--display); font-weight:400; font-size:17px; line-height:1.25; margin:0;}
+.card-comp{font-size:12.5px; color:var(--muted); margin:0;}
+.card-price{font-family:var(--display); font-size:18px;}
+
+/* ── карусель ──────────────────────────── */
+.rail{
+  display:flex; gap:clamp(12px,1.6vw,20px); overflow-x:auto;
+  scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+  padding:2px 2px 18px; scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none;}
+.rail .card{flex:0 0 clamp(190px,22vw,272px); scroll-snap-align:start;}
+.rail-hint{
+  text-align:center; font-size:12px; color:var(--muted);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+
+/* ── услуги ────────────────────────────── */
+.srvs{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(16px,2.2vw,30px);}
+.srv{
+  display:flex; flex-direction:column; gap:12px;
+  border-radius:20px; padding:clamp(18px,1.8vw,26px);
+  transition:transform .3s ease;
+}
+.srv:hover{transform:translateY(-4px);}
+.srv .frame{--ratio:80%; border-radius:14px;}
+.srv:hover .frame img{transform:scale(1.05);}
+.srv h3{font-size:23px; margin:4px 0 0;}
+.srv p{margin:0; font-size:14.5px; flex:1;}
+.srv .from{font-family:var(--display); font-size:17px;}
+.srv .btn{align-self:flex-start; margin-top:6px;}
+
+.srv-a{background:var(--butter);}
+.srv-a p{color:#4A452F;}
+.srv-a .btn{border-color:var(--ink); color:var(--ink);}
+.srv-a .btn:hover{background:var(--ink); color:var(--butter);}
+
+.srv-b{background:#F0DCDC;}
+.srv-b p{color:#5B4344;}
+.srv-b .btn{border-color:#8C3B44; color:#8C3B44;}
+.srv-b .btn:hover{background:#8C3B44; color:#F0DCDC;}
+
+.srv-c{background:var(--green); color:var(--cream);}
+.srv-c .eyebrow{color:rgba(244,244,227,.7);}
+.srv-c p{color:rgba(244,244,227,.82);}
+.srv-c .btn{border-color:rgba(244,244,227,.5); color:var(--cream);}
+.srv-c .btn:hover{background:var(--cream); color:var(--green);}
+
+/* ── сезонный баннер ───────────────────── */
+.season{
+  display:grid; grid-template-columns:.9fr 1.1fr; align-items:stretch;
+  background:var(--butter);
+}
+.season-txt{padding:clamp(28px,4.4vw,68px); display:flex; flex-direction:column; justify-content:center; gap:14px;}
+.season-txt h2{font-size:clamp(26px,3.4vw,42px); line-height:1.1; margin:0;}
+.season-txt p{margin:0; max-width:42ch; color:#3E3A2A;}
+.season-txt .btn{align-self:flex-start; border-color:var(--ink); color:var(--ink);}
+.season-txt .btn:hover{background:var(--ink); color:var(--butter);}
+.season-pic{position:relative; overflow:hidden; min-height:280px;}
+.season-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+
+/* ── почему мы ─────────────────────────── */
+.why{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,24px);}
+.why div{
+  background:var(--white); border:1px solid var(--line); border-radius:18px;
+  padding:clamp(20px,2vw,28px);
+}
+.why b{
+  display:block; font-family:var(--display); font-weight:400;
+  font-size:19px; margin-bottom:7px;
+}
+.why span{font-size:14px; color:var(--muted);}
+.why i{
+  font-style:normal; display:block; font-family:var(--display);
+  font-size:26px; color:var(--green); margin-bottom:10px; opacity:.5;
+}
+
+/* ── отзывы ────────────────────────────── */
+.revs{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,24px);}
+.rev{border:1px solid var(--line); border-radius:14px; padding:24px; background:var(--white);}
+.rev .stars{color:#C9A227; letter-spacing:.14em; font-size:13px;}
+.rev p{margin:10px 0 12px; font-size:14.5px;}
+.rev b{font-weight:500; font-size:13.5px;}
+.rev span{font-size:12.5px; color:var(--muted);}
+
+/* ── о бутике ──────────────────────────── */
+.about{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,60px); align-items:center;}
+.about .frame{--ratio:75%;}
+.about h2{font-size:clamp(25px,3.2vw,40px); line-height:1.14; margin:10px 0 14px;}
+.about p{margin:0 0 12px; color:var(--muted); max-width:46ch;}
+.facts{display:flex; gap:30px; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:18px; margin-top:8px;}
+.fact span{display:block; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted);}
+.fact b{font-family:var(--display); font-weight:400; font-size:16px;}
+
+/* ── подвал ────────────────────────────── */
+.foot{background:var(--green); color:var(--cream); padding:clamp(28px,3.4vw,48px) var(--pad) 18px;}
+.foot-top{display:grid; grid-template-columns:1.6fr 1fr 1.1fr 1fr; gap:26px; padding-bottom:20px; border-bottom:1px solid rgba(244,244,227,.2);}
+.foot img{height:30px; margin-bottom:11px;}
+.foot h4{font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:rgba(244,244,227,.6); margin:0 0 13px; font-weight:500;}
+.foot ul{margin:0; padding:0; list-style:none;}
+.foot li{margin-bottom:6px; font-size:13.5px; color:rgba(244,244,227,.82);}
+.foot li a:hover{color:var(--cream);}
+.bonus{
+  display:inline-flex; align-items:center; gap:10px;
+  border:1px solid rgba(244,244,227,.3); border-radius:999px;
+  padding:9px 16px 9px 14px; transition:background .26s ease, color .26s ease;
+}
+.bonus b{font-family:var(--display); font-weight:400; font-size:17px; color:var(--butter);}
+.bonus span{font-size:12.5px; color:rgba(244,244,227,.8);}
+.bonus:hover{background:rgba(244,244,227,.1);}
+.foot-bot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:13px; font-size:11.5px; color:rgba(244,244,227,.5);}
+
+@media (max-width:1080px){
+  .tiles,.grid{grid-template-columns:repeat(3,1fr);}
+  .why{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;}
+  .hero-pic{aspect-ratio:4/3;}
+  .srvs{grid-template-columns:1fr;}
+  .season{grid-template-columns:1fr;}
+  .season-pic{order:-1; aspect-ratio:16/10; min-height:0;}
+  .about{grid-template-columns:1fr;}
+  .revs{grid-template-columns:1fr;}
+  .foot-top{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:600px){
+  .tiles,.grid{grid-template-columns:1fr 1fr; gap:12px;}
+  .head-l{display:none;}
+  .head-top{grid-template-columns:auto 1fr; gap:10px; padding-bottom:10px;}
+  .logo img{height:30px; margin:0;}
+  .card-comp{display:none;}
+  .incl{grid-template-columns:1fr 1fr;}
+  .why{grid-template-columns:1fr;}
+  .foot-top{grid-template-columns:1fr;}
+  .fab-btn{width:50px; height:50px;}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+/* ── цветок-ползунок под лентами, которые листаются ─── */
+.hscrl{
+  position:relative; height:34px; margin:16px auto 0;
+  max-width:min(460px, 74%); display:none;
+}
+.hscrl.on{display:block;}
+.hscrl-line{
+  position:absolute; left:0; right:0; top:50%; height:2px; margin-top:-1px;
+  background:linear-gradient(90deg,
+    rgba(25,66,53,0) 0%, rgba(25,66,53,.2) 8%,
+    rgba(25,66,53,.2) 92%, rgba(25,66,53,0) 100%);
+}
+.hscrl-f{
+  position:absolute; top:50%; left:0; width:26px; height:26px;
+  margin:-13px 0 0 -13px; padding:0; border:none; background:none;
+  cursor:grab; touch-action:none;
+}
+.hscrl-f:active{cursor:grabbing;}
+.hscrl-f svg{
+  width:100%; height:100%; display:block;
+  filter:drop-shadow(0 2px 5px rgba(18,18,18,.18));
+  transition:transform .2s ease;
+}
+.hscrl-f:hover svg{transform:scale(1.16);}
+</style>
+<style>
+/* ── карточка товара ───────────────────── */
+.crumbs{
+  padding:clamp(16px,2vw,26px) var(--pad) 0;
+  font-size:12.5px; color:var(--muted);
+  display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+}
+.crumbs a:hover{color:var(--green);}
+.crumbs span{opacity:.5;}
+
+.pd{
+  display:grid; grid-template-columns:1.02fr .98fr;
+  gap:clamp(20px,3.4vw,56px);
+  padding:clamp(16px,2.4vw,34px) var(--pad) 0;
+  align-items:start;
+}
+.pd-gal .frame{--ratio:118%;}
+.pd-thumbs{display:flex; gap:10px; margin-top:10px;}
+.pd-thumbs .frame{--ratio:100%; flex:0 0 84px; border-radius:12px; opacity:.55; cursor:pointer; transition:opacity .25s ease;}
+.pd-thumbs .frame.on,.pd-thumbs .frame:hover{opacity:1;}
+
+.pd-info{display:flex; flex-direction:column; gap:15px; position:sticky; top:104px;}
+.pd-info h1{font-size:clamp(27px,3.4vw,44px); line-height:1.08; margin:6px 0 0;}
+.tier{
+  display:inline-flex; align-self:flex-start; align-items:center; gap:8px;
+  background:var(--cream); color:var(--green); border-radius:999px;
+  padding:7px 15px; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
+}
+.pd-price{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.pd-price b{font-family:var(--display); font-weight:400; font-size:clamp(26px,3vw,34px);}
+.pd-price em{font-style:normal; font-size:13px; color:var(--muted);}
+.pd-lead{margin:0; font-size:15.5px; color:var(--muted); max-width:46ch;}
+
+/* цена со скидкой */
+.pd-price b s{color:var(--muted); font-size:.62em; margin-right:8px; text-decoration-thickness:1px;}
+.pd-sale{
+  font-family:var(--ui) !important; font-size:12px !important; font-weight:500;
+  letter-spacing:.08em; background:var(--red); color:#fff;
+  padding:5px 11px; border-radius:999px; vertical-align:middle;
+}
+
+/* нет в сезоне */
+.pd-off{
+  margin:0; font-size:14px; color:var(--red);
+  border-left:2px solid var(--red); padding-left:14px; max-width:46ch;
+}
+
+/* сезонный цветок в составе */
+.chips span.season{
+  border-style:dashed; color:var(--muted);
+}
+
+/* галерея кадров */
+.pd-shots{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;}
+.pd-shot{
+  width:70px; height:70px; padding:0; border-radius:12px; overflow:hidden;
+  border:1px solid var(--line); background:none; cursor:pointer;
+  transition:border-color .25s ease, opacity .25s ease; opacity:.6;
+}
+.pd-shot img{width:100%; height:100%; object-fit:cover;}
+.pd-shot:hover{opacity:1;}
+.pd-shot.on{border-color:var(--green); opacity:1;}
+
+/* плашка скидки в ленте похожих */
+.card .frame .tag{
+  position:absolute; z-index:2; top:10px; left:10px;
+  background:var(--red); color:#fff;
+  font-family:var(--ui); font-size:11px; font-weight:500; letter-spacing:.08em;
+  padding:5px 10px; border-radius:999px;
+}
+.card-price s{color:var(--muted); font-size:14px; margin-right:6px; text-decoration-thickness:1px;}
+
+
+.pd-comp{border-top:1px solid var(--line); padding-top:16px;}
+.pd-comp h4{font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin:0 0 11px; font-weight:500;}
+.chips{display:flex; gap:8px; flex-wrap:wrap;}
+.chips span{
+  border:1px solid var(--line); border-radius:10px;
+  padding:7px 14px; font-size:13.5px; color:var(--green); background:var(--white);
+}
+
+.pd-cta{display:flex; gap:10px; flex-wrap:wrap; margin-top:2px;}
+.pd-cta .btn{flex:1 1 190px;}
+
+.pd-facts{list-style:none; margin:6px 0 0; padding:16px 0 0; border-top:1px solid var(--line);}
+.pd-facts li{display:flex; gap:12px; font-size:14px; color:var(--muted); padding:7px 0;}
+.pd-facts i{font-style:normal; color:var(--green); font-family:var(--display); font-size:15px; flex:0 0 18px;}
+
+.pd-note{
+  background:var(--cream); border-radius:16px;
+  padding:18px 20px; display:flex; gap:13px; align-items:flex-start;
+  margin-bottom:clamp(16px,2.6vw,30px);
+}
+.pd-note i{font-style:normal; font-family:var(--hand); font-size:32px; color:var(--green); line-height:.9; opacity:.6;}
+.pd-note p{margin:0; font-size:14px; color:var(--muted);}
+
+/* что входит в заказ */
+.incl{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,26px);}
+.incl-i{margin:0;}
+.incl-pic{
+  position:relative; overflow:hidden; border-radius:16px;
+  background:#EDEDE0; padding-top:100%;
+}
+.incl-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.incl-i.todo .incl-pic{background:var(--cream); border:1px dashed var(--line);}
+.incl-i.todo em{
+  position:absolute; inset:0; display:grid; place-items:center;
+  font-style:normal; font-size:10.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted);
+}
+.incl figcaption{
+  margin-top:12px; text-align:center;
+  font-family:var(--display); font-weight:400; font-size:16px; line-height:1.25;
+}
+.incl figcaption span{
+  display:block; margin-top:6px;
+  font-family:var(--ui); font-size:12.5px; font-weight:300;
+  line-height:1.4; color:var(--muted);
+}
+
+/* украсьте ваш букет */
+.deco-tabs{
+  display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding:0 var(--pad) 20px; margin:0 calc(-1 * var(--pad));
+  -ms-overflow-style:none; scrollbar-width:none;
+}
+.deco-tabs::-webkit-scrollbar{display:none;}
+.deco-tab{
+  flex:0 0 auto; scroll-snap-align:start; cursor:pointer;
+  border:1px solid var(--line); border-radius:999px;
+  padding:10px 20px; background:var(--white);
+  font-family:var(--ui); font-size:13.5px; color:var(--green);
+  transition:background .26s ease, color .26s ease, border-color .26s ease;
+}
+.deco-tab:hover,.deco-tab.on{background:var(--green); color:var(--cream); border-color:var(--green);}
+
+/* три шага */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(14px,2vw,26px);}
+.step{border:1px solid var(--line); border-radius:18px; padding:clamp(20px,2vw,28px); background:var(--white);}
+.step i{font-style:normal; font-family:var(--display); font-size:24px; color:var(--green); opacity:.45; display:block; margin-bottom:10px;}
+.step b{display:block; font-family:var(--display); font-weight:400; font-size:19px; margin-bottom:6px;}
+.step span{font-size:14px; color:var(--muted);}
+
+@media (max-width:900px){
+  .pd{grid-template-columns:1fr;}
+  .pd-info{position:static;}
+  .steps{grid-template-columns:1fr;}
+}
+</style>
+<script src="data.js"></script>
+</head>
+<body>
+
+<div class="ann">
+  <span class="ann-hand">Собираем букет при вас</span>
+  <span class="ann-dot"></span>
+  <span class="ann-fact">Доставка по городу за час</span>
+  <span class="ann-dot"></span>
+  <span class="ann-fact">Ежедневно 9:00 — 21:00</span>
+</div>
+
+<header class="head">
+  <div class="head-top">
+    <div class="head-l"><a href="#">Поиск</a></div>
+    <a href="index.html" class="logo"><img src="img/logo.png" alt="FOR YOU — бутик цветов"></a>
+    <div class="head-r">
+      <a href="#" class="cart">Корзина <b>0</b></a>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="katalog.html">Каталог</a>
+    <a href="katalog.html#sezon">Сезонные цветы</a>
+    <a href="katalog.html#svadba">Свадебные</a>
+    <a href="index.html#gifts">Подарки</a>
+    <a href="podpiska.html">Подписка</a>
+    <a href="dvoih.html">Для двоих</a>
+    <a href="index.html#services">Оформление праздников</a>
+    <a href="index.html#reviews">Отзывы</a>
+    <a href="index.html#dostavka">Доставка</a>
+    <a href="index.html#about">О нас</a>
+  </nav>
+</header>
+
+<div class="crumbs">
+  <a href="index.html">Главная</a><span>/</span>
+  <a href="katalog.html" id="crumbSec">Каталог</a><span>/</span>
+  <span id="crumbName" style="opacity:1; color:var(--ink)">Букет</span>
+</div>
+
+<section class="pd">
+  <div class="pd-gal">
+    <div class="frame"><img id="pdImg" src="img/katalog/vanil.jpg" alt=""></div>
+  </div>
+
+  <div class="pd-info">
+    <span class="tier" id="pdTier">Знак внимания</span>
+    <h1 id="pdName">Букет</h1>
+    <div class="pd-price">
+      <b id="pdPrice">— ₽</b>
+      <em id="pdPriceNote">цена ориентировочная, подтвердим в переписке</em>
+    </div>
+    <p class="pd-lead" id="pdLead">Соберём этот букет заново в день заказа — в том же стиле и цветовой гамме.</p>
+
+    <div class="pd-comp">
+      <h4 id="compTitle">Что внутри</h4>
+      <div class="chips" id="pdChips"></div>
+    </div>
+
+    <div class="pd-cta">
+      <a class="btn btn-solid" id="ctaTg" href="https://t.me/for_you_flower" target="_blank" rel="noopener">Собрать похожий</a>
+      <a class="btn" id="ctaWa" href="https://api.whatsapp.com/send/?phone=79626144747" target="_blank" rel="noopener">Написать в WhatsApp</a>
+    </div>
+
+    <ul class="pd-facts">
+      <li><i>—</i><span>Доставка по Тольятти около часа. Автозаводский 300 ₽, Центральный 400 ₽, Комсомольский 500 ₽</span></li>
+      <li><i>—</i><span>Можно ко времени — например к 15:30. Но не раньше 9:00, это время открытия</span></li>
+      <li><i>—</i><span>Оплата онлайн, переводом, по QR-коду СБП или по ссылке</span></li>
+      <li><i>—</i><span id="pdFact4">Свяжемся до сборки: если какого-то цветка нет в наличии, согласуем замену</span></li>
+    </ul>
+
+    <div class="pd-note">
+      <i>*</i>
+      <p id="pdNote">Цветы приезжают новой поставкой каждую неделю, поэтому оттенок и объём бывают разными. Соберём в том же стиле и цветовой гамме.</p>
+    </div>
+  </div>
+</section>
+
+<!-- что едет вместе с букетом -->
+<section class="sec" id="incl">
+  <div class="sec-head">
+    <p class="eyebrow">Бесплатно</p>
+    <h2>К этому букету вы обязательно получите</h2>
+  </div>
+  <div class="incl">
+    <figure class="incl-i">
+      <div class="incl-pic"><img src="img/vhodit/otkrytka.jpg" alt="Открытка с подписью от руки" loading="lazy"></div>
+      <figcaption>Бесплатная открытка<span>Подпишем от руки, как продиктуете</span></figcaption>
+    </figure>
+    <figure class="incl-i">
+      <div class="incl-pic"><img src="img/vhodit/pamyatka.jpg" alt="Памятка по уходу за букетом" loading="lazy"></div>
+      <figcaption>Памятка по уходу<span>Что делать, чтобы букет стоял дольше</span></figcaption>
+    </figure>
+    <figure class="incl-i">
+      <div class="incl-pic"><img src="img/vhodit/podkormka.jpg" alt="Подкормка для срезанных цветов" loading="lazy"></div>
+      <figcaption>Подкормка для цветов<span>Пакетик в воду — и цветы живут дольше</span></figcaption>
+    </figure>
+    <figure class="incl-i">
+      <div class="incl-pic"><img src="img/boksy/box-1.jpg" alt="Фирменный бокс FOR YOU" loading="lazy"></div>
+      <figcaption>Упаковка и бокс<span>Довезём так, что ничего не помнётся</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- украсьте ваш букет -->
+<section class="sec sec-cream" id="deco">
+  <div class="sec-head">
+    <p class="eyebrow" id="decoEyebrow">Добавить к заказу</p>
+    <h2 id="decoTitle">Украсьте ваш букет</h2>
+    <p id="decoLead">Скажите при заказе — привезём одним подарком.</p>
+  </div>
+  <div class="deco-tabs" id="decoTabs"></div>
+  <div class="rail" id="decoRail"></div>
+  <p class="rail-hint">← листайте, чтобы увидеть остальные →</p>
+</section>
+
+<section class="sec" id="steps">
+  <div class="sec-head">
+    <p class="eyebrow">Как это работает</p>
+    <h2>Три шага до букета</h2>
+  </div>
+  <div class="steps">
+    <div class="step"><i>01</i><b>Пишете нам</b><span>Название букета из каталога или своя картинка — из Pinterest, от подруги, откуда угодно.</span></div>
+    <div class="step"><i>02</i><b>Говорим цену и срок</b><span>Подтверждаем стоимость и время доставки. Отвечаем обычно за несколько минут.</span></div>
+    <div class="step"><i>03</i><b>Собираем и привозим</b><span>Собираем в день заказа. Отвезём по адресу — по городу обычно за час — или заберёте сами с Юбилейной, 85Б.</span></div>
+  </div>
+</section>
+
+<section class="sec sec-cream">
+  <div class="sec-head">
+    <p class="eyebrow" id="simEyebrow">Из этой же гаммы</p>
+    <h2 id="simTitle">Похожие букеты</h2>
+  </div>
+  <div class="rail" id="similar"></div>
+  <p class="rail-hint">← листайте, чтобы увидеть остальные →</p>
+  <div class="sec-more"><a class="btn" id="simMore" href="katalog.html">Весь каталог</a></div>
+</section>
+
+<footer class="foot" id="dostavka">
+  <div class="foot-top">
+    <div>
+      <img src="img/logo-f.png" alt="FOR YOU">
+      <p style="margin:0 0 14px; max-width:30ch; font-size:13.5px; color:rgba(244,244,227,.8);">Бутик цветов в Тольятти. Юбилейная, 85Б, секция 33 — ежедневно 9:00 — 21:00, самовывоз и парковка.</p>
+      <a class="bonus" href="https://foryoutolyatty.posiflora.com/wallet-app/38f39294-3d4d-481f-baf4-3251ca246df0" target="_blank" rel="noopener">
+        <b>300 ₽</b><span>на счёт за регистрацию</span>
+      </a>
+    </div>
+    <div>
+      <h4>Каталог</h4>
+      <ul>
+        <li><a href="katalog.html">Букеты и композиции</a></li>
+        <li><a href="katalog.html#sezon">Сезонные цветы</a></li>
+        <li><a href="katalog.html#mono">Монобукеты</a></li>
+        <li><a href="katalog.html#svadba">Свадебные букеты</a></li>
+        <li><a href="shary.html">Шары</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Услуги</h4>
+      <ul>
+        <li><a href="podpiska.html">Цветочная подписка</a></li>
+        <li><a href="dvoih.html">Для двоих</a></li>
+        <li><a href="oformlenie.html">Оформление праздников</a></li>
+        <li>Доставка по городу от 300 ₽, посёлки — по договорённости</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Связаться</h4>
+      <ul>
+        <li><a href="tel:+79626144747">+7 (962) 614-47-47</a></li>
+        <li><a href="https://t.me/for_you_flower" target="_blank" rel="noopener">Telegram</a> · <a href="https://api.whatsapp.com/send/?phone=79626144747" target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="mailto:foryouflowersart@yandex.ru">foryouflowersart@yandex.ru</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© 2026 For You · Бутик цветов в Тольятти</span>
+    <span>Политика конфиденциальности</span>
+  </div>
+</footer>
+
+<!-- связаться -->
+<div class="fab" id="fab">
+  <div class="fab-list">
+    <a href="tel:+79626144747"><i>ПОЗВОНИТЬ</i> +7 (962) 614-47-47</a>
+    <a href="https://t.me/for_you_flower" target="_blank" rel="noopener"><i>TELEGRAM</i> Написать</a>
+    <a href="https://api.whatsapp.com/send/?phone=79626144747" target="_blank" rel="noopener"><i>WHATSAPP</i> Написать</a>
+  </div>
+  <button class="fab-btn" id="fabBtn" aria-label="Связаться с нами" aria-expanded="false">
+    <svg class="fab-ico" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/>
+    </svg>
+    <svg class="fab-close" viewBox="0 0 24 24" stroke-linecap="round">
+      <path d="M6 6l12 12M18 6L6 18"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+(function(){
+  var f=document.getElementById('fab'), b=document.getElementById('fabBtn');
+  b.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open=f.classList.toggle('open');
+    b.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', function(e){
+    if(!f.contains(e.target)){ f.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape'){ f.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+  });
+})();
+</script>
+
+<script>
+/* ── карточка товара собирается из data.js ─────────────
+   Данные всех разделов лежат в одном файле data.js.
+   Здесь только показ: что подписать и что скрыть. */
+(function(){
+  var SEC = {
+    buket:   {crumb:'Каталог',   href:'katalog.html',            comp:'Состав',      simEye:'Похожие по цене', simTitle:'Ещё букеты',            more:'Весь каталог',       moreHref:'katalog.html'},
+    svadba:  {crumb:'Свадебные', href:'katalog.html#svadba',     comp:'Состав',      simEye:'Букет невесты',   simTitle:'Другие свадебные',      more:'Все свадебные',      moreHref:'katalog.html#svadba'},
+    vaza:    {crumb:'Вазы',      href:'katalog.html#vaza',       comp:'Материал',    simEye:'К букету',        simTitle:'Другие вазы',           more:'Все вазы',           moreHref:'katalog.html#vaza'},
+    igrushka:{crumb:'Игрушки',   href:'katalog.html#igrushka',   comp:'Что входит',  simEye:'К букету',        simTitle:'Другие игрушки',        more:'Все игрушки',        moreHref:'katalog.html#igrushka'},
+    svecha:  {crumb:'Свечи',     href:'katalog.html#svecha',     comp:'Что входит',  simEye:'Для дома',        simTitle:'Свечи и спреи',         more:'Все свечи и спреи',  moreHref:'katalog.html#svecha'},
+    rastenie:{crumb:'Растения',  href:'katalog.html#rastenie',   comp:'Что входит',  simEye:'В горшке',        simTitle:'Другие растения',       more:'Все растения',       moreHref:'katalog.html#rastenie'},
+    suhocvet:{crumb:'Сухоцветы', href:'katalog.html#suhocvet', comp:'Что входит',  simEye:'Стоят годами',   simTitle:'Другие сухоцветы',      more:'Все сухоцветы',      moreHref:'katalog.html#suhocvet'},
+    shar:    {crumb:'Подарки',   href:'shary.html',              comp:'Что входит',  simEye:'К празднику',     simTitle:'Другие шары',           more:'Все шары и подарки', moreHref:'shary.html'},
+    korzina: {crumb:'Корзины',   href:'katalog.html#korzina',    comp:'Состав',      simEye:'Тоже в форме',    simTitle:'Другие композиции',     more:'Все корзины',        moreHref:'katalog.html#korzina'},
+    mono:    {crumb:'Монобукеты',href:'katalog.html#mono',       comp:'Что входит',  simEye:'Тоже поштучно',   simTitle:'Другие монобукеты',     more:'Все монобукеты',     moreHref:'katalog.html#mono'},
+    sezon:   {crumb:'Сезонные',  href:'katalog.html#sezon',      comp:'Что входит',  simEye:'Сезон сентября',  simTitle:'Другие сезонные цветы', more:'Все сезонные цветы', moreHref:'katalog.html#sezon'}
+  };
+
+  var NOTE = {
+    buket:   'Оттенок может немного отличаться от фото — цветы живые. Соберём в том же стиле и гамме, а если какого-то цветка не окажется, согласуем замену до сборки.',
+    svadba:  'Свадебный букет собираем под платье и под то, как вы себя в этот день видите. Приезжайте с фотографией — подберём форму, размер и оттенок. Бронировать лучше заранее.',
+    vaza:    'Размер — диаметр горлышка и высота. По нему видно, какой букет встанет: узкое горлышко держит форму, широкое подойдёт для объёмных композиций.',
+    igrushka:'Игрушку можно добавить к букету при заказе — привезём вместе и с открыткой.',
+    svecha:  'Соевый воск и деревянный фитиль: горит ровно, не коптит и не пахнет гарью. Аромат раскрывается за десять минут.',
+    rastenie:'Живое растение в горшке, упакуем как подарок. Отдаём в той упаковке, что на фото — или подберём бумагу под ваш цвет.',
+    shar:    'Цвета и оттенки подбираем под ваш повод — скажите, какая гамма нравится. Шары надуваем в день заказа, чтобы держались дольше.',
+    korzina: 'Композиция собрана во флористической губке: воду доливают прямо в неё, ставить в вазу не нужно. Оттенок может немного отличаться от фото — цветы живые и приходят разными поставками.',
+    mono:    'Цена указана за один цветок. Скажите количество — 9, 15, 25, 35, 51 или любое другое — посчитаем и соберём. Оттенок может немного отличаться от фото: цветы живые и приходят разными поставками.',
+    sezon:   'Сезонный цветок: продаём поштучно, цена за штуку. Оттенок зависит от того, что привезли на этой неделе — соберём в той же гамме, что на фото, и покажем перед сборкой.'
+  };
+
+  function priceLabel(x){
+    if(x.ask) return 'Уточним в переписке';
+    return (x.from ? 'от ' : '') + money(x.price) + (x.unit ? ' / ' + x.unit : '');
+  }
+
+  var id = new URLSearchParams(location.search).get('id');
+  var b  = byId(id) || PRODUCTS[1];
+  var sec = SEC[b.cat] || SEC.buket;
+
+  document.title = b.name + ' — FOR YOU · Тольятти';
+  document.getElementById('crumbName').textContent = b.name;
+  document.getElementById('pdName').textContent    = b.name;
+
+  /* цена: обычная, со скидкой или «уточним» */
+  var priceEl = document.getElementById('pdPrice');
+  if(b.out){
+    priceEl.textContent = 'Нет в наличии';
+  } else if(b.old){
+    priceEl.innerHTML = '<s>' + money(b.old) + '</s> ' + money(b.price) + ' <b class="pd-sale">−20 %</b>';
+  } else {
+    priceEl.textContent = priceLabel(b);
+  }
+
+  /* фото + галерея, если кадров несколько */
+  var img = document.getElementById('pdImg');
+  img.src = b.img; img.alt = b.name;
+  var shots = [b.img].concat(b.imgs || []);
+  if(shots.length > 1){
+    var strip = document.createElement('div');
+    strip.className = 'pd-shots';
+    shots.forEach(function(src, i){
+      var t = document.createElement('button');
+      t.className = 'pd-shot' + (i ? '' : ' on');
+      t.innerHTML = '<img src="' + src + '" alt="">';
+      t.addEventListener('click', function(){
+        img.src = src;
+        [].forEach.call(strip.children, function(c){ c.classList.remove('on'); });
+        t.classList.add('on');
+      });
+      strip.appendChild(t);
+    });
+    img.parentNode.parentNode.appendChild(strip);
+  }
+
+  var LEAD = {
+    buket:   'Соберём этот букет заново в день заказа — в том же стиле и цветовой гамме.',
+    svadba:  'Соберём под ваше платье и под то, как вы себя в этот день видите. Форму и размер подберём при встрече.',
+    vaza:    'Есть в наличии в бутике. Можно забрать самим или привезти вместе с букетом.',
+    igrushka:'Есть в наличии в бутике. Можно добавить к букету — привезём одним подарком, в общей упаковке.',
+    svecha:  'Своё производство: соевый воск и деревянный фитиль. Есть в наличии в бутике.',
+    rastenie:'Живое растение в горшке. Упакуем как подарок — скажите, в какой гамме.',
+    shar:    'Надуваем гелием в день заказа, чтобы держались дольше.'
+  };
+  document.getElementById('pdLead').textContent = b.lead || LEAD[b.cat] || LEAD.buket;
+
+  var FACT4 = {
+    buket:   'Свяжемся до сборки: если какого-то цветка нет в наличии, согласуем замену',
+    svadba:  'Свяжемся до сборки: если какого-то цветка нет в наличии, согласуем замену',
+    vaza:    'Упакуем в дорогу, чтобы довезти целой',
+    igrushka:'Цена уже со скидкой — она действует на все игрушки',
+    svecha:  'Аромат можно выбрать при заказе — покажем, что есть в наличии',
+    rastenie:'Цену назовём в переписке: она зависит от размера конкретного растения',
+    shar:    'Латексные шары обрабатываем составом, который держит гелий до трёх недель'
+  };
+  document.getElementById('pdFact4').textContent = FACT4[b.cat] || FACT4.buket;
+
+  /* ценовая ступень — только для букетов */
+  var tier = document.getElementById('pdTier');
+  var t = (b.cat === 'buket') ? tierOf(b) : null;
+  if(t) tier.textContent = t; else tier.style.display = 'none';
+
+  /* хлебные крошки и подписи раздела */
+  var crumb = document.getElementById('crumbSec');
+  crumb.textContent = sec.crumb; crumb.href = sec.href;
+  document.getElementById('compTitle').textContent = b.size ? 'Размер и материал' : sec.comp;
+  document.getElementById('simEyebrow').textContent = sec.simEye;
+  document.getElementById('simTitle').textContent   = sec.simTitle;
+  var more = document.getElementById('simMore');
+  more.textContent = sec.more; more.href = sec.moreHref;
+  document.getElementById('pdNote').textContent = NOTE[b.cat] || NOTE.buket;
+
+  /* подпись под ценой */
+  var pn = document.getElementById('pdPriceNote');
+  if(b.out)            pn.textContent = 'напишите — сообщим, когда привезём';
+  else if(b.ask)       pn.textContent = 'цену назовём в переписке — зависит от размера растения';
+  else if(b.unit)      pn.textContent = 'цена за штуку, связку считаем по количеству';
+  else if(b.old)       pn.textContent = 'цена уже со скидкой';
+  else if(b.cat === 'vaza' || b.cat === 'igrushka' || b.cat === 'svecha' || b.cat === 'rastenie') pn.textContent = 'цена за штуку';
+  else if(b.from)      pn.textContent = 'точную сумму подтвердим в переписке';
+  else                 pn.textContent = 'цена ориентировочная, подтвердим в переписке';
+
+  /* состав */
+  var chips = document.getElementById('pdChips');
+  var list = (b.comp || []).slice();
+  if(b.size) list.unshift(b.size);
+  if(b.season && b.season.length){
+    b.season.forEach(function(c){ list.push(c + ' · сезонный'); });
+  }
+  if(list.length){
+    chips.innerHTML = list.map(function(c){
+      return '<span' + (/сезонный$/.test(c) ? ' class="season"' : '') + '>' + c + '</span>';
+    }).join('');
+  } else {
+    chips.closest('.pd-comp').style.display = 'none';
+  }
+
+  /* нет в сезоне */
+  if(b.off){
+    var warn = document.createElement('p');
+    warn.className = 'pd-off';
+    warn.textContent = 'Сейчас не сезон для этих цветов — соберём похожий букет из того, что приехало на этой неделе.';
+    document.getElementById('pdLead').insertAdjacentElement('afterend', warn);
+  }
+
+  /* кнопки связи с готовым текстом */
+  var what = b.cat === 'buket' || b.cat === 'svadba' ? 'букет ' : '';
+  var msg = 'Здравствуйте! Хочу ' + what + '«' + b.name + '» с сайта'
+          + (b.ask || b.from ? '' : ' — ' + priceLabel(b)) + '. Подскажите, когда сможете собрать?';
+  document.getElementById('ctaWa').href = 'https://api.whatsapp.com/send/?phone=79626144747&text=' + encodeURIComponent(msg);
+  var tg = document.getElementById('ctaTg');
+  tg.href = 'https://t.me/for_you_flower';
+  if(b.id === 'avtorskiy')                     tg.textContent = 'Обсудить букет';
+  else if(b.out)                               tg.textContent = 'Сообщить, когда появится';
+  else if(b.ask)                               tg.textContent = 'Узнать цену';
+  else if(b.cat === 'shar')                    tg.textContent = 'Заказать шары';
+  else if(b.cat === 'buket' || b.cat === 'svadba') tg.textContent = 'Собрать похожий';
+  else                                         tg.textContent = 'Заказать';
+
+  /* похожие — ближайшие по цене в том же разделе */
+  var rest = PRODUCTS.filter(function(x){ return x.id!==b.id && x.id!=='avtorskiy' && x.cat===b.cat; })
+    .sort(function(x,y){ return Math.abs((x.price||0)-(b.price||0)) - Math.abs((y.price||0)-(b.price||0)); })
+    .slice(0,8)
+    .sort(function(x,y){ return (x.price||0)-(y.price||0); });
+
+  document.getElementById('similar').innerHTML = rest.map(function(x){
+    var pr = x.old ? '<s>'+money(x.old)+'</s> '+money(x.price) : priceLabel(x);
+    return '<a class="card" href="tovar.html?id='+x.id+'">'
+      + '<div class="frame">'+(x.old?'<b class="tag">−20 %</b>':'')+'<img src="'+x.img+'" alt="'+x.name+'" loading="lazy"></div>'
+      + '<h3 class="card-name">'+x.name+'</h3>'
+      + '<p class="card-comp">'+(x.size || (x.comp||[]).join(', '))+'</p>'
+      + '<span class="card-price">'+pr+'</span></a>';
+  }).join('');
+})();
+</script>
+
+
+<script>
+/* ── нижние блоки карточки ─────────────────────────────
+   У букетов: что входит в заказ + три шага + «Украсьте ваш букет».
+   У всего остального этих блоков нет — вместо них показываем,
+   что ещё есть в бутике, и предлагаем добрать букет. */
+(function(){
+  var tabsEl = document.getElementById('decoTabs');
+  var railEl = document.getElementById('decoRail');
+  if(!tabsEl) return;
+
+  var id = new URLSearchParams(location.search).get('id');
+  var b  = byId(id) || PRODUCTS[1];
+  var isFlowers = ['buket','svadba','mono','sezon','korzina'].indexOf(b.cat) !== -1;
+
+  /* «что входит в заказ» и «три шага» — только там, где заказывают цветы */
+  ['incl','steps'].forEach(function(sec){
+    var el = document.getElementById(sec);
+    if(el) el.hidden = !isFlowers;
+  });
+
+  /* дополнения всегда одни и те же: то, что реально докупают к подарку.
+     Свой раздел из вкладок убираем — незачем предлагать то же самое. */
+  var TABS = [
+    {cat:'shar',     name:'Шары'},
+    {cat:'svecha',   name:'Свечи и спреи'},
+    {cat:'vaza',     name:'Вазы'},
+    {cat:'igrushka', name:'Игрушки'},
+    {cat:'rastenie', name:'Растения'}
+  ].filter(function(t){ return t.cat !== b.cat; });
+
+  if(!isFlowers){
+    document.getElementById('decoEyebrow').textContent = 'Чаще всего берут вместе';
+    document.getElementById('decoTitle').textContent   = 'Дополните подарок';
+  }
+
+  var cur = TABS[0].cat;
+  TABS.forEach(function(t){
+    var a = document.createElement('button');
+    a.className = 'deco-tab' + (t.cat===cur ? ' on' : '');
+    a.type = 'button'; a.textContent = t.name;
+    a.addEventListener('click', function(){ cur = t.cat; draw(); });
+    tabsEl.appendChild(a);
+  });
+  function draw(){
+    [].forEach.call(tabsEl.children, function(el,i){
+      el.classList.toggle('on', TABS[i].cat === cur);
+    });
+    render(inCat(cur).filter(function(x){ return x.id !== b.id; })
+                     .slice().sort(function(x,y){ return (x.price||0)-(y.price||0); }));
+  }
+  draw();
+
+  function render(list){
+    railEl.innerHTML = list.map(function(x){
+      var pr = x.old ? '<s>'+money(x.old)+'</s> '+money(x.price)
+             : (x.from?'от ':'') + money(x.price) + (x.unit?' / '+x.unit:'');
+      return '<a class="card" href="tovar.html?id='+x.id+'">'
+        + '<div class="frame">'+(x.old?'<b class="tag">−20 %</b>':'')
+        + '<img src="'+x.img+'" alt="'+x.name+'" loading="lazy"></div>'
+        + '<h3 class="card-name">'+x.name+'</h3>'
+        + (x.size?'<p class="card-comp">'+x.size+'</p>':'')
+        + '<span class="card-price">'+pr+'</span></a>';
+    }).join('');
+  }
+})();
+</script>
+
+<!-- ползунок-цветок -->
+<div class="scrl" id="scrl">
+  <div class="scrl-line"></div>
+  <button class="scrl-f" id="scrlF" aria-label="Прокрутка страницы">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#C0233A">
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(60 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(120 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(180 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(240 12 12)"/>
+        <ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(300 12 12)"/>
+      </g>
+      <circle cx="12" cy="12" r="3.1" fill="#FAE08E"/>
+      <circle cx="12" cy="12" r="3.1" fill="none" stroke="#C0233A" stroke-opacity=".35"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+/* ── цветок едет по стеблю вместо полосы прокрутки ──── */
+(function(){
+  var f = document.getElementById('scrlF');
+  if(!f) return;
+  var PAD_TOP = .13, PAD_BOT = .24;  /* совпадает с top/bottom у .scrl-line */
+  var max = 1, a = 0, b = 0;
+
+  function measure(){
+    var h = innerHeight;
+    a = h * PAD_TOP; b = h * (1 - PAD_BOT);
+    max = Math.max(1, document.documentElement.scrollHeight - h);
+  }
+  function draw(){
+    var p = Math.min(1, Math.max(0, scrollY / max));
+    f.style.top = (a + (b - a) * p) + 'px';
+    f.style.transform = 'rotate(' + (p * 150) + 'deg)';
+  }
+  function refresh(){ measure(); draw(); }
+
+  addEventListener('scroll', draw, {passive:true});
+  addEventListener('resize', refresh);
+  addEventListener('load', refresh);
+  /* фотографии догружаются и меняют высоту страницы */
+  if(window.ResizeObserver) new ResizeObserver(refresh).observe(document.body);
+  refresh();
+
+  var dragging = false;
+  function toScroll(y){
+    var p = (y - a) / (b - a);
+    scrollTo(0, Math.min(1, Math.max(0, p)) * max);
+  }
+  f.addEventListener('pointerdown', function(e){
+    dragging = true; f.setPointerCapture(e.pointerId); e.preventDefault();
+  });
+  f.addEventListener('pointermove', function(e){ if(dragging) toScroll(e.clientY); });
+  f.addEventListener('pointerup',     function(){ dragging = false; });
+  f.addEventListener('pointercancel', function(){ dragging = false; });
+  f.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      scrollBy(0, e.key === 'ArrowDown' ? innerHeight * .6 : -innerHeight * .6);
+    }
+  });
+})();
+</script>
+
+
+<script>
+/* ── ленты листаются цветком, а не подсказкой ───────── */
+(function(){
+  var SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">'
+    + '<g fill="#C0233A">'
+    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5"/>'
+    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(60 12 12)"/>'
+    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(120 12 12)"/>'
+    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(180 12 12)"/>'
+    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(240 12 12)"/>'
+    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(300 12 12)"/>'
+    + '</g><circle cx="12" cy="12" r="3.1" fill="#FAE08E"/></svg>';
+
+  [].forEach.call(document.querySelectorAll('.rail-hint'), function(hint){
+    var box = hint.previousElementSibling;
+    if(!box) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'hscrl';
+    var line = document.createElement('div'); line.className = 'hscrl-line';
+    var f = document.createElement('button');
+    f.className = 'hscrl-f'; f.type = 'button';
+    f.setAttribute('aria-label', 'Листать');
+    f.innerHTML = SVG;
+    wrap.appendChild(line); wrap.appendChild(f);
+    hint.parentNode.replaceChild(wrap, hint);
+
+    function span(){ return wrap.clientWidth; }
+    function maxScroll(){ return Math.max(0, box.scrollWidth - box.clientWidth); }
+    function draw(){
+      var max = maxScroll();
+      wrap.classList.toggle('on', max > 4);          /* нечего листать — цветка нет */
+      if(max <= 4) return;
+      var p = Math.min(1, Math.max(0, box.scrollLeft / max));
+      f.style.left = (p * span()) + 'px';
+      f.style.transform = 'rotate(' + (p * 150) + 'deg)';
+    }
+    box.addEventListener('scroll', draw, {passive:true});
+    addEventListener('resize', draw);
+    if(window.ResizeObserver) new ResizeObserver(draw).observe(box);
+    draw();
+
+    var dragging = false;
+    function toScroll(x){
+      var r = wrap.getBoundingClientRect();
+      var p = (x - r.left) / (r.width || 1);
+      box.scrollLeft = Math.min(1, Math.max(0, p)) * maxScroll();
+    }
+    f.addEventListener('pointerdown', function(e){
+      dragging = true; f.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    f.addEventListener('pointermove', function(e){ if(dragging) toScroll(e.clientX); });
+    f.addEventListener('pointerup',     function(){ dragging = false; });
+    f.addEventListener('pointercancel', function(){ dragging = false; });
+  });
+})();
+</script>
+
+</body>
+</html>

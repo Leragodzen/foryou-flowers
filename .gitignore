@@ -1,0 +1,18 @@
+# На гитхаб уезжает только сам сайт.
+# Всё остальное — исходные фото, брифы, ТЗ, скриншоты — остаётся на компьютере.
+
+*
+
+!.gitignore
+!index.html
+!katalog.html
+!tovar.html
+!shary.html
+!podpiska.html
+!dvoih.html
+!oformlenie.html
+!data.js
+!Открыть сайт.command
+
+!img/
+!img/**
