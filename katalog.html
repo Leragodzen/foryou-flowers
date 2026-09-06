@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Каталог букетов — FOR YOU · Тольятти</title>
+<meta name="description" content="Каталог букетов For You: авторские и сборные букеты, сезонные цветы поштучно, монобукеты, корзины, свадебные букеты, вазы, свечи и шары. Тольятти, доставка за час.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FOR YOU — бутик цветов">
+<meta property="og:title" content="Каталог букетов — FOR YOU">
+<meta property="og:description" content="Каталог букетов For You: авторские и сборные букеты, сезонные цветы поштучно, монобукеты, корзины, свадебные букеты, вазы, свечи и шары. Тольятти, доставка за час.">
+<meta property="og:image" content="https://leragodzen.github.io/foryou-flowers/img/share.jpg">
+<meta property="og:url" content="https://leragodzen.github.io/foryou-flowers/katalog.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#194235">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Marck+Script&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -251,7 +262,9 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 /* ленты фильтров */
 #cats,#filters{
   display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory;
-  padding:4px var(--pad) 10px; margin:0 calc(-1 * var(--pad));
+  padding:4px var(--pad) 10px;
+  /* лента во всю ширину экрана, но без горизонтальной прокрутки страницы */
+  width:100vw; max-width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
   -ms-overflow-style:none; scrollbar-width:none;
 }
 #cats::-webkit-scrollbar,#filters::-webkit-scrollbar{display:none;}
@@ -575,7 +588,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 <section class="sec" id="grid" style="padding-top:clamp(24px,3vw,40px)">
 
   <div class="author" id="authorBlock">
-    <div class="author-pic"><img src="img/katalog/fistashka.jpg" alt="Авторский букет For You"></div>
+    <div class="author-pic"><img src="img/katalog/fistashka.jpg" alt="Авторский букет For You" loading="lazy" decoding="async"></div>
     <div class="author-txt">
       <p class="eyebrow">Собираем под вас</p>
       <h2>Авторский букет</h2>

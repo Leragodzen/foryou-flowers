@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Букет — FOR YOU · Тольятти</title>
+<meta name="description" content="Букет из каталога бутика For You в Тольятти: состав, цена, доставка по городу за час. Соберём такой же или похожий по вашей картинке.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FOR YOU — бутик цветов">
+<meta property="og:title" content="Букет — FOR YOU">
+<meta property="og:description" content="Букет из каталога бутика For You в Тольятти: состав, цена, доставка по городу за час. Соберём такой же или похожий по вашей картинке.">
+<meta property="og:image" content="https://leragodzen.github.io/foryou-flowers/img/share.jpg">
+<meta property="og:url" content="https://leragodzen.github.io/foryou-flowers/tovar.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#194235">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prata&family=Marck+Script&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -635,7 +646,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 
 <section class="pd">
   <div class="pd-gal">
-    <div class="frame"><img id="pdImg" src="img/katalog/vanil.jpg" alt=""></div>
+    <div class="frame"><img id="pdImg" src="img/katalog/vanil.jpg" alt="" loading="lazy" decoding="async"></div>
   </div>
 
   <div class="pd-info">
@@ -873,7 +884,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     shots.forEach(function(src, i){
       var t = document.createElement('button');
       t.className = 'pd-shot' + (i ? '' : ' on');
-      t.innerHTML = '<img src="' + src + '" alt="">';
+      t.innerHTML = '<img src="' + src + '" alt="" loading="lazy" decoding="async">';
       t.addEventListener('click', function(){
         img.src = src;
         [].forEach.call(strip.children, function(c){ c.classList.remove('on'); });
