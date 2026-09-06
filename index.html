@@ -148,7 +148,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 
 /* ── плавающая связь ───────────────────── */
 .fab{
-  position:fixed; right:6px; bottom:clamp(14px,2vw,28px); z-index:90;
+  position:fixed; right:clamp(14px,1.8vw,26px); bottom:clamp(16px,2vw,28px); z-index:90;
   display:flex; flex-direction:column; align-items:flex-end;
 }
 .fab-list{
@@ -206,7 +206,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 /* ── первый экран ──────────────────────── */
 .hero{display:grid; grid-template-columns:1.05fr .95fr; min-height:clamp(420px,54vw,560px);}
 .hero-pic{position:relative; overflow:hidden; background:#E6DED2;}
-.hero-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 46%;}
+.hero-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:38% 50%;}
 .hero-txt{
   background:var(--butter); color:var(--ink);
   padding:clamp(28px,4.4vw,64px);
@@ -331,6 +331,10 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .season-txt .btn{align-self:flex-start; border-color:var(--ink); color:var(--ink);}
 .season-txt .btn:hover{background:var(--ink); color:var(--butter);}
 .season-pic{position:relative; overflow:hidden; min-height:280px;}
+@media (min-width:861px){
+  .season-pic{order:2;}
+  .season-txt{order:1;}
+}
 .season-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
 
 /* ── соберём по картинке ───────────────── */
@@ -607,7 +611,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 
 <!-- первый экран -->
 <section class="hero">
-  <div class="hero-pic"><img src="img/banners/hero-red-crop.jpg" alt="Авторский букет For You"></div>
+  <div class="hero-pic"><img src="img/banners/hero-buket.jpg" alt="Авторский букет For You в фирменной упаковке"></div>
   <div class="hero-txt">
     <p class="eyebrow">Бутик цветов · Тольятти</p>
     <h1>Букеты, которые говорят за вас</h1>
@@ -632,7 +636,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div class="sec-head">
     <p class="eyebrow">Каталог</p>
     <h2>Что у нас есть</h2>
-    <p>Букет — это только начало. Соберём подарок целиком: цветы, вазу к ним, свечу, шары на праздник — и привезём одним заказом. Вам останется только вручить.</p>
+    <p>Букеты — то, ради чего мы здесь. Каждый собираем вручную и по-своему: следим за тем, что сейчас в моде у флористов, продумываем форму, сочетание оттенков и упаковку до последней ленты. Один букет — одна история, и она про вашего человека.</p>
   </div>
   <div class="tiles">
     <a class="tile" href="katalog.html"><div class="frame"><img src="img/katalog/rozovyi-barhat.jpg" alt="Букеты"></div><div><b>Букеты</b><span>Авторские и сборные</span></div></a>
@@ -679,7 +683,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div class="wed-head">
     <p class="eyebrow">Свадебная флористика</p>
     <h2>День, к которому готовятся год</h2>
-    <p>Собираем букет невесты под платье и под то, как вы себя в этот день видите. Приезжайте — форму, размер и оттенок подберём на месте. Или выберите готовый вариант из наших.</p>
+    <p>Собираем букет невесты под платье и под то, как вы себя в этот день видите. Приезжайте или напишите нам — форму, размер и оттенок подберём для вас. Или выберите готовый вариант из наших.</p>
     <a href="katalog.html#svadba" class="btn">Свадебные букеты · от 2 700 ₽</a>
   </div>
   <div class="wed-grid">
