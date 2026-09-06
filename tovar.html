@@ -584,6 +584,14 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   .pd-info{position:static;}
   .steps{grid-template-columns:1fr;}
 }
+/* мобильные правила держим последними — иначе их перебивают правила ниже */
+@media (max-width:700px){
+  .incl{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:560px){
+  .pd-cta{flex-direction:column;}
+  .pd-cta .btn{flex:1 1 auto; width:100%; padding-left:18px; padding-right:18px;}
+}
 </style>
 <script src="data.js"></script>
 </head>
@@ -880,7 +888,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     buket:   'Соберём этот букет заново в день заказа — в том же стиле и цветовой гамме.',
     svadba:  'Соберём под ваше платье и под то, как вы себя в этот день видите. Форму и размер подберём при встрече.',
     vaza:    'Есть в наличии в бутике. Можно забрать самим или привезти вместе с букетом.',
-    igrushka:'Есть в наличии в бутике. Можно добавить к букету — привезём одним подарком, в общей упаковке.',
+    igrushka:'Есть в наличии в бутике. Можно добавить к букету — привезём одним подарком.',
     svecha:  'Своё производство: соевый воск и деревянный фитиль. Есть в наличии в бутике.',
     rastenie:'Живое растение в горшке. Упакуем как подарок — скажите, в какой гамме.',
     shar:    'Надуваем гелием в день заказа, чтобы держались дольше.'
@@ -982,7 +990,9 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 
   var id = new URLSearchParams(location.search).get('id');
   var b  = byId(id) || PRODUCTS[1];
-  var isFlowers = ['buket','svadba','mono','sezon','korzina'].indexOf(b.cat) !== -1;
+  /* цветочные разделы — им предлагаем дополнения;
+     подарочные (вазы, свечи, шары, игрушки, растения) — им предлагаем букет */
+  var isFlowers = ['buket','svadba','mono','sezon','korzina','suhocvet'].indexOf(b.cat) !== -1;
 
   /* «что входит в заказ» и «три шага» — только там, где заказывают цветы */
   ['incl','steps'].forEach(function(sec){
@@ -990,37 +1000,50 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     if(el) el.hidden = !isFlowers;
   });
 
-  /* дополнения всегда одни и те же: то, что реально докупают к подарку.
-     Свой раздел из вкладок убираем — незачем предлагать то же самое. */
-  var TABS = [
-    {cat:'shar',     name:'Шары'},
-    {cat:'svecha',   name:'Свечи и спреи'},
-    {cat:'vaza',     name:'Вазы'},
-    {cat:'igrushka', name:'Игрушки'},
-    {cat:'rastenie', name:'Растения'}
-  ].filter(function(t){ return t.cat !== b.cat; });
+  if(isFlowers){
+    var TABS = [
+      {cat:'shar',     name:'Шары'},
+      {cat:'svecha',   name:'Свечи и спреи'},
+      {cat:'vaza',     name:'Вазы'},
+      {cat:'igrushka', name:'Игрушки'},
+      {cat:'rastenie', name:'Растения'}
+    ].filter(function(t){ return t.cat !== b.cat; });
 
-  if(!isFlowers){
-    document.getElementById('decoEyebrow').textContent = 'Чаще всего берут вместе';
-    document.getElementById('decoTitle').textContent   = 'Дополните подарок';
-  }
-
-  var cur = TABS[0].cat;
-  TABS.forEach(function(t){
-    var a = document.createElement('button');
-    a.className = 'deco-tab' + (t.cat===cur ? ' on' : '');
-    a.type = 'button'; a.textContent = t.name;
-    a.addEventListener('click', function(){ cur = t.cat; draw(); });
-    tabsEl.appendChild(a);
-  });
-  function draw(){
-    [].forEach.call(tabsEl.children, function(el,i){
-      el.classList.toggle('on', TABS[i].cat === cur);
+    var cur = TABS[0].cat;
+    TABS.forEach(function(t){
+      var a = document.createElement('button');
+      a.className = 'deco-tab' + (t.cat===cur ? ' on' : '');
+      a.type = 'button'; a.textContent = t.name;
+      a.addEventListener('click', function(){ cur = t.cat; draw(); });
+      tabsEl.appendChild(a);
     });
-    render(inCat(cur).filter(function(x){ return x.id !== b.id; })
-                     .slice().sort(function(x,y){ return (x.price||0)-(y.price||0); }));
+    function draw(){
+      [].forEach.call(tabsEl.children, function(el,i){
+        el.classList.toggle('on', TABS[i].cat === cur);
+      });
+      render(inCat(cur).filter(function(x){ return x.id !== b.id; })
+                       .slice().sort(function(x,y){ return (x.price||0)-(y.price||0); }));
+    }
+    draw();
+    return;
   }
-  draw();
+
+  /* ── подарок без цветов: показываем букеты ── */
+  document.getElementById('decoEyebrow').textContent = 'Чаще всего берут вместе';
+  document.getElementById('decoTitle').textContent   = 'Дополните букетом';
+  document.getElementById('decoLead').textContent    =
+    'Отдельно это хороший подарок, а с букетом — уже событие. Скажите при заказе — привезём одним подарком.';
+  tabsEl.hidden = true;
+
+  /* букеты по всей вилке цен, от недорогого к дорогому */
+  var buk = inCat('buket').filter(function(x){ return x.id !== 'avtorskiy' && x.price; })
+                          .concat(inCat('korzina').filter(function(x){ return x.price; }))
+                          .sort(function(x,y){ return x.price - y.price; });
+  var picks = [];
+  for(var k = 0; k < 8 && buk.length; k++){
+    picks.push(buk[Math.round(k * (buk.length - 1) / 7)]);
+  }
+  render(picks.filter(function(x,i,a){ return a.indexOf(x) === i; }));
 
   function render(list){
     railEl.innerHTML = list.map(function(x){
