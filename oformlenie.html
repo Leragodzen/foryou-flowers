@@ -12,25 +12,25 @@
 <meta property="og:image" content="https://leragodzen.github.io/foryou-flowers/img/share.jpg">
 <meta property="og:url" content="https://leragodzen.github.io/foryou-flowers/oformlenie.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#140F0D">
+<meta name="theme-color" content="#194235">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Onest:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Marck+Script&family=Onest:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#140F0D;
-  --green-2:#221816;
-  --green-dk:#0B0807;
-  --cream:#EDE4D9;
-  --cream-dim:rgba(237,228,217,.66);
-  --rose:#C99A9A;
-  --red:#C0233A;
-  --line:rgba(237,228,217,.16);
+  --green:#14342A;
+  --green-2:#1B4236;
+  --green-dk:#0E241D;
+  --cream:#F4F4E3;
+  --cream-dim:rgba(244,244,227,.66);
+  --butter:#FAE08E;
+  --line:rgba(244,244,227,.14);
 
   --display:"Prata",Georgia,serif;
   --script:"Cormorant Garamond",Georgia,serif;
+  --hand:"Marck Script",cursive;
   --ui:"Onest",-apple-system,"Helvetica Neue",sans-serif;
 
   --pad:clamp(20px,5vw,80px);
@@ -70,8 +70,8 @@ html::-webkit-scrollbar{width:0; height:0; display:none;}
 @media (prefers-reduced-motion:reduce){ .scrl-f svg{transition:none;} }
 /* стебель на тёмном фоне — светлый */
 .scrl-line{background:linear-gradient(to bottom,
-  rgba(237,228,217,0) 0%, rgba(237,228,217,.26) 10%,
-  rgba(237,228,217,.26) 90%, rgba(237,228,217,0) 100%);}
+  rgba(244,244,227,0) 0%, rgba(244,244,227,.26) 10%,
+  rgba(244,244,227,.26) 90%, rgba(244,244,227,0) 100%);}
 html,body{overflow-x:hidden;}
 body{
   margin:0; background:var(--green); color:var(--cream);
@@ -83,11 +83,11 @@ a{color:inherit; text-decoration:none;}
 
 .eyebrow{
   font-family:var(--ui); font-size:11px; font-weight:500;
-  letter-spacing:.28em; text-transform:uppercase; color:var(--rose);
+  letter-spacing:.28em; text-transform:uppercase; color:var(--butter);
   margin:0;
 }
 .script{font-family:var(--script); font-style:italic; font-weight:400;}
-.hand{font-family:var(--script); font-style:italic; font-weight:400; color:var(--rose);}
+.hand{font-family:var(--hand); font-weight:400; color:var(--butter);}
 
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
@@ -96,8 +96,8 @@ a{color:inherit; text-decoration:none;}
   padding:17px 34px; border:1px solid transparent; border-radius:999px;
   transition:background .3s ease, color .3s ease, border-color .3s ease;
 }
-.btn-solid{background:var(--red); color:#fff;}
-.btn-solid:hover{background:#9E1B2F;}
+.btn-solid{background:var(--butter); color:var(--green-dk);}
+.btn-solid:hover{background:#F7D26A;}
 .btn-line{border-color:var(--line); color:var(--cream);}
 .btn-line:hover{background:var(--cream); color:var(--green-dk); border-color:var(--cream);}
 
@@ -124,7 +124,7 @@ a{color:inherit; text-decoration:none;}
   font-size:clamp(34px,5.4vw,70px); line-height:1.08;
   margin:14px 0 20px; letter-spacing:-.005em;
 }
-.hero p{margin:0 0 30px; max-width:50ch; color:rgba(237,228,217,.88); font-size:17px;}
+.hero p{margin:0 0 30px; max-width:50ch; color:rgba(244,244,227,.88); font-size:17px;}
 .hero-cta{display:flex; flex-wrap:wrap; gap:12px;}
 
 /* ── секции ────────────────────────────── */
@@ -174,11 +174,11 @@ a{color:inherit; text-decoration:none;}
 .lb-btn{
   position:absolute; top:50%; transform:translateY(-50%);
   width:52px; height:52px; border-radius:50%; padding:0;
-  border:1px solid rgba(237,228,217,.28); background:rgba(14,36,29,.55);
+  border:1px solid rgba(244,244,227,.28); background:rgba(14,36,29,.55);
   color:var(--cream); display:grid; place-items:center; cursor:pointer;
   transition:background .22s ease, border-color .22s ease;
 }
-.lb-btn:hover{background:rgba(237,228,217,.16); border-color:rgba(237,228,217,.5);}
+.lb-btn:hover{background:rgba(244,244,227,.16); border-color:rgba(244,244,227,.5);}
 .lb-prev{left:clamp(8px,2.4vw,34px);}
 .lb-next{right:clamp(8px,2.4vw,34px);}
 .lb-close{top:clamp(12px,2.4vw,28px); right:clamp(12px,2.4vw,28px); transform:none;}
@@ -197,14 +197,14 @@ a{color:inherit; text-decoration:none;}
   font-family:var(--display); font-weight:400;
   font-size:clamp(26px,3.6vw,46px); line-height:1.14; margin:16px 0 16px;
 }
-.band-in p{margin:0 auto; color:rgba(237,228,217,.84); max-width:52ch;}
+.band-in p{margin:0 auto; color:rgba(244,244,227,.84); max-width:52ch;}
 
 /* ── как это работает ──────────────────── */
 .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(16px,2.4vw,34px);}
 .step{border-top:1px solid var(--line); padding-top:22px;}
 .step i{
   font-style:normal; font-family:var(--display); font-size:30px;
-  color:var(--rose); display:block; margin-bottom:12px; line-height:1;
+  color:var(--butter); display:block; margin-bottom:12px; line-height:1;
 }
 .step b{display:block; font-family:var(--display); font-weight:400; font-size:19px; margin-bottom:8px;}
 .step span{font-size:14px; color:var(--cream-dim);}
@@ -220,8 +220,8 @@ a{color:inherit; text-decoration:none;}
 .price-text h2{font-family:var(--display); font-weight:400; font-size:clamp(26px,3.2vw,42px); line-height:1.12; margin:8px 0 0;}
 .price-text p{margin:0; color:var(--cream-dim); max-width:46ch;}
 .price-text ul{list-style:none; margin:4px 0 0; padding:0;}
-.price-text li{position:relative; padding-left:20px; margin-bottom:10px; font-size:14.5px; color:rgba(237,228,217,.88);}
-.price-text li::before{content:""; position:absolute; left:0; top:.62em; width:6px; height:6px; border-radius:50%; background:var(--rose); opacity:.9;}
+.price-text li{position:relative; padding-left:20px; margin-bottom:10px; font-size:14.5px; color:rgba(244,244,227,.88);}
+.price-text li::before{content:""; position:absolute; left:0; top:.62em; width:6px; height:6px; border-radius:50%; background:var(--butter); opacity:.85;}
 .price-text .btn{align-self:flex-start; margin-top:10px;}
 
 /* ── финал ─────────────────────────────── */
@@ -229,7 +229,7 @@ a{color:inherit; text-decoration:none;}
 .final h2{font-family:var(--display); font-weight:400; font-size:clamp(28px,4.4vw,54px); line-height:1.12; margin:0 0 18px;}
 .final p{margin:0 auto 30px; color:var(--cream-dim); max-width:48ch;}
 .final .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
-.final .addr{margin-top:26px; font-size:13.5px; color:rgba(237,228,217,.5);}
+.final .addr{margin-top:26px; font-size:13.5px; color:rgba(244,244,227,.5);}
 
 @media (max-width:1000px){
   .what{grid-template-columns:1fr 1fr;}
