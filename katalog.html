@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Marck+Script&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --green:#194235;
@@ -31,7 +31,7 @@
   --red:#C0233A;
 
   --display:"Prata",Georgia,serif;
-  --hand:"Marck Script",cursive;
+  --hand:"Cormorant Garamond",Georgia,serif;
   --ui:"Onest",-apple-system,"Helvetica Neue",sans-serif;
   --pad:clamp(18px,4vw,64px);
 }
@@ -108,7 +108,8 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 .ann::before{left:0;} .ann::after{right:0;}
 .ann-hand{
-  font-family:var(--hand); font-size:clamp(19px,2vw,24px);
+  font-family:var(--hand); font-style:italic; font-weight:600;
+  font-size:clamp(22px,2.3vw,29px); letter-spacing:.005em;
   line-height:1; color:var(--butter); white-space:nowrap;
   padding-bottom:3px;
 }
@@ -219,14 +220,19 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .hero-pic{position:relative; overflow:hidden; background:#E6DED2;}
 .hero-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 46%;}
 .hero-txt{
-  background:var(--butter); color:var(--ink);
+  /* пыльная роза с мягким переливом — вместо плоского жёлтого */
+  background:
+    radial-gradient(125% 95% at 14% 6%, #FCF1EE 0%, rgba(252,241,238,0) 56%),
+    radial-gradient(85% 70% at 96% 98%, #D9A9A8 0%, rgba(217,169,168,0) 62%),
+    linear-gradient(157deg, #F7E6E2 0%, #EFD2CE 48%, #E0B7B5 100%);
+  color:var(--ink);
   padding:clamp(28px,4.4vw,64px);
   display:flex; flex-direction:column; justify-content:center; gap:16px;
 }
 .hero-txt h1{font-size:clamp(30px,4.2vw,54px); line-height:1.06; margin:0;}
 .hero-txt p{margin:0; max-width:40ch; color:#3E3A2A; font-size:15.5px;}
 .hero-txt .btn{align-self:flex-start; border-color:var(--ink); color:var(--ink); margin-top:6px;}
-.hero-txt .btn:hover{background:var(--ink); color:var(--butter);}
+.hero-txt .btn:hover{background:var(--ink); color:#FCF1EE;}
 
 /* ── секции ────────────────────────────── */
 .sec{padding:clamp(46px,6vw,92px) var(--pad);}
@@ -384,13 +390,17 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 /* ── сезонный баннер ───────────────────── */
 .season{
   display:grid; grid-template-columns:.9fr 1.1fr; align-items:stretch;
-  background:var(--butter);
+  /* тот же перелив, зеркально — чтобы блоки перекликались, а не повторялись */
+  background:
+    radial-gradient(110% 85% at 92% 10%, #FCF1EE 0%, rgba(252,241,238,0) 58%),
+    radial-gradient(80% 65% at 6% 96%, #D7A4A4 0%, rgba(215,164,164,0) 60%),
+    linear-gradient(203deg, #F5E1DD 0%, #ECCBC8 52%, #DCB0AF 100%);
 }
 .season-txt{padding:clamp(28px,4.4vw,68px); display:flex; flex-direction:column; justify-content:center; gap:14px;}
 .season-txt h2{font-size:clamp(26px,3.4vw,42px); line-height:1.1; margin:0;}
 .season-txt p{margin:0; max-width:42ch; color:#3E3A2A;}
 .season-txt .btn{align-self:flex-start; border-color:var(--ink); color:var(--ink);}
-.season-txt .btn:hover{background:var(--ink); color:var(--butter);}
+.season-txt .btn:hover{background:var(--ink); color:#FCF1EE;}
 .season-pic{position:relative; overflow:hidden; min-height:280px;}
 .season-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
 
