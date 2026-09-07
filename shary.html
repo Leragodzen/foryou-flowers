@@ -12,26 +12,29 @@
 <meta property="og:image" content="https://leragodzen.github.io/foryou-flowers/img/share.jpg">
 <meta property="og:url" content="https://leragodzen.github.io/foryou-flowers/shary.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#194235">
+<meta name="theme-color" content="#140F0D">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Marck+Script&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#194235;
-  --green-dk:#123127;
-  --cream:#F4F4E3;
-  --butter:#FAE08E;
-  --ink:#121212;
-  --muted:#5C5A50;
-  --line:rgba(25,66,53,.22);
+  /* палитра бутика: крафт, пыльная роза, тёплая тёмная база */
+  --dark:#140F0D;
+  --dark-2:#241A17;
+  --cream:#EDE4D9;
+  --blush:#F2E3DF;
+  --rose:#C99A9A;
+  --rose-dk:#A8776F;
+  --ink:#231A16;
+  --muted:#6E5F57;
+  --line:rgba(35,26,22,.16);
   --white:#FFFFFF;
   --red:#C0233A;
 
   --display:"Prata",Georgia,serif;
-  --hand:"Marck Script",cursive;
+  --script:"Cormorant Garamond",Georgia,serif;
   --ui:"Onest",-apple-system,"Helvetica Neue",sans-serif;
   --pad:clamp(18px,4vw,64px);
 }
@@ -47,8 +50,8 @@ html::-webkit-scrollbar{width:0; height:0; display:none;}
 .scrl-line{
   position:absolute; left:50%; margin-left:-1px; top:13vh; bottom:24vh; width:2px;
   background:linear-gradient(to bottom,
-    rgba(25,66,53,0) 0%, rgba(25,66,53,.22) 10%,
-    rgba(25,66,53,.22) 90%, rgba(25,66,53,0) 100%);
+    rgba(35,26,22,0) 0%, rgba(35,26,22,.22) 10%,
+    rgba(35,26,22,.22) 90%, rgba(35,26,22,0) 100%);
 }
 .scrl-f{
   position:absolute; left:50%; top:0; width:28px; height:28px;
@@ -79,23 +82,23 @@ a{color:inherit; text-decoration:none;}
 h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005em;}
 .eyebrow{
   font-size:11px; font-weight:500; letter-spacing:.22em;
-  text-transform:uppercase; color:var(--green); margin:0;
+  text-transform:uppercase; color:var(--rose-dk); margin:0;
 }
 
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
   font-size:12.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
-  padding:15px 30px; border-radius:999px; border:1px solid var(--green);
-  color:var(--green); background:transparent; cursor:pointer;
+  padding:15px 30px; border-radius:999px; border:1px solid var(--dark);
+  color:var(--dark); background:transparent; cursor:pointer;
   transition:background .28s ease, color .28s ease;
 }
-.btn:hover{background:var(--green); color:var(--cream);}
-.btn-solid{background:var(--green); color:var(--cream);}
-.btn-solid:hover{background:var(--green-dk); color:var(--cream);}
+.btn:hover{background:var(--dark); color:var(--cream);}
+.btn-solid{background:var(--dark); color:var(--cream);}
+.btn-solid:hover{background:var(--dark-2); color:var(--cream);}
 
 /* ── полоса объявлений ─────────────────── */
 .ann{
-  background:var(--green); color:var(--cream);
+  background:var(--dark); color:var(--cream);
   padding:12px var(--pad) 13px;
   display:flex; align-items:center; justify-content:center;
   gap:clamp(12px,2.4vw,30px); flex-wrap:wrap;
@@ -103,18 +106,18 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 .ann::before,.ann::after{
   content:""; position:absolute; top:50%; width:74px; height:1px;
-  background:linear-gradient(90deg,transparent,rgba(244,244,227,.35),transparent);
+  background:linear-gradient(90deg,transparent,rgba(237,228,217,.35),transparent);
 }
 .ann::before{left:0;} .ann::after{right:0;}
 .ann-hand{
-  font-family:var(--hand); font-size:clamp(19px,2vw,24px);
-  line-height:1; color:var(--butter); white-space:nowrap;
+  font-family:var(--script); font-style:italic; font-size:clamp(21px,2.2vw,27px);
+  line-height:1; color:var(--rose); white-space:nowrap;
   padding-bottom:3px;
 }
-.ann-dot{width:4px; height:4px; border-radius:50%; background:rgba(244,244,227,.4);}
+.ann-dot{width:4px; height:4px; border-radius:50%; background:rgba(237,228,217,.4);}
 .ann-fact{
   font-size:11.5px; letter-spacing:.16em; text-transform:uppercase;
-  color:rgba(244,244,227,.86); white-space:nowrap;
+  color:rgba(237,228,217,.86); white-space:nowrap;
 }
 
 /* ── шапка ─────────────────────────────── */
@@ -132,12 +135,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .msg{display:flex; gap:6px;}
 .msg a{
   width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
-  border:1px solid var(--line); font-size:10px; font-weight:500; color:var(--green);
+  border:1px solid var(--line); font-size:10px; font-weight:500; color:var(--dark);
   transition:background .25s ease, color .25s ease;
 }
-.msg a:hover{background:var(--green); color:var(--cream);}
+.msg a:hover{background:var(--dark); color:var(--cream);}
 .cart{display:inline-flex; align-items:center; gap:7px; font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:500;}
-.cart b{background:var(--green); color:var(--cream); font-weight:500; font-size:10px; width:19px; height:19px; border-radius:50%; display:grid; place-items:center;}
+.cart b{background:var(--dark); color:var(--cream); font-weight:500; font-size:10px; width:19px; height:19px; border-radius:50%; display:grid; place-items:center;}
 /* ── меню-лента пилюль ─────────────────── */
 .nav{
   display:flex; gap:9px; overflow-x:auto;
@@ -150,11 +153,11 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .nav a{
   flex:0 0 auto; scroll-snap-align:start;
   padding:10px 22px; border-radius:14px;
-  background:var(--cream); color:var(--green);
+  background:var(--cream); color:var(--dark);
   font-size:13.5px; font-weight:400; letter-spacing:.02em; white-space:nowrap;
   transition:background .26s ease, color .26s ease;
 }
-.nav a:hover,.nav a.on{background:var(--green); color:var(--cream);}
+.nav a:hover,.nav a.on{background:var(--dark); color:var(--cream);}
 
 /* ── плавающая связь ───────────────────── */
 .fab{
@@ -170,30 +173,30 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .fab.open .fab-list{opacity:1; visibility:visible; transform:none;}
 .fab-list a{
   display:flex; align-items:center; gap:9px;
-  background:var(--white); color:var(--green);
+  background:var(--white); color:var(--dark);
   border:1px solid var(--line); border-radius:14px;
   padding:9px 15px; font-size:13.5px; white-space:nowrap;
   box-shadow:0 5px 18px rgba(18,18,18,.10);
   transition:background .24s ease, color .24s ease;
 }
-.fab-list a:hover{background:var(--green); color:var(--cream); border-color:var(--green);}
+.fab-list a:hover{background:var(--dark); color:var(--cream); border-color:var(--dark);}
 .fab-list i{font-style:normal; font-size:11px; font-weight:500; letter-spacing:.08em;}
 .fab-btn{
   position:relative; z-index:2;
   width:58px; height:58px; border-radius:50%;
-  background:var(--green); color:var(--cream);
+  background:var(--dark); color:var(--cream);
   border:none; cursor:pointer; display:grid; place-items:center;
-  box-shadow:0 8px 26px rgba(25,66,53,.34);
+  box-shadow:0 8px 26px rgba(35,26,22,.34);
   transition:background .25s ease, transform .25s ease;
   animation:fabBreathe 3.4s ease-in-out infinite;
 }
-.fab-btn:hover{background:var(--green-dk); animation-play-state:paused; transform:scale(1.06);}
+.fab-btn:hover{background:var(--dark-2); animation-play-state:paused; transform:scale(1.06);}
 .fab.open .fab-btn{transform:rotate(45deg); animation:none;}
 
 /* пульсирующие кольца */
 .fab-btn::before,.fab-btn::after{
   content:""; position:absolute; inset:0; border-radius:50%;
-  border:1.5px solid var(--green); pointer-events:none;
+  border:1.5px solid var(--dark); pointer-events:none;
   animation:fabRing 3.4s cubic-bezier(.2,.7,.3,1) infinite;
 }
 .fab-btn::after{animation-delay:1.7s;}
@@ -218,14 +221,14 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .hero-pic{position:relative; overflow:hidden; background:#E6DED2;}
 .hero-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:58% 46%;}
 .hero-txt{
-  background:var(--butter); color:var(--ink);
+  background:var(--blush); color:var(--ink);
   padding:clamp(28px,4.4vw,64px);
   display:flex; flex-direction:column; justify-content:center; gap:16px;
 }
 .hero-txt h1{font-size:clamp(30px,4.2vw,54px); line-height:1.06; margin:0;}
 .hero-txt p{margin:0; max-width:40ch; color:#3E3A2A; font-size:15.5px;}
 .hero-txt .btn{align-self:flex-start; border-color:var(--ink); color:var(--ink); margin-top:6px;}
-.hero-txt .btn:hover{background:var(--ink); color:var(--butter);}
+.hero-txt .btn:hover{background:var(--ink); color:var(--blush);}
 
 /* ── секции ────────────────────────────── */
 .sec{padding:clamp(46px,6vw,92px) var(--pad);}
@@ -246,10 +249,10 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   flex:0 0 auto; scroll-snap-align:start;
   border:1px solid var(--line); border-radius:12px;
   padding:9px 18px; background:var(--white);
-  font-size:13.5px; white-space:nowrap; color:var(--green);
+  font-size:13.5px; white-space:nowrap; color:var(--dark);
   transition:background .26s ease, color .26s ease, border-color .26s ease;
 }
-.ppill:hover,.ppill.on{background:var(--green); color:var(--cream); border-color:var(--green);}
+.ppill:hover,.ppill.on{background:var(--dark); color:var(--cream); border-color:var(--dark);}
 
 /* ── кадр ──────────────────────────────── */
 .frame{
@@ -314,32 +317,32 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .srv .from{font-family:var(--display); font-size:17px;}
 .srv .btn{align-self:flex-start; margin-top:6px;}
 
-.srv-a{background:var(--butter);}
+.srv-a{background:var(--blush);}
 .srv-a p{color:#4A452F;}
 .srv-a .btn{border-color:var(--ink); color:var(--ink);}
-.srv-a .btn:hover{background:var(--ink); color:var(--butter);}
+.srv-a .btn:hover{background:var(--ink); color:var(--blush);}
 
 .srv-b{background:#F0DCDC;}
 .srv-b p{color:#5B4344;}
 .srv-b .btn{border-color:#8C3B44; color:#8C3B44;}
 .srv-b .btn:hover{background:#8C3B44; color:#F0DCDC;}
 
-.srv-c{background:var(--green); color:var(--cream);}
-.srv-c .eyebrow{color:rgba(244,244,227,.7);}
-.srv-c p{color:rgba(244,244,227,.82);}
-.srv-c .btn{border-color:rgba(244,244,227,.5); color:var(--cream);}
-.srv-c .btn:hover{background:var(--cream); color:var(--green);}
+.srv-c{background:var(--dark); color:var(--cream);}
+.srv-c .eyebrow{color:rgba(237,228,217,.7);}
+.srv-c p{color:rgba(237,228,217,.82);}
+.srv-c .btn{border-color:rgba(237,228,217,.5); color:var(--cream);}
+.srv-c .btn:hover{background:var(--cream); color:var(--dark);}
 
 /* ── сезонный баннер ───────────────────── */
 .season{
   display:grid; grid-template-columns:.9fr 1.1fr; align-items:stretch;
-  background:var(--butter);
+  background:var(--blush);
 }
 .season-txt{padding:clamp(28px,4.4vw,68px); display:flex; flex-direction:column; justify-content:center; gap:14px;}
 .season-txt h2{font-size:clamp(26px,3.4vw,42px); line-height:1.1; margin:0;}
 .season-txt p{margin:0; max-width:42ch; color:#3E3A2A;}
 .season-txt .btn{align-self:flex-start; border-color:var(--ink); color:var(--ink);}
-.season-txt .btn:hover{background:var(--ink); color:var(--butter);}
+.season-txt .btn:hover{background:var(--ink); color:var(--blush);}
 .season-pic{position:relative; overflow:hidden; min-height:280px;}
 .season-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
 
@@ -356,7 +359,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .why span{font-size:14px; color:var(--muted);}
 .why i{
   font-style:normal; display:block; font-family:var(--display);
-  font-size:26px; color:var(--green); margin-bottom:10px; opacity:.5;
+  font-size:26px; color:var(--dark); margin-bottom:10px; opacity:.5;
 }
 
 /* ── отзывы ────────────────────────────── */
@@ -377,22 +380,22 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .fact b{font-family:var(--display); font-weight:400; font-size:16px;}
 
 /* ── подвал ────────────────────────────── */
-.foot{background:var(--green); color:var(--cream); padding:clamp(28px,3.4vw,48px) var(--pad) 18px;}
-.foot-top{display:grid; grid-template-columns:1.6fr 1fr 1.1fr 1fr; gap:26px; padding-bottom:20px; border-bottom:1px solid rgba(244,244,227,.2);}
+.foot{background:var(--dark); color:var(--cream); padding:clamp(28px,3.4vw,48px) var(--pad) 18px;}
+.foot-top{display:grid; grid-template-columns:1.6fr 1fr 1.1fr 1fr; gap:26px; padding-bottom:20px; border-bottom:1px solid rgba(237,228,217,.2);}
 .foot img{height:30px; margin-bottom:11px;}
-.foot h4{font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:rgba(244,244,227,.6); margin:0 0 13px; font-weight:500;}
+.foot h4{font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:rgba(237,228,217,.6); margin:0 0 13px; font-weight:500;}
 .foot ul{margin:0; padding:0; list-style:none;}
-.foot li{margin-bottom:6px; font-size:13.5px; color:rgba(244,244,227,.82);}
+.foot li{margin-bottom:6px; font-size:13.5px; color:rgba(237,228,217,.82);}
 .foot li a:hover{color:var(--cream);}
 .bonus{
   display:inline-flex; align-items:center; gap:10px;
-  border:1px solid rgba(244,244,227,.3); border-radius:999px;
+  border:1px solid rgba(237,228,217,.3); border-radius:999px;
   padding:9px 16px 9px 14px; transition:background .26s ease, color .26s ease;
 }
-.bonus b{font-family:var(--display); font-weight:400; font-size:17px; color:var(--butter);}
-.bonus span{font-size:12.5px; color:rgba(244,244,227,.8);}
-.bonus:hover{background:rgba(244,244,227,.1);}
-.foot-bot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:13px; font-size:11.5px; color:rgba(244,244,227,.5);}
+.bonus b{font-family:var(--display); font-weight:400; font-size:17px; color:var(--rose);}
+.bonus span{font-size:12.5px; color:rgba(237,228,217,.8);}
+.bonus:hover{background:rgba(237,228,217,.1);}
+.foot-bot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:13px; font-size:11.5px; color:rgba(237,228,217,.5);}
 
 @media (max-width:1080px){
   .tiles,.grid{grid-template-columns:repeat(3,1fr);}
@@ -429,8 +432,8 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .hscrl-line{
   position:absolute; left:0; right:0; top:50%; height:2px; margin-top:-1px;
   background:linear-gradient(90deg,
-    rgba(25,66,53,0) 0%, rgba(25,66,53,.2) 8%,
-    rgba(25,66,53,.2) 92%, rgba(25,66,53,0) 100%);
+    rgba(35,26,22,0) 0%, rgba(35,26,22,.2) 8%,
+    rgba(35,26,22,.2) 92%, rgba(35,26,22,0) 100%);
 }
 .hscrl-f{
   position:absolute; top:50%; left:0; width:26px; height:26px;
@@ -464,7 +467,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 .note b{font-family:var(--display); font-weight:400; font-size:17px; display:block; margin-bottom:5px;}
 .note p{margin:0; font-size:14.5px; color:var(--muted);}
-.note i{font-style:normal; font-family:var(--hand); font-size:34px; color:var(--green); line-height:.9; opacity:.6;}
+.note i{font-style:normal; font-family:var(--script); font-size:34px; color:var(--dark); line-height:.9; opacity:.6;}
 
 @media (max-width:1080px){ .digits{grid-template-columns:repeat(3,1fr);} }
 @media (max-width:700px){ .piece,.digits{grid-template-columns:1fr 1fr; gap:12px;} }
@@ -590,7 +593,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div class="foot-top">
     <div>
       <img src="img/logo-f.png" alt="FOR YOU">
-      <p style="margin:0 0 14px; max-width:30ch; font-size:13.5px; color:rgba(244,244,227,.8);">Бутик цветов в Тольятти. Юбилейная, 85Б, секция 33 — ежедневно 9:00 — 21:00, самовывоз и парковка.</p>
+      <p style="margin:0 0 14px; max-width:30ch; font-size:13.5px; color:rgba(237,228,217,.8);">Бутик цветов в Тольятти. Юбилейная, 85Б, секция 33 — ежедневно 9:00 — 21:00, самовывоз и парковка.</p>
       <a class="bonus" href="https://foryoutolyatty.posiflora.com/wallet-app/38f39294-3d4d-481f-baf4-3251ca246df0" target="_blank" rel="noopener">
         <b>300 ₽</b><span>на счёт за регистрацию</span>
       </a>
