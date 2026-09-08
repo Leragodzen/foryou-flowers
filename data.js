@@ -371,3 +371,72 @@ function tierOf(p){
   }
   return null;
 }
+
+/* ─────────────────────────────────────────────────────────
+   КОРЗИНА
+   Лежит в браузере покупателя (localStorage), между
+   страницами не теряется. Заказ уходит текстом в мессенджер.
+   ───────────────────────────────────────────────────────── */
+
+var CART_KEY = 'fy_cart_v1';
+
+/* товары, которые в корзину не кладутся: услуги и позиции без цены */
+function cartAllows(p){
+  if(!p) return false;
+  if(p.ask || p.out) return false;          /* цены нет или нет в наличии */
+  if(p.from) return false;                  /* цена «от» — считаем в переписке */
+  return !!p.price;
+}
+
+function cartRead(){
+  try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch(e){ return []; }
+}
+function cartWrite(list){
+  try{ localStorage.setItem(CART_KEY, JSON.stringify(list)); }catch(e){}
+  cartPaint();
+}
+function cartAdd(id, qty){
+  var list = cartRead(), found = false;
+  qty = qty || 1;
+  for(var i=0;i<list.length;i++){
+    if(list[i].id === id){ list[i].qty += qty; found = true; break; }
+  }
+  if(!found) list.push({id:id, qty:qty});
+  cartWrite(list);
+}
+function cartSetQty(id, qty){
+  var list = cartRead().map(function(x){ return x.id===id ? {id:id, qty:Math.max(1, qty)} : x; });
+  cartWrite(list);
+}
+function cartRemove(id){
+  cartWrite(cartRead().filter(function(x){ return x.id !== id; }));
+}
+function cartClear(){ cartWrite([]); }
+
+function cartLines(){
+  return cartRead().map(function(x){
+    var p = byId(x.id);
+    return p ? {p:p, qty:x.qty, sum:p.price * x.qty} : null;
+  }).filter(Boolean);
+}
+function cartCount(){
+  return cartRead().reduce(function(a,x){ return a + x.qty; }, 0);
+}
+function cartTotal(){
+  return cartLines().reduce(function(a,l){ return a + l.sum; }, 0);
+}
+
+/* счётчик в шапке — на каждой странице */
+function cartPaint(){
+  var n = cartCount();
+  [].forEach.call(document.querySelectorAll('.cart b, [data-cart-count]'), function(el){
+    el.textContent = n;
+  });
+  [].forEach.call(document.querySelectorAll('.cart'), function(el){
+    el.classList.toggle('has', n > 0);
+  });
+}
+document.addEventListener('DOMContentLoaded', cartPaint);
+/* корзину могли поменять в соседней вкладке */
+window.addEventListener('storage', function(e){ if(e.key === CART_KEY) cartPaint(); });

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Каталог букетов — FOR YOU · Тольятти</title>
-<meta name="description" content="Каталог букетов For You: авторские и сборные букеты, сезонные цветы поштучно, монобукеты, корзины, свадебные букеты, вазы, свечи и шары. Тольятти, доставка за час.">
+<title>Корзина — FOR YOU · Тольятти</title>
+<meta name="description" content="Корзина бутика цветов For You: соберите букет и дополнения, оформите заказ — мы свяжемся и подтвердим доставку.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FOR YOU — бутик цветов">
-<meta property="og:title" content="Каталог букетов — FOR YOU">
-<meta property="og:description" content="Каталог букетов For You: авторские и сборные букеты, сезонные цветы поштучно, монобукеты, корзины, свадебные букеты, вазы, свечи и шары. Тольятти, доставка за час.">
+<meta property="og:title" content="Корзина — FOR YOU">
+<meta property="og:description" content="Корзина бутика цветов For You в Тольятти.">
 <meta property="og:image" content="https://leragodzen.github.io/foryou-flowers/img/share.jpg">
-<meta property="og:url" content="https://leragodzen.github.io/foryou-flowers/katalog.html">
+<meta property="og:url" content="https://leragodzen.github.io/foryou-flowers/korzina.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#A30B4E">
 <link rel="icon" href="favicon.png" type="image/png">
@@ -553,6 +553,94 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 </style>
 
 <script src="data.js"></script>
+
+<style>
+
+/* в корзине плавающая кнопка не нужна — тут свои кнопки связи,
+   и она перекрывала «Отправить заказ» */
+.fab{display:none;}
+.deco-tabs{
+  display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding:0 var(--pad) 20px; margin:0 calc(-1 * var(--pad));
+  -ms-overflow-style:none; scrollbar-width:none;
+}
+.deco-tabs::-webkit-scrollbar{display:none;}
+.deco-tab{
+  flex:0 0 auto; scroll-snap-align:start; cursor:pointer;
+  border:1px solid var(--line); border-radius:999px;
+  padding:10px 20px; background:var(--white);
+  font-family:var(--ui); font-size:13.5px; color:var(--green);
+  transition:background .26s ease, color .26s ease, border-color .26s ease;
+}
+.deco-tab:hover,.deco-tab.on{background:var(--green); color:var(--cream); border-color:var(--green);}
+.deco-tabs{justify-content:center;}
+
+/* ── корзина ───────────────────────────── */
+.cart.has b{background:var(--red);}
+.cart-wrap{padding:clamp(24px,3.4vw,48px) var(--pad) clamp(40px,5vw,80px); max-width:1180px; margin:0 auto;}
+.cart-head{text-align:center; margin-bottom:clamp(22px,3vw,40px);}
+.cart-head h1{font-size:clamp(28px,3.6vw,46px); margin:10px 0 0;}
+.cart-head p{margin:12px auto 0; max-width:56ch; color:var(--muted); font-size:15px;}
+.cart-grid{display:grid; grid-template-columns:1.4fr .85fr; gap:clamp(20px,3vw,44px); align-items:start;}
+.cart-list{display:flex; flex-direction:column; gap:14px;}
+.cart-row{
+  display:grid; grid-template-columns:96px 1fr auto; gap:16px; align-items:center;
+  border:1px solid var(--line); border-radius:18px; padding:12px;
+}
+.cart-row .pic{border-radius:12px; overflow:hidden; aspect-ratio:1/1; background:var(--cream);}
+.cart-row .pic img{width:100%; height:100%; object-fit:cover;}
+.cart-row h3{font-size:18px; margin:0 0 4px;}
+.cart-row .unit{font-size:13px; color:var(--muted);}
+.cart-right{display:flex; flex-direction:column; align-items:flex-end; gap:10px;}
+.qty{display:inline-flex; align-items:center; border:1px solid var(--line); border-radius:999px; overflow:hidden;}
+.qty button{
+  width:34px; height:34px; border:none; background:transparent; cursor:pointer;
+  font-size:17px; line-height:1; color:var(--green);
+}
+.qty button:hover{background:var(--cream);}
+.qty span{min-width:34px; text-align:center; font-size:15px;}
+.cart-sum{font-family:var(--display); font-size:18px; white-space:nowrap;}
+.cart-del{background:none; border:none; cursor:pointer; font-size:12.5px; color:var(--muted); text-decoration:underline; padding:0;}
+.cart-del:hover{color:var(--red);}
+.cart-empty{text-align:center; padding:clamp(30px,5vw,70px) 0;}
+.cart-empty p{color:var(--muted); margin:0 0 20px;}
+
+.order{
+  border:1px solid var(--line); border-radius:20px; padding:clamp(18px,2vw,26px);
+  position:sticky; top:104px; display:flex; flex-direction:column; gap:12px;
+}
+.order h2{font-size:22px; margin:0;}
+.order-line{display:flex; justify-content:space-between; font-size:14.5px; color:var(--muted);}
+.order-total{display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--line); padding-top:12px; margin-top:2px;}
+.order-total b{font-family:var(--display); font-weight:400; font-size:24px;}
+.order label{display:block; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:5px;}
+.order input,.order textarea{
+  width:100%; font-family:var(--ui); font-size:15px; color:var(--ink);
+  border:1px solid var(--line); border-radius:12px; padding:11px 13px; background:var(--white);
+}
+.order input:focus,.order textarea:focus{outline:2px solid var(--green); outline-offset:1px;}
+.order textarea{min-height:74px; resize:vertical;}
+.order .btn{width:100%;}
+.order-note{font-size:12.5px; color:var(--muted); margin:0;}
+.order-err{font-size:13px; color:var(--red); margin:0; display:none;}
+.order-err.on{display:block;}
+
+.addon-head{text-align:center; margin:clamp(34px,4.6vw,64px) 0 18px;}
+.addon-head h2{font-size:clamp(23px,2.8vw,34px); margin:8px 0 0;}
+.addon-head p{margin:10px auto 0; max-width:52ch; color:var(--muted); font-size:14.5px;}
+.addon-card .btn{width:100%; margin-top:8px; padding:11px 14px; font-size:11.5px;}
+.addon-card{display:flex; flex-direction:column;}
+
+@media (max-width:900px){
+  .cart-grid{grid-template-columns:1fr;}
+  .order{position:static;}
+}
+@media (max-width:560px){
+  .cart-row{grid-template-columns:72px 1fr; }
+  .cart-right{grid-column:1 / -1; flex-direction:row; align-items:center; justify-content:space-between;}
+}
+
+</style>
 </head>
 <body>
 
@@ -586,41 +674,25 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   </nav>
 </header>
 
-<div class="cat-top">
-  <p class="eyebrow">Каталог</p>
-  <h1 id="catTitle">Букеты и композиции</h1>
-  <p id="catLead">Витрина меняется каждую неделю вместе с поставкой. Здесь — то, что мы собирали недавно: возьмите как есть или как отправную точку для своего.</p>
+
+<div class="cart-wrap">
+  <div class="cart-head">
+    <p class="eyebrow">Заказ</p>
+    <h1>Корзина</h1>
+    <p id="cartLead">Соберите заказ, добавьте к букету шары, свечу или вазу — и оставьте контакты. Мы свяжемся, уточним детали и подтвердим доставку.</p>
+  </div>
+
+  <div id="cartBody"></div>
 </div>
 
-<div class="filters" id="cats"></div>
-<div class="filters" id="filters"></div>
-
-<section class="sec" id="grid" style="padding-top:clamp(24px,3vw,40px)">
-
-  <div class="author" id="authorBlock">
-    <div class="author-pic"><img src="img/katalog/fistashka.jpg" alt="Авторский букет For You" loading="lazy" decoding="async"></div>
-    <div class="author-txt">
-      <p class="eyebrow">Собираем под вас</p>
-      <h2>Авторский букет</h2>
-      <p>Соберём под ваш бюджет, вкус и повод. Расскажите, для кого и по какому случаю — или пришлите картинку, которая понравилась. Воплотим любую вашу идею.</p>
-      <span class="price">от 2 000 ₽</span>
-      <a href="tovar.html?id=avtorskiy" class="btn">Обсудить букет</a>
-    </div>
+<section class="sec sec-cream" id="addons" hidden>
+  <div class="addon-head">
+    <p class="eyebrow">К букету</p>
+    <h2>Возьмите вместе с цветами</h2>
+    <p>Привезём одним подарком — отдельно ехать не придётся.</p>
   </div>
-
-  <div class="sale" id="saleBanner" hidden>
-    <b>−20 %</b>
-    <div>
-      <strong>На все мягкие игрушки</strong>
-      <p>Цена в карточках уже со скидкой. Игрушку можно добавить к любому букету при заказе.</p>
-    </div>
-  </div>
-
-  <div class="grid" id="cards"></div>
-
-  <p class="empty" id="empty" hidden>В этом диапазоне сейчас ничего нет — соберём под ваш бюджет, напишите нам.</p>
-
-
+  <div class="deco-tabs" id="addonTabs" style="justify-content:center"></div>
+  <div class="grid" id="addonGrid"></div>
 </section>
 
 <footer class="foot" id="dostavka">
@@ -665,7 +737,6 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     <span>Политика конфиденциальности</span>
   </div>
 </footer>
-
 <!-- связаться -->
 <div class="fab" id="fab">
   <div class="fab-list">
@@ -682,138 +753,6 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     </svg>
   </button>
 </div>
-
-<script>
-/* ── каталог собирается из data.js ───────────────────── */
-(function(){
-  var LEADS = {
-    buket:   'Каждый букет здесь собран руками нашего флориста — под повод, а не под витрину. Выберите готовый или покажите нам картинку: соберём так, как вы это себе представили.',
-    sezon:   'Цветы, которые бывают всего пару месяцев в году. Сейчас идёт сезон георгин — он продлится весь сентябрь. Цена указана за один цветок: скажите количество, и мы соберём букет.',
-    korzina: 'Цветы, которые не нужно ставить в вазу: корзины, шляпные коробки и сумочки — с флористической губкой внутри. Такой подарок можно вручить прямо в руки и сразу поставить на стол.',
-    mono:    'Букет из одного вида цветов. Цена за штуку — вы сами выбираете, сколько стеблей: 9, 15, 25, 35 или 51. Скажите число, и мы посчитаем и соберём.',
-    svadba:  'Соберём под ваше платье и под то, как вы себя в этот день видите: форму, размер и оттенок подберём при встрече. Либо выберите готовый вариант из тех, что уже сделали для невест.',
-    vaza:    'Вазы, которые мы сами держим в бутике. Размер — диаметр и высота: по нему понятно, какой букет встанет.',
-    igrushka:'Игрушки Orange Toys. Добавляются к букету при заказе — или едут отдельно, со своей открыткой.',
-    svecha:  'Свечи и рум-спреи под нашей маркой. Соевый воск, деревянный фитиль — горит ровно и не коптит.',
-    rastenie:'Живые растения в горшках, упакуем как подарок. Цветут и стоят годами, а не неделю.',
-    suhocvet:'Композиции из сухоцветов. Не требуют воды и не вянут — стоят годами и работают как часть интерьера.',
-    shar:    'Латексные шары обрабатываем HiFloat — держатся до трёх недель, а не до вечера.'
-  };
-  var ORDER = ['buket','sezon','mono','korzina','svadba','suhocvet','vaza','igrushka','svecha','rastenie','shar'];
-  var catsEl = document.getElementById('cats');
-  var pillsEl = document.getElementById('filters');
-  var cardsEl = document.getElementById('cards');
-  var emptyEl = document.getElementById('empty');
-  var titleEl = document.getElementById('catTitle');
-  var leadEl  = document.getElementById('catLead');
-  var authorEl= document.getElementById('authorBlock');
-  var saleEl  = document.getElementById('saleBanner');
-
-  var cur = 'buket', curMin = 0, curMax = 0;
-
-  ORDER.forEach(function(c){
-    var a = document.createElement('a');
-    a.className = 'ppill' + (c===cur?' on':'');
-    a.href = '#grid'; a.dataset.cat = c; a.textContent = CATS[c].name;
-    a.addEventListener('click', function(){ cur=c; curMin=0; curMax=0; render(); });
-    catsEl.appendChild(a);
-  });
-
-  function priceRange(list){
-    var ps = list.map(function(p){return p.price;}).filter(Boolean);
-    return {min: Math.min.apply(null,ps), max: Math.max.apply(null,ps)};
-  }
-
-  function buildPills(list){
-    pillsEl.innerHTML = '';
-    var withPrice = list.filter(function(p){return p.price;});
-    var steps = TIERS.filter(function(t){
-      return withPrice.some(function(p){ return p.price>=t.min && (!t.max || p.price<t.max); });
-    });
-    /* фильтр по цене нужен, только когда есть из чего выбирать */
-    if(withPrice.length < 6 || steps.length < 2){ pillsEl.hidden = true; return; }
-    pillsEl.hidden = false;
-    var all = document.createElement('a');
-    all.className='ppill'+((!curMin&&!curMax)?' on':''); all.href='#grid'; all.textContent='Все';
-    all.addEventListener('click',function(){ curMin=0; curMax=0; render(); });
-    pillsEl.appendChild(all);
-    steps.forEach(function(t){
-      var a=document.createElement('a');
-      a.className='ppill'+((curMin===t.min&&curMax===t.max)?' on':'');
-      a.href='#grid';
-      var label = !t.min ? 'до ' + money(t.max)
-                : t.max ? money(t.min).replace(' ₽','') + ' — ' + money(t.max)
-                : 'от ' + money(t.min);
-      var named = (cur === 'buket');
-      a.innerHTML = label + (named ? '<i>' + t.name + '</i>' : '');
-      a.addEventListener('click',function(){ curMin=t.min; curMax=t.max; render(); });
-      pillsEl.appendChild(a);
-    });
-  }
-
-  function card(p){
-    var a = document.createElement('a');
-    a.className='card'; a.href='tovar.html?id='+p.id;
-    var price;
-    if(p.ask)        price = '<span class="card-price ask">Узнать цену</span>';
-    else if(p.old)   price = '<span class="card-price"><s>'+money(p.old)+'</s> '+money(p.price)+'</span>';
-    else             price = '<span class="card-price">'+(p.from?'от ':'')+money(p.price)+(p.unit?' / '+p.unit:'')+'</span>';
-    var sub = p.size ? p.size : (p.comp||[]).join(', ');
-    if(sub) sub = sub.charAt(0).toUpperCase()+sub.slice(1).toLowerCase();
-    if(p.out){ a.classList.add('out'); price = '<span class="card-price ask">Нет в наличии</span>'; }
-    a.innerHTML =
-      '<div class="frame">'+(p.old?'<b class="tag">−20 %</b>':'')
-      +(p.out?'<b class="tag tag-out">Нет в наличии</b>':'')
-      +'<img src="'+p.img+'" alt="'+p.name+'" loading="lazy"></div>'+
-      '<h3 class="card-name">'+p.name+'</h3>'+
-      (sub?'<p class="card-comp">'+sub+'</p>':'')+ price;
-    return a;
-  }
-
-  function render(){
-    [].forEach.call(catsEl.children, function(a){ a.classList.toggle('on', a.dataset.cat===cur); });
-    titleEl.textContent = CATS[cur].name;
-    leadEl.textContent  = LEADS[cur] || '';
-    authorEl.hidden = (cur !== 'buket');
-    saleEl.hidden   = (cur !== 'igrushka');
-
-    var list = inCat(cur).filter(function(p){ return p.id !== 'avtorskiy'; });
-    buildPills(list);
-    var shown = list.filter(function(p){
-      if(!curMin && !curMax) return true;
-      if(!p.price) return false;
-      return p.price>=curMin && (!curMax || p.price<curMax);
-    });
-    shown.sort(function(a,b){ return (a.out?1:0)-(b.out?1:0) || (a.price||0)-(b.price||0); });
-    cardsEl.innerHTML='';
-    shown.forEach(function(p){ cardsEl.appendChild(card(p)); });
-    emptyEl.hidden = shown.length>0;
-  }
-
-  var q = (location.hash||'').replace('#','');
-  if(CATS[q]) cur = q;
-  render();
-})();
-
-(function(){
-  var f=document.getElementById('fab'), b=document.getElementById('fabBtn');
-  b.addEventListener('click', function(e){
-    e.stopPropagation();
-    var open=f.classList.toggle('open');
-    b.setAttribute('aria-expanded', open);
-  });
-  document.addEventListener('click', function(e){
-    if(!f.contains(e.target)){ f.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key==='Escape'){ f.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
-  });
-})();
-</script>
-
-
-
-
 <!-- ползунок-цветок -->
 <div class="scrl" id="scrl">
   <div class="scrl-line"></div>
@@ -879,63 +818,162 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   });
 })();
 </script>
-
-
 <script>
-/* ── ленты листаются цветком, а не подсказкой ───────── */
+/* ── корзина: список, количество, дополнения, отправка ── */
 (function(){
-  var SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">'
-    + '<g fill="#194235">'
-    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5"/>'
-    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(60 12 12)"/>'
-    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(120 12 12)"/>'
-    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(180 12 12)"/>'
-    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(240 12 12)"/>'
-    + '<ellipse cx="12" cy="6.4" rx="2.8" ry="4.5" transform="rotate(300 12 12)"/>'
-    + '</g><circle cx="12" cy="12" r="3.1" fill="#FAE08E"/></svg>';
+  var body = document.getElementById('cartBody');
+  var addonsSec = document.getElementById('addons');
 
-  [].forEach.call(document.querySelectorAll('.rail-hint'), function(hint){
-    var box = hint.previousElementSibling;
-    if(!box) return;
+  function money0(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ') + ' ₽'; }
 
-    var wrap = document.createElement('div');
-    wrap.className = 'hscrl';
-    var line = document.createElement('div'); line.className = 'hscrl-line';
-    var f = document.createElement('button');
-    f.className = 'hscrl-f'; f.type = 'button';
-    f.setAttribute('aria-label', 'Листать');
-    f.innerHTML = SVG;
-    wrap.appendChild(line); wrap.appendChild(f);
-    hint.parentNode.replaceChild(wrap, hint);
-
-    function span(){ return wrap.clientWidth; }
-    function maxScroll(){ return Math.max(0, box.scrollWidth - box.clientWidth); }
-    function draw(){
-      var max = maxScroll();
-      wrap.classList.toggle('on', max > 4);          /* нечего листать — цветка нет */
-      if(max <= 4) return;
-      var p = Math.min(1, Math.max(0, box.scrollLeft / max));
-      f.style.left = (p * span()) + 'px';
-      f.style.transform = 'rotate(' + (p * 150) + 'deg)';
+  function draw(){
+    var lines = cartLines();
+    if(!lines.length){
+      addonsSec.hidden = true;
+      body.innerHTML =
+        '<div class="cart-empty">' +
+          '<p>Пока пусто. Загляните в каталог — там букеты, сезонные цветы и подарки к ним.</p>' +
+          '<a class="btn btn-solid" href="katalog.html">Открыть каталог</a>' +
+        '</div>';
+      return;
     }
-    box.addEventListener('scroll', draw, {passive:true});
-    addEventListener('resize', draw);
-    if(window.ResizeObserver) new ResizeObserver(draw).observe(box);
+    addonsSec.hidden = false;
+
+    var rows = lines.map(function(l){
+      var unit = l.p.unit ? ' / ' + l.p.unit : '';
+      return '<div class="cart-row" data-id="' + l.p.id + '">' +
+        '<a class="pic" href="tovar.html?id=' + l.p.id + '"><img src="' + l.p.img + '" alt="' + l.p.name + '"></a>' +
+        '<div>' +
+          '<h3><a href="tovar.html?id=' + l.p.id + '">' + l.p.name + '</a></h3>' +
+          '<div class="unit">' + money0(l.p.price) + unit + '</div>' +
+        '</div>' +
+        '<div class="cart-right">' +
+          '<div class="qty">' +
+            '<button type="button" data-act="minus" aria-label="Меньше">−</button>' +
+            '<span>' + l.qty + '</span>' +
+            '<button type="button" data-act="plus" aria-label="Больше">+</button>' +
+          '</div>' +
+          '<div class="cart-sum">' + money0(l.sum) + '</div>' +
+          '<button class="cart-del" type="button" data-act="del">убрать</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    body.innerHTML =
+      '<div class="cart-grid">' +
+        '<div class="cart-list">' + rows + '</div>' +
+        '<form class="order" id="orderForm" novalidate>' +
+          '<h2>Оформить</h2>' +
+          '<div class="order-line"><span>Товаров</span><span>' + cartCount() + '</span></div>' +
+          '<div class="order-line"><span>Доставка</span><span>от 300 ₽, посчитаем при подтверждении</span></div>' +
+          '<div class="order-total"><span>Итого</span><b>' + money0(cartTotal()) + '</b></div>' +
+          '<div><label for="fName">Ваше имя</label><input id="fName" name="name" autocomplete="name"></div>' +
+          '<div><label for="fPhone">Телефон</label><input id="fPhone" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 ..."></div>' +
+          '<div><label for="fWhen">Когда доставить</label><input id="fWhen" name="when" placeholder="сегодня к 18:00 или самовывоз"></div>' +
+          '<div><label for="fNote">Адрес и пожелания</label><textarea id="fNote" name="note" placeholder="куда везти, кому вручить, что написать в открытке"></textarea></div>' +
+          '<p class="order-err" id="orderErr">Заполните имя и телефон — без них мы не сможем перезвонить.</p>' +
+          '<button class="btn btn-solid" type="submit">Отправить заказ в Telegram</button>' +
+          '<a class="btn" id="orderMax" href="https://max.ru/" target="_blank" rel="noopener">Отправить в MAX</a>' +
+          '<p class="order-note">Заказ уйдёт одним сообщением — останется нажать «отправить». Флорист подтвердит состав, сумму и время.</p>' +
+        '</form>' +
+      '</div>';
+  }
+
+  /* количество и удаление */
+  body.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-act]');
+    if(!btn) return;
+    var id = btn.closest('.cart-row').dataset.id;
+    var cur = cartRead().filter(function(x){ return x.id === id; })[0];
+    if(!cur) return;
+    if(btn.dataset.act === 'plus')  cartSetQty(id, cur.qty + 1);
+    if(btn.dataset.act === 'minus') { cur.qty > 1 ? cartSetQty(id, cur.qty - 1) : cartRemove(id); }
+    if(btn.dataset.act === 'del')   cartRemove(id);
     draw();
-
-    var dragging = false;
-    function toScroll(x){
-      var r = wrap.getBoundingClientRect();
-      var p = (x - r.left) / (r.width || 1);
-      box.scrollLeft = Math.min(1, Math.max(0, p)) * maxScroll();
-    }
-    f.addEventListener('pointerdown', function(e){
-      dragging = true; f.setPointerCapture(e.pointerId); e.preventDefault();
-    });
-    f.addEventListener('pointermove', function(e){ if(dragging) toScroll(e.clientX); });
-    f.addEventListener('pointerup',     function(){ dragging = false; });
-    f.addEventListener('pointercancel', function(){ dragging = false; });
   });
+
+  /* текст заказа для мессенджера */
+  function orderText(){
+    var f = document.getElementById('orderForm');
+    var v = function(n){ return (f.elements[n].value || '').trim(); };
+    var t = 'Заказ с сайта\n\n';
+    cartLines().forEach(function(l){
+      t += '• ' + l.p.name + ' — ' + l.qty + (l.p.unit ? ' ' + l.p.unit : ' шт') + ' — ' + money0(l.sum) + '\n';
+    });
+    t += '\nИтого: ' + money0(cartTotal()) + '\n\n';
+    t += 'Имя: ' + (v('name') || '—') + '\n';
+    t += 'Телефон: ' + (v('phone') || '—') + '\n';
+    t += 'Когда: ' + (v('when') || '—') + '\n';
+    if(v('note')) t += 'Адрес и пожелания: ' + v('note') + '\n';
+    return t;
+  }
+
+  function valid(){
+    var f = document.getElementById('orderForm');
+    var ok = f.elements['name'].value.trim() && f.elements['phone'].value.trim();
+    document.getElementById('orderErr').classList.toggle('on', !ok);
+    return ok;
+  }
+
+  body.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!valid()) return;
+    window.open('https://t.me/for_you_flower?text=' + encodeURIComponent(orderText()), '_blank', 'noopener');
+  });
+  body.addEventListener('click', function(e){
+    var max = e.target.closest('#orderMax');
+    if(!max) return;
+    if(!valid()){ e.preventDefault(); return; }
+    max.href = 'https://max.ru/?text=' + encodeURIComponent(orderText());
+  });
+
+  /* ── дополнения прямо в корзине ── */
+  var TABS = [
+    {cat:'shar',     name:'Шары'},
+    {cat:'svecha',   name:'Свечи и спреи'},
+    {cat:'vaza',     name:'Вазы'},
+    {cat:'igrushka', name:'Игрушки'},
+    {cat:'rastenie', name:'Растения'}
+  ];
+  var tabsEl = document.getElementById('addonTabs');
+  var gridEl = document.getElementById('addonGrid');
+  var cur = TABS[0].cat;
+
+  TABS.forEach(function(t){
+    var b = document.createElement('button');
+    b.className = 'deco-tab' + (t.cat===cur ? ' on' : '');
+    b.type = 'button'; b.textContent = t.name;
+    b.addEventListener('click', function(){ cur = t.cat; paintAddons(); });
+    tabsEl.appendChild(b);
+  });
+
+  function paintAddons(){
+    [].forEach.call(tabsEl.children, function(el,i){ el.classList.toggle('on', TABS[i].cat === cur); });
+    var inCartIds = cartRead().map(function(x){ return x.id; });
+    gridEl.innerHTML = inCat(cur).filter(cartAllows)
+      .sort(function(a,b){ return a.price - b.price; })
+      .map(function(x){
+        var added = inCartIds.indexOf(x.id) !== -1;
+        return '<div class="card addon-card">' +
+          '<a class="frame" href="tovar.html?id=' + x.id + '">' +
+            (x.old ? '<b class="tag">−20 %</b>' : '') +
+            '<img src="' + x.img + '" alt="' + x.name + '" loading="lazy"></a>' +
+          '<h3 class="card-name">' + x.name + '</h3>' +
+          '<span class="card-price">' + money0(x.price) + (x.unit ? ' / ' + x.unit : '') + '</span>' +
+          '<button class="btn" type="button" data-add="' + x.id + '">' + (added ? 'В корзине' : 'Добавить') + '</button>' +
+        '</div>';
+      }).join('');
+  }
+  gridEl.addEventListener('click', function(e){
+    var b = e.target.closest('[data-add]');
+    if(!b) return;
+    cartAdd(b.dataset.add, 1);
+    draw(); paintAddons();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  draw();
+  paintAddons();
 })();
 </script>
 
