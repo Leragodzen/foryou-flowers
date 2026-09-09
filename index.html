@@ -119,6 +119,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   color:rgba(244,244,227,.86); white-space:nowrap;
 }
 
+
+/* на телефоне в полосе остаётся только фраза — точки и факты мельчат */
+@media (max-width:700px){
+  .ann{padding:10px var(--pad) 11px;}
+  .ann-dot,.ann-fact{display:none;}
+}
 /* ── шапка ─────────────────────────────── */
 .head{
   position:sticky; top:0; z-index:70;
@@ -362,8 +368,13 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 /* ── соберём по картинке ───────────────── */
 .ref{
   display:grid; grid-template-columns:.85fr 1.15fr;
-  /* этот блок остаётся зелёным — так просила Валерия */
-  background:#194235; color:var(--cream);
+  /* глубокий малиново-сливовый перелив по диагонали — свой рисунок,
+     не повторяет светлые плашки первого экрана */
+  background:
+    radial-gradient(70% 120% at 8% 0%, rgba(255,214,224,.34) 0%, rgba(255,214,224,0) 55%),
+    radial-gradient(85% 100% at 100% 100%, rgba(255,158,196,.30) 0%, rgba(255,158,196,0) 60%),
+    linear-gradient(118deg, #5E0E2C 0%, #8E1348 38%, #B32C67 68%, #D2679A 100%);
+  color:var(--cream);
 }
 .ref-pic{position:relative; overflow:hidden; min-height:340px;}
 .ref-pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
@@ -387,7 +398,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .ref-txt .btn-solid{
   align-self:flex-start; background:var(--butter); color:var(--ink); border-color:var(--butter);
 }
-.ref-txt .btn-solid:hover{background:var(--cream); border-color:var(--cream); color:#194235;}
+.ref-txt .btn-solid:hover{background:var(--cream); border-color:var(--cream); color:#5E0E2C;}
 
 /* ── что едет вместе с букетом ──────────── */
 .incl{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(14px,2vw,26px);}
@@ -432,7 +443,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .candle-txt .eyebrow{color:rgba(244,244,227,.55);}
 .candle-txt h2{font-size:clamp(24px,2.9vw,36px); line-height:1.12; margin:0;}
 .candle-txt p{margin:0; color:rgba(244,244,227,.74); font-size:15px; max-width:40ch;}
-.candle-price{font-family:var(--display); font-size:16px; color:var(--butter);}
+.candle-price{font-family:var(--display); font-size:17px; color:#F4A3C4; letter-spacing:.01em;}
 .candle-txt .btn{align-self:flex-start; border-color:rgba(244,244,227,.45); color:var(--cream);}
 .candle-txt .btn:hover{background:var(--cream); color:var(--ink);}
 

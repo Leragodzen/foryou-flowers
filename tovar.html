@@ -119,6 +119,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   color:rgba(244,244,227,.86); white-space:nowrap;
 }
 
+
+/* на телефоне в полосе остаётся только фраза — точки и факты мельчат */
+@media (max-width:700px){
+  .ann{padding:10px var(--pad) 11px;}
+  .ann-dot,.ann-fact{display:none;}
+}
 /* ── шапка ─────────────────────────────── */
 .head{
   position:sticky; top:0; z-index:70;

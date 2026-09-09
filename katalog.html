@@ -119,6 +119,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   color:rgba(244,244,227,.86); white-space:nowrap;
 }
 
+
+/* на телефоне в полосе остаётся только фраза — точки и факты мельчат */
+@media (max-width:700px){
+  .ann{padding:10px var(--pad) 11px;}
+  .ann-dot,.ann-fact{display:none;}
+}
 /* ── шапка ─────────────────────────────── */
 .head{
   position:sticky; top:0; z-index:70;
@@ -715,7 +721,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     var a = document.createElement('a');
     a.className = 'ppill' + (c===cur?' on':'');
     a.href = '#grid'; a.dataset.cat = c; a.textContent = CATS[c].name;
-    a.addEventListener('click', function(){ cur=c; curMin=0; curMax=0; render(); });
+    a.addEventListener('click', function(){ cur=c; curMin=0; curMax=0; history.replaceState(null,'','#'+c); render(); });
     catsEl.appendChild(a);
   });
 
@@ -790,8 +796,24 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     emptyEl.hidden = shown.length>0;
   }
 
-  var q = (location.hash||'').replace('#','');
-  if(CATS[q]) cur = q;
+  function fromHash(scroll){
+    var q = (location.hash || '').replace('#','');
+    if(CATS[q] && q !== cur){
+      cur = q; curMin = 0; curMax = 0;
+      render();
+      if(scroll){
+        var top = document.getElementById('grid').getBoundingClientRect().top + scrollY - 90;
+        scrollTo({top:top, behavior:'smooth'});
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /* переход по ссылке вида katalog.html#sezon, когда мы уже в каталоге */
+  addEventListener('hashchange', function(){ fromHash(true); });
+
+  fromHash(false);
   render();
 })();
 

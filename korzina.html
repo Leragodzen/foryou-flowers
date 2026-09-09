@@ -119,6 +119,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   color:rgba(244,244,227,.86); white-space:nowrap;
 }
 
+
+/* на телефоне в полосе остаётся только фраза — точки и факты мельчат */
+@media (max-width:700px){
+  .ann{padding:10px var(--pad) 11px;}
+  .ann-dot,.ann-fact{display:none;}
+}
 /* ── шапка ─────────────────────────────── */
 .head{
   position:sticky; top:0; z-index:70;
@@ -575,6 +581,50 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .deco-tab:hover,.deco-tab.on{background:var(--green); color:var(--cream); border-color:var(--green);}
 .deco-tabs{justify-content:center;}
 
+
+/* ── допы прямо в корзине, до кнопки «оформить» ── */
+.addons{
+  margin-top:clamp(20px,2.6vw,30px);
+  border:1px solid var(--line); border-radius:20px;
+  padding:clamp(15px,1.9vw,22px); background:var(--cream);
+}
+.addons-head{display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:4px;}
+.addons-head h2{font-size:clamp(19px,2.1vw,24px); margin:0;}
+.addons-head p{margin:0; font-size:13px; color:var(--muted);}
+.addons .deco-tabs{padding:12px 0 14px; margin:0; justify-content:flex-start;}
+.addons .deco-tab{padding:8px 15px; font-size:12.5px;}
+.addon-rail{
+  display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x proximity;
+  margin:0 calc(-1 * clamp(15px,1.9vw,22px)); padding:2px clamp(15px,1.9vw,22px) 4px;
+  scrollbar-width:none;
+}
+.addon-rail::-webkit-scrollbar{display:none;}
+.addon-item{
+  flex:0 0 clamp(146px,40vw,164px); scroll-snap-align:start;
+  background:var(--white); border-radius:16px; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+.addon-item .pic{aspect-ratio:1/1; overflow:hidden; background:var(--cream);}
+.addon-item .pic img{width:100%; height:100%; object-fit:cover;}
+.addon-item .in{padding:10px 11px 11px; display:flex; flex-direction:column; gap:3px; flex:1;}
+.addon-item h3{font-size:14.5px; margin:0; line-height:1.25;}
+.addon-item .p{font-family:var(--display); font-size:14.5px; margin-top:auto; padding-top:4px;}
+.addon-item button{
+  margin-top:8px; width:100%; cursor:pointer;
+  border:1px solid var(--green); background:transparent; color:var(--green);
+  border-radius:999px; padding:8px 10px;
+  font-family:var(--ui); font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  transition:background .24s ease, color .24s ease;
+}
+.addon-item button:hover{background:var(--green); color:var(--cream);}
+.addon-item button.added{background:var(--green); color:var(--cream);}
+.order-hint{
+  display:flex; gap:9px; align-items:flex-start;
+  background:var(--cream); border-radius:14px; padding:11px 13px;
+  font-size:13px; color:var(--muted); margin:0;
+}
+.order-hint a{color:var(--green); text-decoration:underline;}
+
 /* ── корзина ───────────────────────────── */
 .cart.has b{background:var(--red);}
 .cart-wrap{padding:clamp(24px,3.4vw,48px) var(--pad) clamp(40px,5vw,80px); max-width:1180px; margin:0 auto;}
@@ -685,15 +735,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div id="cartBody"></div>
 </div>
 
-<section class="sec sec-cream" id="addons" hidden>
-  <div class="addon-head">
-    <p class="eyebrow">К букету</p>
-    <h2>Возьмите вместе с цветами</h2>
-    <p>Привезём одним подарком — отдельно ехать не придётся.</p>
-  </div>
-  <div class="deco-tabs" id="addonTabs" style="justify-content:center"></div>
-  <div class="grid" id="addonGrid"></div>
-</section>
+
 
 <footer class="foot" id="dostavka">
   <div class="foot-top">
@@ -822,14 +864,17 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 /* ── корзина: список, количество, дополнения, отправка ── */
 (function(){
   var body = document.getElementById('cartBody');
-  var addonsSec = document.getElementById('addons');
+
+  var FLOWER_CATS = ['buket','svadba','mono','sezon','korzina'];
+  function hasAddon(){
+    return cartLines().some(function(l){ return FLOWER_CATS.indexOf(l.p.cat) === -1; });
+  }
 
   function money0(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ') + ' ₽'; }
 
   function draw(){
     var lines = cartLines();
     if(!lines.length){
-      addonsSec.hidden = true;
       body.innerHTML =
         '<div class="cart-empty">' +
           '<p>Пока пусто. Загляните в каталог — там букеты, сезонные цветы и подарки к ним.</p>' +
@@ -837,7 +882,6 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
         '</div>';
       return;
     }
-    addonsSec.hidden = false;
 
     var rows = lines.map(function(l){
       var unit = l.p.unit ? ' / ' + l.p.unit : '';
@@ -861,7 +905,17 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 
     body.innerHTML =
       '<div class="cart-grid">' +
-        '<div class="cart-list">' + rows + '</div>' +
+        '<div>' +
+          '<div class="cart-list">' + rows + '</div>' +
+          '<section class="addons" id="addons">' +
+            '<div class="addons-head">' +
+              '<h2>Добавьте к букету</h2>' +
+              '<p>Привезём одним подарком</p>' +
+            '</div>' +
+            '<div class="deco-tabs" id="addonTabs"></div>' +
+            '<div class="addon-rail" id="addonGrid"></div>' +
+          '</section>' +
+        '</div>' +
         '<form class="order" id="orderForm" novalidate>' +
           '<h2>Оформить</h2>' +
           '<div class="order-line"><span>Товаров</span><span>' + cartCount() + '</span></div>' +
@@ -875,9 +929,22 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
           '<button class="btn btn-solid" type="submit">Отправить заказ в Telegram</button>' +
           '<a class="btn" id="orderMax" href="https://max.ru/" target="_blank" rel="noopener">Отправить в MAX</a>' +
           '<p class="order-note">Заказ уйдёт одним сообщением — останется нажать «отправить». Флорист подтвердит состав, сумму и время.</p>' +
+          (hasAddon() ? '' :
+            '<p class="order-hint"><span>✿</span><span>К букету чаще всего берут свечу, вазу или шары — <a href="#addons" data-goto>посмотрите, что можно добавить</a>.</span></p>') +
         '</form>' +
       '</div>';
+
+    paintAddons();
   }
+
+  /* подсказка ведёт к ленте допов */
+  body.addEventListener('click', function(e){
+    var go = e.target.closest('[data-goto]');
+    if(!go) return;
+    e.preventDefault();
+    var box = document.getElementById('addons');
+    scrollTo({top: box.getBoundingClientRect().top + scrollY - 100, behavior:'smooth'});
+  });
 
   /* количество и удаление */
   body.addEventListener('click', function(e){
@@ -927,7 +994,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     max.href = 'https://max.ru/?text=' + encodeURIComponent(orderText());
   });
 
-  /* ── дополнения прямо в корзине ── */
+  /* ── дополнения: лента прямо в корзине, до кнопки «оформить» ── */
   var TABS = [
     {cat:'shar',     name:'Шары'},
     {cat:'svecha',   name:'Свечи и спреи'},
@@ -935,45 +1002,50 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     {cat:'igrushka', name:'Игрушки'},
     {cat:'rastenie', name:'Растения'}
   ];
-  var tabsEl = document.getElementById('addonTabs');
-  var gridEl = document.getElementById('addonGrid');
   var cur = TABS[0].cat;
 
-  TABS.forEach(function(t){
-    var b = document.createElement('button');
-    b.className = 'deco-tab' + (t.cat===cur ? ' on' : '');
-    b.type = 'button'; b.textContent = t.name;
-    b.addEventListener('click', function(){ cur = t.cat; paintAddons(); });
-    tabsEl.appendChild(b);
-  });
-
   function paintAddons(){
-    [].forEach.call(tabsEl.children, function(el,i){ el.classList.toggle('on', TABS[i].cat === cur); });
+    var tabsEl = document.getElementById('addonTabs');
+    var gridEl = document.getElementById('addonGrid');
+    if(!tabsEl || !gridEl) return;
+
+    tabsEl.innerHTML = '';
+    TABS.forEach(function(t){
+      var b = document.createElement('button');
+      b.className = 'deco-tab' + (t.cat===cur ? ' on' : '');
+      b.type = 'button'; b.textContent = t.name;
+      b.addEventListener('click', function(){ cur = t.cat; paintAddons(); });
+      tabsEl.appendChild(b);
+    });
+
     var inCartIds = cartRead().map(function(x){ return x.id; });
     gridEl.innerHTML = inCat(cur).filter(cartAllows)
       .sort(function(a,b){ return a.price - b.price; })
       .map(function(x){
         var added = inCartIds.indexOf(x.id) !== -1;
-        return '<div class="card addon-card">' +
-          '<a class="frame" href="tovar.html?id=' + x.id + '">' +
-            (x.old ? '<b class="tag">−20 %</b>' : '') +
-            '<img src="' + x.img + '" alt="' + x.name + '" loading="lazy"></a>' +
-          '<h3 class="card-name">' + x.name + '</h3>' +
-          '<span class="card-price">' + money0(x.price) + (x.unit ? ' / ' + x.unit : '') + '</span>' +
-          '<button class="btn" type="button" data-add="' + x.id + '">' + (added ? 'В корзине' : 'Добавить') + '</button>' +
+        return '<div class="addon-item">' +
+          '<a class="pic" href="tovar.html?id=' + x.id + '"><img src="' + x.img + '" alt="' + x.name + '" loading="lazy"></a>' +
+          '<div class="in">' +
+            '<h3>' + x.name + '</h3>' +
+            '<span class="p">' + money0(x.price) + (x.unit ? ' / ' + x.unit : '') + '</span>' +
+            '<button type="button" class="' + (added ? 'added' : '') + '" data-add="' + x.id + '">' +
+              (added ? 'В корзине ✓' : 'Добавить') + '</button>' +
+          '</div>' +
         '</div>';
       }).join('');
   }
-  gridEl.addEventListener('click', function(e){
+
+  /* добавление из ленты — корзина обновляется, страница не прыгает */
+  body.addEventListener('click', function(e){
     var b = e.target.closest('[data-add]');
     if(!b) return;
+    var y = scrollY;
     cartAdd(b.dataset.add, 1);
-    draw(); paintAddons();
-    window.scrollTo({top:0, behavior:'smooth'});
+    draw();
+    scrollTo({top:y});
   });
 
   draw();
-  paintAddons();
 })();
 </script>
 
