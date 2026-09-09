@@ -625,6 +625,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 .order-hint a{color:var(--green); text-decoration:underline;}
 
+
 /* ── корзина ───────────────────────────── */
 .cart.has b{background:var(--red);}
 .cart-wrap{padding:clamp(24px,3.4vw,48px) var(--pad) clamp(40px,5vw,80px); max-width:1180px; margin:0 auto;}
@@ -681,14 +682,58 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .addon-card .btn{width:100%; margin-top:8px; padding:11px 14px; font-size:11.5px;}
 .addon-card{display:flex; flex-direction:column;}
 
+
+
+
+/* ── корзина на узких экранах ───────────────────────────
+   Колонки грида по умолчанию не сжимаются меньше своего
+   содержимого — из-за этого лента допов растягивала
+   страницу. min-width:0 это чинит. */
+.cart-grid, .cart-grid > *{min-width:0;}
+.addons{min-width:0; overflow:hidden;}
+.addon-rail{min-width:0;}
+
 @media (max-width:900px){
   .cart-grid{grid-template-columns:1fr;}
   .order{position:static;}
 }
-@media (max-width:560px){
-  .cart-row{grid-template-columns:72px 1fr; }
-  .cart-right{grid-column:1 / -1; flex-direction:row; align-items:center; justify-content:space-between;}
+
+@media (max-width:620px){
+  .cart-wrap{padding-left:14px; padding-right:14px;}
+
+  /* строка товара: фото и название сверху, кнопки и сумма — второй строкой */
+  .cart-row{
+    grid-template-columns:64px 1fr;
+    grid-template-areas:"pic info" "act act";
+    gap:12px 12px; padding:12px 13px;
+  }
+  .cart-row .pic{grid-area:pic;}
+  .cart-row > div:not(.cart-right){grid-area:info; min-width:0;}
+  .cart-row h3{font-size:16px;}
+  .cart-right{
+    grid-area:act; flex-direction:row; align-items:center; justify-content:space-between;
+    gap:12px; border-top:1px solid var(--line); padding-top:11px; width:100%;
+  }
+  .cart-sum{font-size:17px; order:2; margin-left:auto;}
+  .qty{order:1;}
+  .cart-del{order:3;}
+
+  /* лента допов не выходит за карточку */
+  .addons{padding:14px 13px 15px;}
+  .addon-rail{margin:0 -13px; padding:2px 13px 4px;}
+  .addon-item{flex:0 0 138px;}
+  .addons-head{gap:6px;}
+  .addons-head h2{font-size:19px;}
+  .addons-head p{font-size:12px;}
+
+  /* форма заказа */
+  .order{padding:16px 15px; border-radius:18px;}
+  .order-line{font-size:13.5px; gap:12px;}
+  .order-line span:last-child{text-align:right;}
+  .order-total b{font-size:22px;}
+  .order input,.order textarea{font-size:16px;}  /* 16px — иначе iPhone зумит поле */
 }
+
 
 </style>
 </head>
