@@ -127,7 +127,11 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     padding:9px var(--pad) 10px;
     flex-direction:column; gap:3px; line-height:1.25;
   }
-  .ann::before,.ann::after{display:none;}
+  /* тонкие линии по краям — иначе строка висит в пустоте */
+  .ann::before,.ann::after{
+    display:block; width:52px; top:22px;
+    background:linear-gradient(90deg,transparent,rgba(237,228,217,.45),transparent);
+  }
   .ann-dot{display:none;}
   .ann-hand{font-size:16px;}
   .ann-fact{

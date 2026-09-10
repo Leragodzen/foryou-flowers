@@ -127,7 +127,11 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     padding:9px var(--pad) 10px;
     flex-direction:column; gap:3px; line-height:1.25;
   }
-  .ann::before,.ann::after{display:none;}
+  /* тонкие линии по краям — иначе строка висит в пустоте */
+  .ann::before,.ann::after{
+    display:block; width:52px; top:22px;
+    background:linear-gradient(90deg,transparent,rgba(237,228,217,.45),transparent);
+  }
   .ann-dot{display:none;}
   .ann-hand{font-size:16px;}
   .ann-fact{
@@ -1048,6 +1052,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   if(cartAllows(b)){
     cartBtn.hidden = false;
     document.getElementById('ctaTg').classList.remove('btn-solid');
+    document.getElementById('ctaTg').classList.add('btn');
     var base = b.unit ? 'В корзину · ' + priceLabel(b) : 'В корзину';
     cartBtn.textContent = base;
     cartBtn.addEventListener('click', function(){
@@ -1058,12 +1063,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   }
   var tg = document.getElementById('ctaTg');
   tg.href = 'https://t.me/for_you_flower';
-  if(b.id === 'avtorskiy')                     tg.textContent = 'Обсудить букет';
-  else if(b.out)                               tg.textContent = 'Сообщить, когда появится';
-  else if(b.ask)                               tg.textContent = 'Узнать цену';
-  else if(b.cat === 'shar')                    tg.textContent = 'Заказать шары';
-  else if(b.cat === 'buket' || b.cat === 'svadba') tg.textContent = 'Собрать похожий';
-  else                                         tg.textContent = 'Заказать';
+  var ЦВЕТЫ = ['buket','svadba','mono','sezon','korzina'];
+  if(b.id === 'avtorskiy')                 tg.textContent = 'Обсудить букет';
+  else if(b.out)                           tg.textContent = 'Сообщить, когда появится';
+  else if(b.ask)                           tg.textContent = 'Узнать цену';
+  else if(ЦВЕТЫ.indexOf(b.cat) !== -1)     tg.textContent = 'Собрать похожий';
+  else                                     tg.textContent = 'Написать в Telegram';
 
   /* похожие — ближайшие по цене в том же разделе */
   var rest = PRODUCTS.filter(function(x){ return x.id!==b.id && x.id!=='avtorskiy' && x.cat===b.cat; })
