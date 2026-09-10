@@ -188,6 +188,12 @@ a{color:inherit; text-decoration:none;}
   .lb-prev{left:5px;} .lb-next{right:5px;}
 }
 
+.price-note{
+  border-left:2px solid var(--rose); padding-left:16px;
+  font-size:14.5px; color:var(--cream-dim); max-width:56ch;
+}
+.price-note b{color:var(--cream); font-weight:400; font-family:var(--display);}
+
 /* ── полоса-цитата ─────────────────────── */
 .band{position:relative; min-height:clamp(380px,52vw,560px); display:grid; place-items:center; overflow:hidden;}
 .band img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 55%;}
@@ -270,7 +276,7 @@ a{color:inherit; text-decoration:none;}
   <div class="hero-in">
     <p class="eyebrow">Оформление свадеб и праздников</p>
     <h1>День, который<br>запомнят <span class="script">все гости</span></h1>
-    <p>Арка для выездной регистрации, оформление зала, столы гостей и президиум. Приезжаем со своими конструкциями, собираем на месте и увозим всё после — вам остаётся только жить этот день.</p>
+    <p>Арка для выездной регистрации, оформление зала, столы гостей и президиум. Приезжаем со своими конструкциями и собираем всё на месте — вам остаётся только жить этот день.</p>
     <div class="hero-cta">
       <a href="https://t.me/for_you_flower" target="_blank" rel="noopener" class="btn btn-solid">Обсудить оформление</a>
       <a href="#gallery" class="btn btn-line">Смотреть работы</a>
@@ -379,6 +385,7 @@ a{color:inherit; text-decoration:none;}
         <li>Детали: план рассадки, welcome-зона, фотозона</li>
       </ul>
       <p>Вы сами решаете, что оставить, а что убрать. Дату лучше бронировать заранее — в сезон субботы разбирают за месяцы.</p>
+    <p class="price-note"><b>Про демонтаж.</b> Разбор и вывоз конструкций считаем отдельной строкой — скажем сумму сразу, вместе со сметой. Цветы после праздника гости могут забрать с собой: если хочется, разбирайте композиции прямо в конце вечера. То, что осталось, мы увозим и не возвращаем — после дня на площадке цветы уже не живут.</p>
       <a href="https://t.me/for_you_flower" target="_blank" rel="noopener" class="btn btn-solid">Рассчитать оформление</a>
     </div>
   </div>
@@ -488,6 +495,7 @@ a{color:inherit; text-decoration:none;}
   if(!box || !shots.length) return;
 
   var i = 0;
+  img.src = shots[0].src;          /* чтобы пустой <img> не считался битым */
   function show(k){
     i = (k + shots.length) % shots.length;
     img.src = shots[i].src;

@@ -459,6 +459,25 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .bonus b{font-family:var(--display); font-weight:400; font-size:17px; color:var(--butter);}
 .bonus span{font-size:12.5px; color:rgba(244,244,227,.8);}
 .bonus:hover{background:rgba(244,244,227,.1);}
+.foot-soc{
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  padding-top:16px; font-size:13.5px;
+}
+.foot-soc a{
+  border:1px solid rgba(237,228,217,.32); border-radius:999px; padding:7px 16px;
+  transition:background .24s ease, color .24s ease;
+}
+.foot-soc a:hover{background:var(--cream); color:var(--green);}
+.foot-soc span{color:rgba(244,244,227,.6); font-size:12.5px;}
+.foot-req{
+  padding-top:12px; font-size:11.5px; line-height:1.6;
+  color:rgba(244,244,227,.45);
+}
+.foot-req a{text-decoration:underline;}
+@media (max-width:600px){
+  .foot-soc{gap:10px;}
+  .foot-soc span{width:100%;}
+}
 .foot-bot{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top:13px; font-size:11.5px; color:rgba(244,244,227,.5);}
 
 @media (max-width:1080px){
@@ -819,9 +838,19 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
       </ul>
     </div>
   </div>
+  <div class="foot-soc">
+    <a href="https://t.me/for_you_flowers_art" target="_blank" rel="noopener">Telegram-канал</a>
+    <a href="https://vk.ru/for.you_flower" target="_blank" rel="noopener">ВКонтакте</a>
+    <span>Свежие поступления, акции и новости бутика</span>
+  </div>
   <div class="foot-bot">
     <span>© 2026 For You · Бутик цветов в Тольятти</span>
     <span>Политика конфиденциальности</span>
+  </div>
+  <div class="foot-req">
+    ИП Промытова Маргарита Александровна · ИНН 645122726697 · ОГРНИП 324632700116433 ·
+    Тольятти, Юбилейная, 85Б · <a href="mailto:Margo618@inbox.ru">Margo618@inbox.ru</a> ·
+    <a href="tel:+79649737875">+7 (964) 973-78-75</a>
   </div>
 </footer>
 <!-- связаться -->
@@ -973,6 +1002,8 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
           '<p class="order-err" id="orderErr">Заполните имя и телефон — без них мы не сможем перезвонить.</p>' +
           '<button class="btn btn-solid" type="submit">Отправить заказ в Telegram</button>' +
           '<a class="btn" id="orderMax" href="https://max.ru/" target="_blank" rel="noopener">Отправить в MAX</a>' +
+          (cartLines().some(function(l){ return l.p.alcohol; }) ?
+            '<p class="order-hint"><span>!</span><span>Алкоголь в стоимость не входит и нами не продаётся. Напитки вы приносите свои — флорист соберёт композицию вокруг них при вас или к назначенному времени.</span></p>' : '') +
           '<p class="order-note">Заказ уйдёт одним сообщением — останется нажать «отправить». Флорист подтвердит состав, сумму и время.</p>' +
           (hasAddon() ? '' :
             '<p class="order-hint"><span>✿</span><span>К букету чаще всего берут свечу, вазу или шары — <a href="#addons" data-goto>посмотрите, что можно добавить</a>.</span></p>') +
