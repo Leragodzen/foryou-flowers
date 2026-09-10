@@ -120,10 +120,24 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 
 
-/* на телефоне в полосе остаётся только фраза — точки и факты мельчат */
+/* на телефоне: фраза сверху, под ней часы и доставка — одной строкой,
+   без точек-разделителей, они там мельчили */
 @media (max-width:700px){
-  .ann{padding:10px var(--pad) 11px;}
-  .ann-dot,.ann-fact{display:none;}
+  .ann{
+    padding:9px var(--pad) 10px;
+    flex-direction:column; gap:3px; line-height:1.25;
+  }
+  .ann::before,.ann::after{display:none;}
+  .ann-dot{display:none;}
+  .ann-hand{font-size:16px;}
+  .ann-fact{
+    font-size:9.5px; letter-spacing:.14em;
+    color:rgba(244,244,227,.7);
+  }
+  .ann-fact + .ann-fact::before{
+    content:"·"; margin:0 7px; opacity:.5;
+  }
+  .ann-fact{display:inline;}
 }
 /* ── шапка ─────────────────────────────── */
 .head{
@@ -469,6 +483,9 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 .foot-soc a:hover{background:var(--cream); color:var(--green);}
 .foot-soc span{color:rgba(244,244,227,.6); font-size:12.5px;}
+.foot-author{color:rgba(244,244,227,.5);}
+.foot-author a{text-decoration:underline; color:rgba(244,244,227,.72);}
+.foot-author a:hover{color:var(--cream);}
 .foot-req{
   padding-top:12px; font-size:11.5px; line-height:1.6;
   color:rgba(244,244,227,.45);
@@ -591,7 +608,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 
 <header class="head">
   <div class="head-top">
-    <div class="head-l"><a href="#">Поиск</a></div>
+    <div class="head-l"></div>
     <a href="index.html" class="logo"><img src="img/logo.png" alt="FOR YOU — бутик цветов"></a>
     <div class="head-r">
       <a href="korzina.html" class="cart">Корзина <b data-cart-count>0</b></a>
@@ -693,6 +710,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div class="foot-bot">
     <span>© 2026 For You · Бутик цветов в Тольятти</span>
     <span>Политика конфиденциальности</span>
+    <span class="foot-author">Сайт — <a href="https://leragodzen.github.io/portfolio/" target="_blank" rel="noopener">Валерия Леванова</a></span>
   </div>
   <div class="foot-req">
     ИП Промытова Маргарита Александровна · ИНН 645122726697 · ОГРНИП 324632700116433 ·

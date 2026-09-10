@@ -120,10 +120,24 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 
 
-/* на телефоне в полосе остаётся только фраза — точки и факты мельчат */
+/* на телефоне: фраза сверху, под ней часы и доставка — одной строкой,
+   без точек-разделителей, они там мельчили */
 @media (max-width:700px){
-  .ann{padding:10px var(--pad) 11px;}
-  .ann-dot,.ann-fact{display:none;}
+  .ann{
+    padding:9px var(--pad) 10px;
+    flex-direction:column; gap:3px; line-height:1.25;
+  }
+  .ann::before,.ann::after{display:none;}
+  .ann-dot{display:none;}
+  .ann-hand{font-size:16px;}
+  .ann-fact{
+    font-size:9.5px; letter-spacing:.14em;
+    color:rgba(244,244,227,.7);
+  }
+  .ann-fact + .ann-fact::before{
+    content:"·"; margin:0 7px; opacity:.5;
+  }
+  .ann-fact{display:inline;}
 }
 /* ── шапка ─────────────────────────────── */
 .head{
@@ -523,6 +537,40 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 .rev .stars{color:#C9A227; letter-spacing:.14em; font-size:13px;}
 .rev span{font-size:12.5px; color:var(--muted);}
 
+/* ── доставка и оплата ─────────────────── */
+.deliv{display:grid; grid-template-columns:1.25fr 1fr 1fr; gap:clamp(20px,3vw,48px);}
+.deliv-col h3{font-size:20px; margin:0 0 14px;}
+.deliv-list{list-style:none; margin:0; padding:0;}
+.deliv-list li{
+  display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+  padding:9px 0; border-bottom:1px solid var(--line); font-size:14.5px;
+}
+.deliv-list b{font-family:var(--display); font-weight:400; white-space:nowrap; font-size:15px;}
+.deliv-facts{list-style:none; margin:0; padding:0;}
+.deliv-facts li{
+  position:relative; padding:0 0 11px 18px; font-size:14.5px; color:var(--muted);
+}
+.deliv-facts li::before{
+  content:""; position:absolute; left:0; top:.6em;
+  width:5px; height:5px; border-radius:50%; background:var(--green); opacity:.6;
+}
+.deliv-note{margin:14px 0 0; font-size:13.5px; color:var(--muted);}
+.deliv-soc{
+  display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  margin-top:clamp(26px,3.4vw,44px); padding-top:clamp(20px,2.6vw,30px);
+  border-top:1px solid var(--line);
+}
+.deliv-soc b{display:block; font-family:var(--display); font-weight:400; font-size:19px;}
+.deliv-soc span{font-size:13.5px; color:var(--muted);}
+.deliv-soc-links{display:flex; gap:10px; flex-wrap:wrap;}
+.deliv-soc-links a{
+  border:1px solid var(--green); border-radius:999px; padding:11px 22px;
+  font-size:12.5px; font-weight:500; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--green); transition:background .26s ease, color .26s ease;
+}
+.deliv-soc-links a:hover{background:var(--green); color:var(--cream);}
+@media (max-width:860px){ .deliv{grid-template-columns:1fr;} }
+
 /* ── о бутике ──────────────────────────── */
 .about{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,60px); align-items:center;}
 .about .frame{--ratio:75%;}
@@ -562,6 +610,9 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 .foot-soc a:hover{background:var(--cream); color:var(--green);}
 .foot-soc span{color:rgba(244,244,227,.6); font-size:12.5px;}
+.foot-author{color:rgba(244,244,227,.5);}
+.foot-author a{text-decoration:underline; color:rgba(244,244,227,.72);}
+.foot-author a:hover{color:var(--cream);}
 .foot-req{
   padding-top:12px; font-size:11.5px; line-height:1.6;
   color:rgba(244,244,227,.45);
@@ -647,7 +698,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 
 <header class="head">
   <div class="head-top">
-    <div class="head-l"><a href="#">Поиск</a></div>
+    <div class="head-l"></div>
     <a href="index.html" class="logo"><img src="img/logo.png" alt="FOR YOU — бутик цветов"></a>
     <div class="head-r">
       <a href="korzina.html" class="cart">Корзина <b data-cart-count>0</b></a>
@@ -961,6 +1012,60 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   </div>
 </section>
 
+<!-- доставка и оплата -->
+<section class="sec sec-cream" id="dostavka">
+  <div class="sec-head">
+    <p class="eyebrow">Доставка и оплата</p>
+    <h2>Привезём за час или ко времени</h2>
+    <p>Собираем в день заказа и везём сразу. Если нужно к определённому часу — привяжем доставку к нему.</p>
+  </div>
+
+  <div class="deliv">
+    <div class="deliv-col">
+      <h3>Куда возим</h3>
+      <ul class="deliv-list">
+        <li><span>Автозаводский район</span><b>300 ₽</b></li>
+        <li><span>Центральный район</span><b>400 ₽</b></li>
+        <li><span>Комсомольский район</span><b>500 ₽</b></li>
+        <li><span>Ягодное, Тимофеевка, Фёдоровка, Санчелеево, Жигулёвск</span><b>по договорённости</b></li>
+      </ul>
+      <p class="deliv-note">Самовывоз бесплатно — Юбилейная, 85Б, секция 33, напротив пешеходного перехода.</p>
+    </div>
+
+    <div class="deliv-col">
+      <h3>Когда</h3>
+      <ul class="deliv-facts">
+        <li>По городу обычно в течение часа после подтверждения</li>
+        <li>Ко времени — например к 15:30. Но не раньше 9:00, это время открытия</li>
+        <li>Работаем ежедневно с 9:00 до 21:00, без выходных</li>
+        <li>Редкий цветок или свадебный букет лучше заказать заранее</li>
+      </ul>
+    </div>
+
+    <div class="deliv-col">
+      <h3>Чем платить</h3>
+      <ul class="deliv-facts">
+        <li>Онлайн-оплата картой</li>
+        <li>Перевод на карту</li>
+        <li>QR-код СБП</li>
+        <li>Ссылка на оплату — пришлём в переписке</li>
+      </ul>
+      <p class="deliv-note">Наличными и картой в бутике — при самовывозе.</p>
+    </div>
+  </div>
+
+  <div class="deliv-soc">
+    <div>
+      <b>Свежие поступления и акции</b>
+      <span>Новые букеты выкладываем первым делом туда</span>
+    </div>
+    <div class="deliv-soc-links">
+      <a href="https://t.me/for_you_flowers_art" target="_blank" rel="noopener">Telegram-канал</a>
+      <a href="https://vk.ru/for.you_flower" target="_blank" rel="noopener">ВКонтакте</a>
+    </div>
+  </div>
+</section>
+
 <!-- о бутике -->
 <section class="sec" id="about">
   <div class="about">
@@ -986,7 +1091,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 </section>
 
 <!-- подвал -->
-<footer class="foot" id="dostavka">
+<footer class="foot">
   <div class="foot-top">
     <div>
       <img src="img/logo-f.png" alt="FOR YOU">
@@ -1032,6 +1137,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div class="foot-bot">
     <span>© 2026 For You · Бутик цветов в Тольятти</span>
     <span>Политика конфиденциальности</span>
+    <span class="foot-author">Сайт — <a href="https://leragodzen.github.io/portfolio/" target="_blank" rel="noopener">Валерия Леванова</a></span>
   </div>
   <div class="foot-req">
     ИП Промытова Маргарита Александровна · ИНН 645122726697 · ОГРНИП 324632700116433 ·
@@ -1080,8 +1186,10 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 (function(){
   var rail = document.getElementById('railBest');
   if(!rail) return;
-  var ids = ['pudrovoe-kruzhevo','rozovyi-teatr','limonnyi-sorbet','belyi-sad','pastelnyi-vals',
-             'malinovyi-barhat','lileinyi-rassvet','beloe-oblako','persikovoe-oblako','pudrovaya-korzina'];
+  /* партия, которую заказчица отметила как хиты — 10 сентября */
+  var ids = ['limonnyi-krem','myatnyi-zefir','box-lime','box-citrus','rozovyi-flamingo',
+             'yagodnoe-beze','utrennii-zefir','persikovyi-krem','malinovoe-sufle',
+             'karnaval','malinovoe-oblako'];
   rail.innerHTML = ids.map(function(id){
     var p = byId(id); if(!p) return '';
     var comp = (p.comp||[]).join(', ');
