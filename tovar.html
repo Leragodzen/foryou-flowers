@@ -732,7 +732,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     <div class="pd-cta">
       <button class="btn btn-solid" id="ctaCart" type="button" hidden>В корзину</button>
       <a class="btn btn-solid" id="ctaTg" href="https://t.me/for_you_flower" target="_blank" rel="noopener">Собрать похожий</a>
-      <a class="btn" id="ctaWa" href="https://max.ru/" target="_blank" rel="noopener">Написать в MAX</a>
+      <a class="btn" id="ctaWa" href="https://max.ru/u/f9LHodD0cOKTryK4E0NdNBpppHh4t3TgslzMEBYDInPjF-Ych3RrhpU14ys" target="_blank" rel="noopener">Написать в MAX</a>
     </div>
 
     <ul class="pd-facts">
@@ -846,7 +846,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
       <h4>Связаться</h4>
       <ul>
         <li><a href="tel:+79626144747">+7 (962) 614-47-47</a></li>
-        <li><a href="https://t.me/for_you_flower" target="_blank" rel="noopener">Telegram</a> · <a href="https://max.ru/" target="_blank" rel="noopener">MAX</a></li>
+        <li><a href="https://t.me/for_you_flower" target="_blank" rel="noopener">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKTryK4E0NdNBpppHh4t3TgslzMEBYDInPjF-Ych3RrhpU14ys" target="_blank" rel="noopener">MAX</a></li>
         <li><a href="mailto:foryouflowersart@yandex.ru">foryouflowersart@yandex.ru</a></li>
       </ul>
     </div>
@@ -873,7 +873,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div class="fab-list">
     <a href="tel:+79626144747"><i>ПОЗВОНИТЬ</i> +7 (962) 614-47-47</a>
     <a href="https://t.me/for_you_flower" target="_blank" rel="noopener"><i>TELEGRAM</i> Написать</a>
-    <a href="https://max.ru/" target="_blank" rel="noopener"><i>MAX</i> Написать</a>
+    <a href="https://max.ru/u/f9LHodD0cOKTryK4E0NdNBpppHh4t3TgslzMEBYDInPjF-Ych3RrhpU14ys" target="_blank" rel="noopener"><i>MAX</i> Написать</a>
   </div>
   <button class="fab-btn" id="fabBtn" aria-label="Связаться с нами" aria-expanded="false">
     <svg class="fab-ico" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -1045,7 +1045,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   var what = b.cat === 'buket' || b.cat === 'svadba' ? 'букет ' : '';
   var msg = 'Здравствуйте! Хочу ' + what + '«' + b.name + '» с сайта'
           + (b.ask || b.from ? '' : ' — ' + priceLabel(b)) + '. Подскажите, когда сможете собрать?';
-  document.getElementById('ctaWa').href = 'https://max.ru/?text=' + encodeURIComponent(msg);
+  /* MAX открывает просто чат — название букета кладём в буфер обмена */
+  document.getElementById('ctaWa').addEventListener('click', function(){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg).then(function(){}, function(){});
+    }
+  });
 
   /* «В корзину» — только там, где есть точная цена */
   var cartBtn = document.getElementById('ctaCart');

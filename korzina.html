@@ -854,7 +854,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
       <h4>Связаться</h4>
       <ul>
         <li><a href="tel:+79626144747">+7 (962) 614-47-47</a></li>
-        <li><a href="https://t.me/for_you_flower" target="_blank" rel="noopener">Telegram</a> · <a href="https://max.ru/" target="_blank" rel="noopener">MAX</a></li>
+        <li><a href="https://t.me/for_you_flower" target="_blank" rel="noopener">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKTryK4E0NdNBpppHh4t3TgslzMEBYDInPjF-Ych3RrhpU14ys" target="_blank" rel="noopener">MAX</a></li>
         <li><a href="mailto:foryouflowersart@yandex.ru">foryouflowersart@yandex.ru</a></li>
       </ul>
     </div>
@@ -880,7 +880,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   <div class="fab-list">
     <a href="tel:+79626144747"><i>ПОЗВОНИТЬ</i> +7 (962) 614-47-47</a>
     <a href="https://t.me/for_you_flower" target="_blank" rel="noopener"><i>TELEGRAM</i> Написать</a>
-    <a href="https://max.ru/" target="_blank" rel="noopener"><i>MAX</i> Написать</a>
+    <a href="https://max.ru/u/f9LHodD0cOKTryK4E0NdNBpppHh4t3TgslzMEBYDInPjF-Ych3RrhpU14ys" target="_blank" rel="noopener"><i>MAX</i> Написать</a>
   </div>
   <button class="fab-btn" id="fabBtn" aria-label="Связаться с нами" aria-expanded="false">
     <svg class="fab-ico" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -1023,7 +1023,8 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
           '<div><label for="fNote">Адрес и пожелания</label><textarea id="fNote" name="note" placeholder="куда везти, кому вручить, что написать в открытке"></textarea></div>' +
           '<p class="order-err" id="orderErr">Заполните имя и телефон — без них мы не сможем перезвонить.</p>' +
           '<button class="btn btn-solid" type="submit">Отправить заказ в Telegram</button>' +
-          '<a class="btn" id="orderMax" href="https://max.ru/" target="_blank" rel="noopener">Отправить в MAX</a>' +
+          '<a class="btn" id="orderMax" href="https://max.ru/u/f9LHodD0cOKTryK4E0NdNBpppHh4t3TgslzMEBYDInPjF-Ych3RrhpU14ys" target="_blank" rel="noopener">Отправить в MAX</a>' +
+          '<p class="order-note" id="maxCopied" hidden>Заказ скопирован — вставьте его в чат MAX: долгое нажатие на поле ввода → «Вставить».</p>' +
           (cartLines().some(function(l){ return l.p.alcohol; }) ?
             '<p class="order-hint"><span>!</span><span>Алкоголь в стоимость не входит и нами не продаётся. Напитки вы приносите свои — флорист соберёт композицию вокруг них при вас или к назначенному времени.</span></p>' : '') +
           '<p class="order-note">Заказ уйдёт одним сообщением — останется нажать «отправить». Флорист подтвердит состав, сумму и время.</p>' +
@@ -1089,8 +1090,29 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     var max = e.target.closest('#orderMax');
     if(!max) return;
     if(!valid()){ e.preventDefault(); return; }
-    max.href = 'https://max.ru/?text=' + encodeURIComponent(orderText());
+    /* MAX не открывает чат с готовым текстом, как Telegram, — кладём
+       заказ в буфер обмена, останется вставить его в переписку. */
+    copyOrder(orderText());
   });
+
+  function copyOrder(text){
+    var show = function(){
+      var n = document.getElementById('maxCopied');
+      if(n) n.hidden = false;
+    };
+    var oldWay = function(){
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try{ if(document.execCommand('copy')) show(); }catch(err){}
+      document.body.removeChild(ta);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(show, oldWay);
+      return;
+    }
+    oldWay();
+  }
 
   /* ── дополнения: лента прямо в корзине, до кнопки «оформить» ── */
   var TABS = [
