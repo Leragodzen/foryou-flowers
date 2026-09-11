@@ -774,7 +774,12 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     var a = document.createElement('a');
     a.className = 'ppill' + (c===cur?' on':'');
     a.href = '#grid'; a.dataset.cat = c; a.textContent = CATS[c].name;
-    a.addEventListener('click', function(){ cur=c; curMin=0; curMax=0; history.replaceState(null,'','#'+c); render(); });
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      cur=c; curMin=0; curMax=0;
+      history.replaceState(null,'','#'+c);
+      render(); scrollToTop();
+    });
     catsEl.appendChild(a);
   });
 
@@ -794,7 +799,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     pillsEl.hidden = false;
     var all = document.createElement('a');
     all.className='ppill'+((!curMin&&!curMax)?' on':''); all.href='#grid'; all.textContent='Все';
-    all.addEventListener('click',function(){ curMin=0; curMax=0; render(); });
+    all.addEventListener('click',function(e){ e.preventDefault(); curMin=0; curMax=0; render(); scrollToTop(); });
     pillsEl.appendChild(all);
     steps.forEach(function(t){
       var a=document.createElement('a');
@@ -805,7 +810,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
                 : 'от ' + money(t.min);
       var named = (cur === 'buket');
       a.innerHTML = label + (named ? '<i>' + t.name + '</i>' : '');
-      a.addEventListener('click',function(){ curMin=t.min; curMax=t.max; render(); });
+      a.addEventListener('click',function(e){ e.preventDefault(); curMin=t.min; curMax=t.max; render(); scrollToTop(); });
       pillsEl.appendChild(a);
     });
   }
@@ -849,15 +854,32 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     emptyEl.hidden = shown.length>0;
   }
 
+  /* при смене раздела показываем его с начала: название и описание,
+     а не середину списка карточек */
+  /* после смены раздела показываем его с начала: название, описание,
+     потом карточки. На <html> висит scroll-behavior:smooth — из-за неё
+     программный переход анимируется и сбивается перерисовкой карточек,
+     поэтому на время прыжка выключаем её. */
+  function scrollToTop(){
+    var head = document.querySelector('.cat-top');
+    if(!head) return;
+    var root = document.documentElement;
+    var prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    var top = Math.max(0, head.offsetTop - 12);
+    window.scrollTo(0, top);
+    requestAnimationFrame(function(){
+      window.scrollTo(0, top);           // карточки перерисовались — подтверждаем
+      root.style.scrollBehavior = prev;
+    });
+  }
+
   function fromHash(scroll){
     var q = (location.hash || '').replace('#','');
     if(CATS[q] && q !== cur){
       cur = q; curMin = 0; curMax = 0;
       render();
-      if(scroll){
-        var top = document.getElementById('grid').getBoundingClientRect().top + scrollY - 90;
-        scrollTo({top:top, behavior:'smooth'});
-      }
+      if(scroll) scrollToTop();
       return true;
     }
     return false;
