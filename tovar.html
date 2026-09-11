@@ -13,6 +13,7 @@
 <meta property="og:url" content="https://leragodzen.github.io/foryou-flowers/tovar.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#A30B4E">
+<link rel="canonical" href="https://leragodzen.github.io/foryou-flowers/tovar.html">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -671,6 +672,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 }
 </style>
 <script src="data.js"></script>
+<script src="metrika.js" defer></script>
 </head>
 <body>
 
@@ -858,7 +860,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   </div>
   <div class="foot-bot">
     <span>© 2026 For You · Бутик цветов в Тольятти</span>
-    <span>Политика конфиденциальности</span>
+    <a href="politika.html">Политика конфиденциальности</a>
     <span class="foot-author">Сайт — <a href="https://leragodzen.github.io/portfolio/" target="_blank" rel="noopener">Валерия Леванова</a></span>
   </div>
   <div class="foot-req">
@@ -944,6 +946,58 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
   var sec = SEC[b.cat] || SEC.buket;
 
   document.title = b.name + ' — FOR YOU · Тольятти';
+
+  /* описание, canonical и разметка товара — чтобы карточка правильно
+     показывалась в Яндексе и при пересылке ссылки в мессенджер */
+  (function(){
+    var BASE = location.origin + location.pathname.replace(/tovar\.html$/, '');
+    var url  = BASE + 'tovar.html?id=' + b.id;
+    var txt  = b.lead || (b.comp && b.comp.length ? 'Состав: ' + b.comp.join(', ') + '.' : '');
+    var desc = b.name + ' — ' + (b.cat === 'svadba' ? 'свадебный букет' : (CATS[b.cat] ? CATS[b.cat].one : 'букет'))
+             + ' из бутика FOR YOU в Тольятти'
+             + (b.price ? ', ' + priceLabel(b) : '') + '. ' + txt;
+    desc = desc.replace(/\s+/g, ' ').trim().slice(0, 300);
+
+    function meta(sel, attr, val){
+      var el = document.head.querySelector(sel);
+      if(!el){ el = document.createElement('meta'); el.setAttribute(attr, sel.match(/"([^"]+)"/)[1]); document.head.appendChild(el); }
+      el.setAttribute('content', val);
+    }
+    meta('meta[name="description"]',        'name',     desc);
+    meta('meta[property="og:title"]',       'property', b.name + ' — FOR YOU');
+    meta('meta[property="og:description"]', 'property', desc);
+    meta('meta[property="og:image"]',       'property', BASE + b.img);
+    meta('meta[property="og:url"]',         'property', url);
+
+    var can = document.head.querySelector('link[rel="canonical"]');
+    if(can) can.setAttribute('href', url);
+
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: b.name,
+      image: BASE + b.img,
+      description: txt || desc,
+      brand: { '@type': 'Brand', name: 'FOR YOU' },
+      category: CATS[b.cat] ? CATS[b.cat].name : 'Букеты'
+    };
+    if(b.comp && b.comp.length) ld.material = b.comp.join(', ');
+    if(b.price){
+      ld.offers = {
+        '@type': 'Offer',
+        url: url,
+        price: String(b.price),
+        priceCurrency: 'RUB',
+        availability: b.out ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+        seller: { '@type': 'Florist', name: 'FOR YOU — бутик цветов' }
+      };
+    }
+    var sc = document.createElement('script');
+    sc.type = 'application/ld+json';
+    sc.textContent = JSON.stringify(ld);
+    document.head.appendChild(sc);
+  })();
+
   document.getElementById('crumbName').textContent = b.name;
   document.getElementById('pdName').textContent    = b.name;
 
@@ -1115,14 +1169,27 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     if(el) el.hidden = !isFlowers;
   });
 
-  if(isFlowers){
-    var TABS = [
+  /* горшечным растениям тоже показываем ленту дополнений, а не букеты:
+     к растению чаще берут свечу, спрей или вазу */
+  if(isFlowers || b.cat === 'rastenie'){
+    if(b.cat === 'rastenie'){
+      document.getElementById('decoEyebrow').textContent = 'Чаще всего берут вместе';
+      document.getElementById('decoTitle').textContent   = 'Добавьте к растению';
+      document.getElementById('decoLead').textContent    =
+        'Свеча, спрей или ваза — скажите при заказе, привезём одним подарком.';
+    }
+    var TABS = (b.cat === 'rastenie' ? [
+      {cat:'svecha',   name:'Свечи и спреи'},
+      {cat:'vaza',     name:'Вазы'},
+      {cat:'shar',     name:'Шары'},
+      {cat:'igrushka', name:'Игрушки'}
+    ] : [
       {cat:'shar',     name:'Шары'},
       {cat:'svecha',   name:'Свечи и спреи'},
       {cat:'vaza',     name:'Вазы'},
       {cat:'igrushka', name:'Игрушки'},
       {cat:'rastenie', name:'Растения'}
-    ].filter(function(t){ return t.cat !== b.cat; });
+    ]).filter(function(t){ return t.cat !== b.cat; });
 
     var cur = TABS[0].cat;
     TABS.forEach(function(t){

@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# служебные и черновые страницы в поиск не нужны
+Disallow: /korzina.html
+Disallow: /main.html
+Disallow: /concept.html
+Disallow: /plan.html
+Disallow: /compare.html
+Disallow: /версия-1-тёмная/
+
+Sitemap: https://leragodzen.github.io/foryou-flowers/sitemap.xml
