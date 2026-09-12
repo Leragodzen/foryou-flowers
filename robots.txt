@@ -3,6 +3,7 @@ Allow: /
 
 # служебные и черновые страницы в поиск не нужны
 Disallow: /korzina.html
+Disallow: /spisok.html
 Disallow: /main.html
 Disallow: /concept.html
 Disallow: /plan.html

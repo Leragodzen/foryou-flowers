@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ассортимент — рабочий список For You</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#A30B4E">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Onest:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#A30B4E;
+  --wine-dk:#82063C;
+  --cream:#F4F4E3;
+  --ink:#121212;
+  --muted:#5C5A50;
+  --line:rgba(163,11,78,.18);
+  --white:#FFFFFF;
+  --display:"Prata",Georgia,serif;
+  --ui:"Onest",-apple-system,"Helvetica Neue",sans-serif;
+  --pad:clamp(14px,3.4vw,48px);
+}
+*{box-sizing:border-box;}
+[hidden]{display:none !important;}
+body{
+  margin:0; background:var(--white); color:var(--ink);
+  font-family:var(--ui); font-weight:300; font-size:16px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block; max-width:100%;}
+a{color:inherit; text-decoration:none;}
+:focus-visible{outline:2px solid var(--wine); outline-offset:3px; border-radius:4px;}
+
+/* ── шапка: поиск и есть главный экран ───────────────── */
+.bar{
+  position:sticky; top:0; z-index:40;
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:10px var(--pad) 0;
+}
+.bar-top{
+  display:flex; align-items:baseline; gap:12px;
+  margin-bottom:9px;
+}
+.bar-top h1{
+  font-family:var(--display); font-weight:400; font-size:17px;
+  margin:0; letter-spacing:-.005em; white-space:nowrap;
+}
+.bar-top .sub{
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.bar-top .home{
+  margin-left:auto; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--wine); white-space:nowrap; border-bottom:1px solid var(--line); padding-bottom:1px;
+}
+
+.field{position:relative;}
+.field svg{
+  position:absolute; left:15px; top:50%; margin-top:-9px;
+  width:18px; height:18px; stroke:var(--wine); fill:none; stroke-width:1.6; pointer-events:none;
+}
+#q{
+  width:100%; appearance:none;
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(18px,4.6vw,24px); line-height:1.2; color:var(--ink);
+  padding:15px 52px 15px 44px;
+  background:var(--cream); border:1px solid transparent; border-radius:14px;
+  transition:border-color .2s ease, background .2s ease;
+}
+#q::placeholder{color:rgba(92,90,80,.55); font-size:.78em;}
+#q::-webkit-search-cancel-button,#q::-webkit-search-decoration{appearance:none; display:none;}
+#q:focus{outline:none; border-color:var(--wine); background:var(--white);}
+.clear{
+  position:absolute; right:8px; top:50%; margin-top:-17px;
+  width:34px; height:34px; border:none; background:none; cursor:pointer;
+  color:var(--muted); font-size:22px; line-height:1; border-radius:50%;
+}
+.clear:hover{color:var(--wine);}
+
+/* счётчик — он же живая подпись страницы */
+.count{
+  font-family:var(--display); font-size:13px; color:var(--muted);
+  padding:9px 2px 0; margin:0;
+}
+.count b{color:var(--wine); font-weight:400;}
+
+/* ленты разделов */
+.cats{
+  display:flex; gap:7px; overflow-x:auto;
+  padding:9px 0 11px;
+  scrollbar-width:none; -ms-overflow-style:none;
+}
+.cats::-webkit-scrollbar{display:none;}
+.cats button{
+  flex:0 0 auto; cursor:pointer;
+  font-family:var(--ui); font-size:12.5px; font-weight:400; color:var(--wine);
+  background:var(--white); border:1px solid var(--line); border-radius:999px;
+  padding:7px 14px; white-space:nowrap;
+  transition:background .2s ease, color .2s ease, border-color .2s ease;
+}
+.cats button i{font-style:normal; opacity:.5; margin-left:5px; font-size:11px;}
+.cats button:hover{border-color:var(--wine);}
+.cats button.on{background:var(--wine); color:var(--cream); border-color:var(--wine);}
+.cats button.on i{opacity:.7;}
+
+/* ── сетка ───────────────────────────────────────────── */
+main{padding:0 var(--pad) 60px;}
+.group-h{
+  font-family:var(--display); font-weight:400; font-size:15px;
+  margin:26px 0 12px; padding-bottom:7px;
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:baseline; gap:9px;
+}
+.group-h span{
+  font-family:var(--ui); font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted);
+}
+.grid{
+  display:grid; gap:clamp(11px,1.6vw,20px);
+  grid-template-columns:repeat(2,1fr);
+  margin-top:14px;
+}
+@media (min-width:560px){ .grid{grid-template-columns:repeat(3,1fr);} }
+@media (min-width:900px){ .grid{grid-template-columns:repeat(4,1fr);} }
+@media (min-width:1280px){ .grid{grid-template-columns:repeat(5,1fr);} }
+@media (min-width:1640px){ .grid{grid-template-columns:repeat(6,1fr);} }
+
+.card{
+  display:flex; flex-direction:column; gap:7px;
+  text-align:left; padding:0; border:none; background:none;
+  font:inherit; color:inherit; cursor:pointer;
+}
+.frame{
+  position:relative; overflow:hidden;
+  border-radius:13px; background:#EDEDE0;
+}
+.frame::before{content:""; display:block; padding-top:118%;}
+.frame img{
+  position:absolute; inset:0; width:100%; height:100%;
+  max-width:none; object-fit:cover;
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.card:hover .frame img{transform:scale(1.04);}
+.card.out .frame img{filter:grayscale(.6); opacity:.72;}
+.flag{
+  position:absolute; z-index:2; top:8px; left:8px;
+  background:var(--muted); color:#fff;
+  font-size:10px; font-weight:500; letter-spacing:.06em;
+  padding:4px 8px; border-radius:999px;
+}
+.c-cat{
+  display:none;
+  font-size:9.5px; font-weight:500; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--wine);
+}
+.grid.flat .c-cat{display:block;}
+.c-name{
+  font-family:var(--display); font-weight:400; font-size:14.5px;
+  line-height:1.25; margin:0;
+}
+.c-name mark{background:rgba(250,224,142,.75); color:inherit; padding:0 1px; border-radius:2px;}
+.c-price{font-size:13px; color:var(--ink); font-weight:400;}
+.c-price s{color:var(--muted); margin-right:5px; text-decoration-thickness:1px;}
+.c-price.soft{color:var(--muted);}
+.c-comp{
+  font-size:11.5px; line-height:1.45; color:var(--muted); margin:0;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+}
+.c-comp mark{background:rgba(250,224,142,.75); color:inherit; padding:0 1px; border-radius:2px;}
+
+.empty{
+  text-align:center; color:var(--muted); font-size:14px;
+  padding:56px 20px 40px; max-width:34ch; margin:0 auto;
+}
+.empty b{font-family:var(--display); font-weight:400; color:var(--ink); display:block; font-size:18px; margin-bottom:8px;}
+
+/* ── карточка крупно ─────────────────────────────────── */
+.view{
+  position:fixed; inset:0; z-index:90;
+  background:rgba(18,18,18,.985);
+  display:flex; flex-direction:column;
+  padding:0; color:var(--cream);
+}
+.view-close{
+  position:absolute; top:10px; right:10px; z-index:3;
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid rgba(244,244,227,.3); background:rgba(18,18,18,.5);
+  color:var(--cream); font-size:20px; line-height:1; cursor:pointer;
+}
+.view-pic{
+  flex:1 1 auto; min-height:0; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  padding:14px;
+}
+.view-pic img{max-width:100%; max-height:100%; object-fit:contain; border-radius:10px;}
+.view-thumbs{
+  display:flex; gap:8px; justify-content:center; padding:0 14px 10px;
+  flex:0 0 auto;
+}
+.view-thumbs img{
+  width:46px; height:46px; object-fit:cover; border-radius:8px;
+  opacity:.5; cursor:pointer; border:1px solid transparent;
+}
+.view-thumbs img.on{opacity:1; border-color:var(--cream);}
+.view-info{
+  flex:0 0 auto; background:var(--white); color:var(--ink);
+  border-radius:18px 18px 0 0; padding:18px var(--pad) calc(20px + env(safe-area-inset-bottom));
+  max-height:52vh; overflow-y:auto;
+}
+.view-info .eyebrow{
+  font-size:10px; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--wine); margin:0 0 5px;
+}
+.view-info h2{font-family:var(--display); font-weight:400; font-size:21px; margin:0 0 4px;}
+.view-price{font-size:15px; margin:0 0 14px;}
+.view-price s{color:var(--muted); margin-right:6px;}
+.view-lab{
+  font-size:10px; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); margin:0 0 7px;
+}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 14px; padding:0; list-style:none;}
+.chips li{
+  font-size:12.5px; color:var(--ink);
+  background:var(--cream); border-radius:999px; padding:5px 12px;
+}
+.chips.season li{background:var(--white); border:1px dashed var(--line); color:var(--muted);}
+.view-note{font-size:13px; color:var(--muted); margin:0 0 14px;}
+.view-link{
+  display:inline-block; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--wine); border-bottom:1px solid var(--line); padding-bottom:2px;
+}
+@media (min-width:860px){
+  .view{flex-direction:row; align-items:stretch; padding:26px; gap:22px;}
+  .view-pic{padding:0;}
+  .view-thumbs{
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    flex-direction:column; padding:0;
+  }
+  .view-info{
+    flex:0 0 clamp(320px,32vw,420px); border-radius:18px;
+    max-height:none; align-self:center; padding:26px 28px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .frame img{transition:none;}
+  .card:hover .frame img{transform:none;}
+}
+</style>
+<script src="data.js"></script>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-top">
+    <h1>Ассортимент</h1>
+    <span class="sub">рабочий список</span>
+    <a class="home" href="index.html">Сайт</a>
+  </div>
+
+  <div class="field">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+    <input id="q" type="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+           placeholder="Название, цветок или раздел" aria-label="Поиск по ассортименту">
+    <button class="clear" id="clear" type="button" aria-label="Очистить поиск" hidden>×</button>
+  </div>
+
+  <p class="count" id="count"></p>
+  <div class="cats" id="cats"></div>
+</div>
+
+<main>
+  <div id="out"></div>
+  <p class="empty" id="empty" hidden>
+    <b>Ничего не нашлось</b>
+    Проверьте раздел — возможно, выбран не тот. Или поищите по цветку: «гортензия», «роза».
+  </p>
+</main>
+
+<div class="view" id="view" hidden role="dialog" aria-modal="true" aria-label="Карточка позиции">
+  <button class="view-close" id="viewClose" type="button" aria-label="Закрыть">×</button>
+  <div class="view-pic"><img id="viewImg" src="" alt=""></div>
+  <div class="view-thumbs" id="viewThumbs"></div>
+  <div class="view-info">
+    <p class="eyebrow" id="viewCat"></p>
+    <h2 id="viewName"></h2>
+    <p class="view-price" id="viewPrice"></p>
+    <p class="view-lab" id="viewCompLab" hidden>Что внутри</p>
+    <ul class="chips" id="viewComp"></ul>
+    <p class="view-lab" id="viewSeasonLab" hidden>Сезонное дополнение</p>
+    <ul class="chips season" id="viewSeason"></ul>
+    <p class="view-note" id="viewNote" hidden></p>
+    <a class="view-link" id="viewLink" href="#">Открыть на сайте</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ORDER = ['buket','sezon','mono','korzina','svadba','suhocvet','vaza','igrushka','svecha','rastenie','shar'];
+
+  /* раскладка: набрали название латиницей — всё равно найдём */
+  var LAY = {q:'й',w:'ц',e:'у',r:'к',t:'е',y:'н',u:'г',i:'ш',o:'щ',p:'з','[':'х',']':'ъ',
+             a:'ф',s:'ы',d:'в',f:'а',g:'п',h:'р',j:'о',k:'л',l:'д',';':'ж',"'":'э',
+             z:'я',x:'ч',c:'с',v:'м',b:'и',n:'т',m:'ь',',':'б','.':'ю'};
+
+  function norm(s){
+    return String(s||'').toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' ').trim();
+  }
+  function toRu(s){
+    return s.replace(/[a-z;',.\[\]]/g, function(ch){ return LAY[ch] || ch; });
+  }
+  function variants(s){
+    var a = norm(s); if(!a) return [];
+    var b = toRu(a);
+    return b === a ? [a] : [a, b];
+  }
+
+  var items = PRODUCTS.map(function(p){
+    return {
+      p: p,
+      name: norm(p.name),
+      comp: norm((p.comp||[]).concat(p.season||[]).join(' ')),
+      cat:  norm((CATS[p.cat]||{}).name + ' ' + ((CATS[p.cat]||{}).one||'')),
+      id:   norm(p.id),
+      price: p.price ? String(p.price) : ''
+    };
+  });
+
+  /* чем точнее совпало название — тем выше в списке */
+  function score(it, v){
+    if(it.name.indexOf(v) === 0) return 0;
+    if((' ' + it.name).indexOf(' ' + v) > -1) return 1;
+    if(it.name.indexOf(v) > -1) return 2;
+    if((' ' + it.comp).indexOf(' ' + v) > -1) return 3;
+    if(it.comp.indexOf(v) > -1) return 4;
+    if(it.cat.indexOf(v) > -1 || it.id.indexOf(v) > -1) return 5;
+    if(it.price && it.price.indexOf(v) === 0) return 6;
+    return -1;
+  }
+  function best(it, vs){
+    var r = -1;
+    for(var i=0;i<vs.length;i++){
+      var s = score(it, vs[i]);
+      if(s > -1 && (r === -1 || s < r)) r = s;
+    }
+    return r;
+  }
+
+  function mark(text, vs){
+    var out = String(text), hit = null, at = -1;
+    for(var i=0;i<vs.length;i++){
+      var j = norm(out).indexOf(vs[i]);
+      if(j > -1 && (at === -1 || j < at)){ at = j; hit = vs[i]; }
+    }
+    if(at === -1) return esc(out);
+    return esc(out.slice(0,at)) + '<mark>' + esc(out.slice(at, at+hit.length)) + '</mark>' + esc(out.slice(at+hit.length));
+  }
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function priceText(p){
+    if(p.out) return '<span class="c-price soft">Нет в наличии</span>';
+    if(p.ask) return '<span class="c-price soft">Цена по запросу</span>';
+    if(!p.price) return '';
+    var s = (p.from ? 'от ' : '') + money(p.price) + (p.unit ? ' / ' + p.unit : '');
+    if(p.old) s = '<s>' + money(p.old) + '</s>' + s;
+    return '<span class="c-price">' + s + '</span>';
+  }
+
+  var qEl = document.getElementById('q');
+  var clearEl = document.getElementById('clear');
+  var outEl = document.getElementById('out');
+  var emptyEl = document.getElementById('empty');
+  var countEl = document.getElementById('count');
+  var catsEl = document.getElementById('cats');
+  var cur = 'all';
+
+  /* ленты разделов со счётчиком — сразу видно, где сколько */
+  function buildCats(){
+    var html = '<button data-c="all" class="on">Все<i>' + PRODUCTS.length + '</i></button>';
+    ORDER.forEach(function(c){
+      var n = inCat(c).length;
+      if(!n) return;
+      html += '<button data-c="' + c + '">' + CATS[c].name + '<i>' + n + '</i></button>';
+    });
+    catsEl.innerHTML = html;
+    [].forEach.call(catsEl.querySelectorAll('button'), function(b){
+      b.addEventListener('click', function(){
+        cur = b.getAttribute('data-c');
+        [].forEach.call(catsEl.querySelectorAll('button'), function(x){ x.classList.toggle('on', x === b); });
+        render();
+        window.scrollTo({top:0, behavior:'smooth'});
+      });
+    });
+  }
+
+  function cardHTML(it, vs){
+    var p = it.p;
+    var comp = (p.comp||[]).concat(p.season||[]).join(' · ');
+    return '<button class="card' + (p.out ? ' out' : '') + '" data-id="' + p.id + '">' +
+      '<span class="frame">' +
+        (p.out ? '<span class="flag">Нет в наличии</span>' : '') +
+        '<img src="' + p.img + '" alt="' + esc(p.name) + '" loading="lazy" decoding="async">' +
+      '</span>' +
+      '<span class="c-cat">' + esc(CATS[p.cat].name) + '</span>' +
+      '<span class="c-name">' + (vs.length ? mark(p.name, vs) : esc(p.name)) + '</span>' +
+      priceText(p) +
+      (comp ? '<span class="c-comp">' + (vs.length ? mark(comp, vs) : esc(comp)) + '</span>' : '') +
+    '</button>';
+  }
+
+  function render(){
+    var vs = variants(qEl.value);
+    clearEl.hidden = !qEl.value;
+
+    var list = items.filter(function(it){ return cur === 'all' || it.p.cat === cur; });
+
+    if(vs.length){
+      list = list.map(function(it){ return {it:it, s:best(it, vs)}; })
+                 .filter(function(x){ return x.s > -1; })
+                 .sort(function(a,b){ return a.s - b.s; })
+                 .map(function(x){ return x.it; });
+    }
+
+    /* счётчик: пока не ищут — сколько всего, как ищут — сколько нашлось */
+    if(vs.length) countEl.innerHTML = 'Нашлось <b>' + list.length + '</b> из ' + PRODUCTS.length;
+    else if(cur !== 'all') countEl.innerHTML = '<b>' + list.length + '</b> ' + plural(list.length) + ' в разделе';
+    else countEl.innerHTML = 'Весь ассортимент — <b>' + PRODUCTS.length + '</b> ' + plural(PRODUCTS.length);
+
+    emptyEl.hidden = list.length > 0;
+
+    /* при поиске — один сплошной список, лучшее совпадение первым;
+       без поиска — разложено по разделам, как в бутике */
+    var html = '';
+    if(vs.length || cur !== 'all'){
+      html = '<div class="grid' + (vs.length ? ' flat' : '') + '">' +
+             list.map(function(it){ return cardHTML(it, vs); }).join('') + '</div>';
+    } else {
+      ORDER.forEach(function(c){
+        var part = list.filter(function(it){ return it.p.cat === c; });
+        if(!part.length) return;
+        html += '<h2 class="group-h" id="' + c + '">' + CATS[c].name +
+                '<span>' + part.length + '</span></h2>' +
+                '<div class="grid">' + part.map(function(it){ return cardHTML(it, vs); }).join('') + '</div>';
+      });
+    }
+    outEl.innerHTML = html;
+  }
+
+  function plural(n){
+    var d = n % 10, dd = n % 100;
+    if(d === 1 && dd !== 11) return 'позиция';
+    if(d > 1 && d < 5 && (dd < 10 || dd > 20)) return 'позиции';
+    return 'позиций';
+  }
+
+  /* ── карточка крупно ── */
+  var view = document.getElementById('view');
+  var vImg = document.getElementById('viewImg');
+  var vThumbs = document.getElementById('viewThumbs');
+  var lastFocus = null;
+
+  function openView(id){
+    var p = byId(id); if(!p) return;
+    lastFocus = document.activeElement;
+
+    var shots = [p.img].concat(p.imgs || []);
+    vImg.src = shots[0]; vImg.alt = p.name;
+    vThumbs.innerHTML = shots.length > 1 ? shots.map(function(s, i){
+      return '<img src="' + s + '" alt="" class="' + (i ? '' : 'on') + '" data-s="' + s + '">';
+    }).join('') : '';
+    vThumbs.hidden = shots.length < 2;
+
+    document.getElementById('viewCat').textContent = CATS[p.cat].name;
+    document.getElementById('viewName').textContent = p.name;
+
+    var price = '';
+    if(p.out) price = 'Нет в наличии';
+    else if(p.ask) price = 'Цена по запросу';
+    else if(p.price) price = (p.old ? '<s>' + money(p.old) + '</s>' : '') +
+                             (p.from ? 'от ' : '') + money(p.price) + (p.unit ? ' / ' + p.unit : '');
+    document.getElementById('viewPrice').innerHTML = price;
+
+    var comp = p.comp || [];
+    /* у букета это состав, у вазы или игрушки — описание */
+    var flowers = ['buket','sezon','mono','korzina','svadba','suhocvet'].indexOf(p.cat) > -1;
+    document.getElementById('viewCompLab').textContent = flowers ? 'Что внутри' : 'Описание';
+    document.getElementById('viewCompLab').hidden = !comp.length;
+    document.getElementById('viewComp').innerHTML = comp.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+
+    var season = p.season || [];
+    document.getElementById('viewSeasonLab').hidden = !season.length;
+    document.getElementById('viewSeason').innerHTML = season.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('');
+
+    var note = p.lead || (p.size ? 'Размер: ' + p.size : '');
+    var noteEl = document.getElementById('viewNote');
+    noteEl.textContent = note; noteEl.hidden = !note;
+
+    document.getElementById('viewLink').href = 'tovar.html?id=' + p.id;
+
+    view.hidden = false;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('viewClose').focus();
+  }
+  function closeView(){
+    view.hidden = true;
+    document.body.style.overflow = '';
+    if(lastFocus) lastFocus.focus();
+  }
+
+  outEl.addEventListener('click', function(e){
+    var c = e.target.closest ? e.target.closest('.card') : null;
+    if(c) openView(c.getAttribute('data-id'));
+  });
+  vThumbs.addEventListener('click', function(e){
+    if(e.target.tagName !== 'IMG') return;
+    vImg.src = e.target.getAttribute('data-s');
+    [].forEach.call(vThumbs.querySelectorAll('img'), function(t){ t.classList.toggle('on', t === e.target); });
+  });
+  document.getElementById('viewClose').addEventListener('click', closeView);
+  view.addEventListener('click', function(e){ if(e.target === view || e.target.className === 'view-pic') closeView(); });
+
+  qEl.addEventListener('input', render);
+  clearEl.addEventListener('click', function(){ qEl.value = ''; render(); qEl.focus(); });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      if(!view.hidden) closeView();
+      else if(qEl.value){ qEl.value = ''; render(); }
+    }
+    /* начали печатать где угодно — попадает в поиск */
+    if(view.hidden && e.target !== qEl && e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey){
+      qEl.focus();
+    }
+  });
+
+  buildCats();
+  render();
+  if(!('ontouchstart' in window)) qEl.focus();
+})();
+</script>
+</body>
+</html>
