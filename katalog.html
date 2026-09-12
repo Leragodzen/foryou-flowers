@@ -37,6 +37,12 @@
   --pad:clamp(18px,4vw,64px);
 }
 *{box-sizing:border-box;}
+/* Липкая шапка перекрывала начало раздела: по клику на «Доставка»,
+   «О нас» и т.п. страница вставала так, что заголовок уезжал под шапку.
+   Отступ равен её высоте. */
+[id]{scroll-margin-top:132px;}
+@media (max-width:767px){ [id]{scroll-margin-top:124px;} }
+
 [hidden]{display:none !important;}
 html{scroll-behavior:smooth;}
 /* ── ползунок-цветок вместо системного ── */
@@ -627,7 +633,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     <a href="index.html#gifts">Подарки</a>
     <a href="podpiska.html">Подписка</a>
     <a href="dvoih.html">Для двоих</a>
-    <a href="index.html#services">Оформление праздников</a>
+    <a href="oformlenie.html">Оформление праздников</a>
     <a href="index.html#reviews">Отзывы</a>
     <a href="index.html#dostavka">Доставка</a>
     <a href="index.html#about">О нас</a>

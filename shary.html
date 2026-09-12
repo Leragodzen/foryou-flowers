@@ -37,6 +37,12 @@
   --pad:clamp(18px,4vw,64px);
 }
 *{box-sizing:border-box;}
+/* Липкая шапка перекрывала начало раздела: по клику на «Доставка»,
+   «О нас» и т.п. страница вставала так, что заголовок уезжал под шапку.
+   Отступ равен её высоте. */
+[id]{scroll-margin-top:132px;}
+@media (max-width:767px){ [id]{scroll-margin-top:124px;} }
+
 html{scroll-behavior:smooth;}
 /* ── ползунок-цветок вместо системного ── */
 html{scrollbar-width:none; -ms-overflow-style:none;}
@@ -527,6 +533,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 @media (max-width:700px){ .piece,.digits{grid-template-columns:1fr 1fr; gap:12px;} }
 </style>
 
+<script src="data.js"></script>
 <script src="metrika.js" defer></script>
 </head>
 <body>
@@ -554,7 +561,7 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
     <a href="index.html#gifts">Подарки</a>
     <a href="podpiska.html">Подписка</a>
     <a href="dvoih.html">Для двоих</a>
-    <a href="index.html#services">Оформление праздников</a>
+    <a href="oformlenie.html">Оформление праздников</a>
     <a href="index.html#reviews">Отзывы</a>
     <a href="index.html#dostavka">Доставка</a>
     <a href="index.html#about">О нас</a>
@@ -598,42 +605,11 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 <section class="sec sec-cream">
   <div class="sec-head">
     <p class="eyebrow">Композиции</p>
-    <h2>Шары с цифрой</h2>
-    <p>Готовая связка с цифрой и подобранными по цвету шарами. Цифру собираем любую — от одного знака до трёх.</p>
+    <h2>Готовые связки</h2>
+    <p>Собранные наборы шаров под повод: с цифрой и без. Цифру делаем любую — от одного знака до трёх, цвета подбираем под праздник.</p>
   </div>
 
-  <div class="digits">
-    <a class="card" href="tovar.html?id=cifra-20">
-      <div class="frame"><img src="img/shary/cifra20.jpg" alt="Композиция с цифрой 20" loading="lazy" decoding="async"></div>
-      <h3 class="card-name">Пудровая двадцатка</h3>
-      <p class="card-comp">Цифра и шары в пудрово-белой гамме</p>
-      <span class="card-price">2 500 ₽</span>
-    </a>
-    <a class="card" href="tovar.html?id=cifra-25">
-      <div class="frame"><img src="img/shary/cifra25.jpg" alt="Композиция с цифрой 25" loading="lazy" decoding="async"></div>
-      <h3 class="card-name">Розовый кварц</h3>
-      <p class="card-comp">Цифра и шары в розовой гамме, с конфетти</p>
-      <span class="card-price">4 150 ₽</span>
-    </a>
-    <a class="card" href="tovar.html?id=cifra-35">
-      <div class="frame"><img src="img/shary/cifra35.jpg" alt="Композиция с цифрой 35" loading="lazy" decoding="async"></div>
-      <h3 class="card-name">Фуксия</h3>
-      <p class="card-comp">Яркая цифра и шары малиновых оттенков</p>
-      <span class="card-price">4 150 ₽</span>
-    </a>
-    <a class="card" href="tovar.html?id=cifra-7">
-      <div class="frame"><img src="img/shary/cifra7.jpg" alt="Композиция с цифрой 7" loading="lazy" decoding="async"></div>
-      <h3 class="card-name">Чёрный смокинг</h3>
-      <p class="card-comp">Цифра и шары в чёрно-белой гамме</p>
-      <span class="card-price">4 200 ₽</span>
-    </a>
-    <a class="card" href="tovar.html?id=cifra-50">
-      <div class="frame"><img src="img/shary/cifra50.jpg" alt="Композиция с цифрой 50" loading="lazy" decoding="async"></div>
-      <h3 class="card-name">Шампань</h3>
-      <p class="card-comp">Крупная цифра и шары кремово-золотистых тонов</p>
-      <span class="card-price">4 800 ₽</span>
-    </a>
-  </div>
+  <div class="digits" id="digits"></div>
 
   <div class="note">
     <i>*</i>
@@ -860,5 +836,25 @@ h1,h2,h3,.disp{font-family:var(--display); font-weight:400; letter-spacing:-.005
 })();
 </script>
 
+
+<script>
+/* Готовые связки собираем из общего каталога (data.js).
+   Раньше карточки были вбиты руками и отстали от каталога:
+   «Детский день рождения» и «Пастельная связка» были в корзине,
+   но на этой странице их не было. Теперь разойтись не могут. */
+(function(){
+  var box = document.getElementById('digits');
+  if(!box || typeof PRODUCTS === 'undefined') return;
+  var list = PRODUCTS.filter(function(p){ return p.cat === 'shar' && !p.unit; })
+                     .sort(function(a,b){ return (a.price||0) - (b.price||0); });
+  box.innerHTML = list.map(function(p){
+    return '<a class="card" href="tovar.html?id=' + p.id + '">'
+      + '<div class="frame"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy" decoding="async"></div>'
+      + '<h3 class="card-name">' + p.name + '</h3>'
+      + (p.comp && p.comp.length ? '<p class="card-comp">' + p.comp.join(', ') + '</p>' : '')
+      + '<span class="card-price">' + money(p.price) + '</span></a>';
+  }).join('');
+})();
+</script>
 </body>
 </html>

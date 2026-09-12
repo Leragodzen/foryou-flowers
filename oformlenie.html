@@ -37,6 +37,12 @@
   --pad:clamp(20px,5vw,80px);
 }
 *{box-sizing:border-box;}
+/* Липкая шапка перекрывала начало раздела: по клику на «Доставка»,
+   «О нас» и т.п. страница вставала так, что заголовок уезжал под шапку.
+   Отступ равен её высоте. */
+[id]{scroll-margin-top:132px;}
+@media (max-width:767px){ [id]{scroll-margin-top:124px;} }
+
 html{scroll-behavior:smooth;}
 /* ── ползунок-цветок вместо системного ── */
 html{scrollbar-width:none; -ms-overflow-style:none;}
